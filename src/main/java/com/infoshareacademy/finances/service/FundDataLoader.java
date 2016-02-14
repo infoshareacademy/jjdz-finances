@@ -3,7 +3,6 @@ package com.infoshareacademy.finances.service;
 import com.infoshareacademy.finances.model.DailyValue;
 import com.infoshareacademy.finances.model.Fund;
 
-import java.io.File;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.nio.file.Files;
@@ -13,15 +12,13 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
-import java.util.regex.Pattern;
 
 public class FundDataLoader {
 
     public Fund loadDataFromFile(String filePath, Optional<Fund> fund) {
         Path path = Paths.get(filePath);
         Fund realFund = null;
-        Collection<DailyValue> dailyValues = new ArrayList<DailyValue>();
-
+        List<DailyValue> dailyValues = new ArrayList<DailyValue>();
         DateFormat format = new SimpleDateFormat("yyyyMMdd" , Locale.ENGLISH);
 
         try {
@@ -41,8 +38,8 @@ public class FundDataLoader {
             }
 
             if (fund.isPresent()) {
-                fund.setValues(dailyValues);
-                realFund = fund;
+                realFund = fund.get();
+                realFund.setDailyValue(dailyValues);
             } else {
                 realFund = new Fund(dailyValues,"none","none");
             }

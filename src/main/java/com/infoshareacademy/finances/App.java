@@ -21,8 +21,8 @@ public class App
 
             Fund fund = new Fund();
 
-            fund.setName(fundCode);
-            fund.setCode(fundCode);
+            fund.setFundName(fundCode);
+            fund.setFundCode(fundCode);
 
             FundDataLoader loader = new FundDataLoader();
             loader.loadDataFromFile(extractionPath, Optional.of(fund));
