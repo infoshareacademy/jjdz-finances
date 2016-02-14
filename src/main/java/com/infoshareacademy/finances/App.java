@@ -18,7 +18,7 @@ public class App
             String zipPath = args[0];
             String extractionPath = args[1];
             String fundCode = args[3];
-            List<DailyValue> dailyValues = new ArrayList<DailyValue>();
+            List<DailyValue> dailyValues;
 
             Unziper unziper = new Unziper();
             unziper.UnzipToFolder(zipPath,extractionPath);
