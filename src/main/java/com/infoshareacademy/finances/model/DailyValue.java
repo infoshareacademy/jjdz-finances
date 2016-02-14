@@ -1,7 +1,14 @@
 package com.infoshareacademy.finances.model;
 
-/**
- * Created by uoli on 13.02.16.
- */
+import java.math.BigDecimal;
+
 public class DailyValue {
+
+    private String fundDate;
+    private BigDecimal fundClose;
+
+    public DailyValue(String fundDate, BigDecimal fundClose) {
+        this.fundDate = fundDate;
+        this.fundClose = fundClose;
+    }
 }
