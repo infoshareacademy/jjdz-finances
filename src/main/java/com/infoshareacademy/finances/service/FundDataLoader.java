@@ -15,9 +15,8 @@ import java.util.*;
 
 public class FundDataLoader {
 
-    public Fund loadDataFromFile(String filePath, Optional<Fund> fund) {
+    public List<DailyValue> loadDataFromFile(String filePath) {
         Path path = Paths.get(filePath);
-        Fund realFund = null;
         List<DailyValue> dailyValues = new ArrayList<DailyValue>();
         DateFormat format = new SimpleDateFormat("yyyyMMdd" , Locale.ENGLISH);
 
@@ -36,21 +35,12 @@ public class FundDataLoader {
                 DailyValue dailyValue = new DailyValue(date, closeValue);
                 dailyValues.add(dailyValue);
             }
-
-            if (fund.isPresent()) {
-                realFund = fund.get();
-                realFund.setDailyValue(dailyValues);
-            } else {
-                realFund = new Fund(dailyValues,"none","none");
-            }
-
-
         } catch (IOException e) {
             e.printStackTrace();
         }
 
 
-        return realFund;
+        return dailyValues;
     }
 
 

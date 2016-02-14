@@ -17,14 +17,14 @@ public class App
         if (args.length != 0) {
             String zipPath = args[0];
             String extractionPath = args[1];
-            String fundCode = args[3];
+            String fundCode = args[2];
             List<DailyValue> dailyValues;
 
             Unziper unziper = new Unziper();
             unziper.UnzipToFolder(zipPath,extractionPath);
 
             FundDataLoader loader = new FundDataLoader();
-            dailyValues = loader.loadDataFromFile(extractionPath);
+            dailyValues = loader.loadDataFromFile(fundCode);
 
             Fund fund = new Fund(dailyValues,fundCode,fundCode);
 

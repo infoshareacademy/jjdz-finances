@@ -8,8 +8,6 @@ public class Fund {
     private String fundName;
     private String fundCode;
 
-    public Fund() {}
-
     public Fund(List<DailyValue> DailyValue, String fundName, String fundCode) {
 
         this.DailyValue = DailyValue;
