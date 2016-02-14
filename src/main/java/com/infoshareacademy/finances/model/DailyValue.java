@@ -1,35 +1,36 @@
 package com.infoshareacademy.finances.model;
 
 import java.math.BigDecimal;
+import java.util.Date;
 
 public class DailyValue {
 
-    private String fundDate;
-    private BigDecimal fundClose;
+    private Date date;
+    private BigDecimal closeValue;
 
-    public DailyValue(String fundDate, BigDecimal fundClose) {
-        this.fundDate = fundDate;
-        this.fundClose = fundClose;
+    public DailyValue(Date date, BigDecimal closeValue) {
+        this.date = date;
+        this.closeValue = closeValue;
     }
 
-    public String getFundDate() {
-        return fundDate;
+    public Date getDate() {
+        return date;
     }
 
-    public void setFundDate(String fundDate) {
-        this.fundDate = fundDate;
+    public void setDate(Date date) {
+        this.date = date;
     }
 
-    public BigDecimal getFundClose() {
-        return fundClose;
+    public BigDecimal getCloseValue() {
+        return closeValue;
     }
 
-    public void setFundClose(BigDecimal fundClose) {
-        this.fundClose = fundClose;
+    public void setCloseValue(BigDecimal closeValue) {
+        this.closeValue = closeValue;
     }
 
     @Override
     public String toString() {
-        return fundDate + " - " + fundClose;
+        return date + " - " + closeValue;
     }
 }
