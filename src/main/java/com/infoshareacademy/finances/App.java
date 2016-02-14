@@ -14,7 +14,7 @@ public class App
 {
     public static void main( String[] args ) throws Exception {
         System.out.println("Financial analyser 1.0");
-        if (args.length != 0) {
+        if ((args != null) && (args.length == 3)) {
             String zipPath = args[0];
             String extractionPath = args[1];
             String fundCode = args[2];
