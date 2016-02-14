@@ -1,10 +1,13 @@
 package com.infoshareacademy.finances;
 
 
+import com.infoshareacademy.finances.model.DailyValue;
 import com.infoshareacademy.finances.model.Fund;
 import com.infoshareacademy.finances.service.FundDataLoader;
 import com.infoshareacademy.finances.service.Unziper;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 public class App
@@ -15,18 +18,15 @@ public class App
             String zipPath = args[0];
             String extractionPath = args[1];
             String fundCode = args[3];
+            List<DailyValue> dailyValues = new ArrayList<DailyValue>();
 
             Unziper unziper = new Unziper();
             unziper.UnzipToFolder(zipPath,extractionPath);
 
-            Fund fund = new Fund();
-
-            fund.setFundName(fundCode);
-            fund.setFundCode(fundCode);
-
             FundDataLoader loader = new FundDataLoader();
-            loader.loadDataFromFile(extractionPath, Optional.of(fund));
+            dailyValues = loader.loadDataFromFile(extractionPath);
 
+            Fund fund = new Fund(dailyValues,fundCode,fundCode);
 
         } else {
             System.out.println("Enter arguments:");
