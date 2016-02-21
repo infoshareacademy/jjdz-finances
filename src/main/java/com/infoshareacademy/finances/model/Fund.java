@@ -4,23 +4,23 @@ import java.util.List;
 
 public class Fund {
 
-    private List<DailyValue> DailyValue;
+    private List<DailyValue> dailyValues;
     private String fundName;
     private String fundCode;
 
-    public Fund(List<DailyValue> DailyValue, String fundName, String fundCode) {
+    public Fund(List<DailyValue> dailyValues, String fundName, String fundCode) {
 
-        this.DailyValue = DailyValue;
+        this.dailyValues = dailyValues;
         this.fundName = fundName;
         this.fundCode = fundCode;
     }
 
-    public List<com.infoshareacademy.finances.model.DailyValue> getDailyValue() {
-        return DailyValue;
+    public List<DailyValue> getDailyValue() {
+        return dailyValues;
     }
 
-    public void setDailyValue(List<com.infoshareacademy.finances.model.DailyValue> dailyValue) {
-        DailyValue = dailyValue;
+    public void setDailyValues(List<DailyValue> dailyValues) {
+        this.dailyValues = dailyValues;
     }
 
     public String getFundName() {
@@ -41,6 +41,6 @@ public class Fund {
 
     @Override
     public String toString() {
-        return DailyValue + " - " + fundName + " - " + fundCode;
+        return dailyValues + " - " + fundName + " - " + fundCode;
     }
 }
