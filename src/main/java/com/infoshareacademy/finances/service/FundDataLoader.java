@@ -18,19 +18,12 @@ public class FundDataLoader {
     public List<DailyValue> loadDataFromFile(String filePath) {
         Path path = Paths.get(filePath);
         List<DailyValue> dailyValues = new ArrayList<DailyValue>();
-        DateFormat format = new SimpleDateFormat("yyyyMMdd" , Locale.ENGLISH);
-
         try {
             List<String> lines = Files.readAllLines(path);
             int size = lines.size();
             for (int i = 1; i < size; i++) {
                 String[] fields = lines.get(i).split(",");
-                Date date = null;
-                try {
-                    date = format.parse(fields[1]);
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
+                String date = fields[1];
                 BigDecimal closeValue = new BigDecimal(fields[4]);
                 DailyValue dailyValue = new DailyValue(date, closeValue);
                 dailyValues.add(dailyValue);

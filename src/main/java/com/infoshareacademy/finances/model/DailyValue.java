@@ -5,19 +5,19 @@ import java.util.Date;
 
 public class DailyValue {
 
-    private Date date;
+    private String date;
     private BigDecimal closeValue;
 
-    public DailyValue(Date date, BigDecimal closeValue) {
+    public DailyValue(String date, BigDecimal closeValue) {
         this.date = date;
         this.closeValue = closeValue;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 

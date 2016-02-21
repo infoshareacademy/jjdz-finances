@@ -4,6 +4,7 @@ package com.infoshareacademy.finances;
 import com.infoshareacademy.finances.model.DailyValue;
 import com.infoshareacademy.finances.model.Fund;
 import com.infoshareacademy.finances.service.FundDataLoader;
+import com.infoshareacademy.finances.service.FundMonthViewer;
 import com.infoshareacademy.finances.service.Unziper;
 
 import java.util.ArrayList;
@@ -27,7 +28,7 @@ public class App
             dailyValues = loader.loadDataFromFile(fundCode);
 
             Fund fund = new Fund(dailyValues,fundCode,fundCode);
-
+            FundMonthViewer.showMonths(fund);
         } else {
             System.out.println("Enter arguments:");
             System.out.println("<program_name> <path to fund zip file> <path extract files> <fund ID>");

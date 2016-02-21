@@ -15,7 +15,7 @@ public class Fund {
         this.fundCode = fundCode;
     }
 
-    public List<DailyValue> getDailyValue() {
+    public List<DailyValue> getDailyValues() {
         return dailyValues;
     }
 
