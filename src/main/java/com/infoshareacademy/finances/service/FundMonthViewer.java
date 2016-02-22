@@ -8,7 +8,6 @@ import java.time.Year;
 import java.util.*;
 
 public class FundMonthViewer {
-    private static final int numOfMonths = 12;
 
     public static void showMonths(Fund fund) {
         List<DailyValue> dailyValues = fund.getDailyValues();
@@ -20,8 +19,16 @@ public class FundMonthViewer {
             System.out.print(yearsMonths.get(i).getYear() + "  ");
             int sizeJ = yearsMonths.get(i).getMonths().size();
             for (int j = 0; j < sizeJ; j++) {
-                String temp = yearsMonths.get(i).getMonths().get(j);
-                System.out.print(temp + "  ");
+                String month = yearsMonths.get(i).getMonths().get(j);
+                int monthInt = Integer.parseInt(month);
+                if (j == 0){
+                    int k = j + 1;
+                    while (monthInt != k){
+                        k++;
+                        System.out.print("    ");
+                    }
+                }
+                System.out.print(month + "  ");
             }
             System.out.println();
         }
