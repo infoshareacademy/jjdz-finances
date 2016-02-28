@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintStream;
 import java.math.BigDecimal;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,30 +23,26 @@ public class FundMonthViewerTest {
 
     @Test
     public void testShowMonths() throws Exception {
-        String date;
+        // given
+        ZonedDateTime date;
         BigDecimal closeValue;
         List<DailyValue> dailyValues = new ArrayList<DailyValue>();
         String fundCode = "AGI001";
-
-        date = "20150220";
+        date = ZonedDateTime.now().withMonth(2);
         closeValue = new BigDecimal(3.15);
         dailyValues.add(new DailyValue(date , closeValue));
-
-        date = "20150320";
+        date = ZonedDateTime.now().withMonth(3);
         closeValue = new BigDecimal(43.25);
         dailyValues.add(new DailyValue(date , closeValue));
-
-
         Fund fund = new Fund(dailyValues, fundCode, fundCode);
+        PrintStream printStream = mock(PrintStream.class);
+        FundMonthViewer fundMonthViewer = new FundMonthViewer(printStream) ;
 
-//        MockPrintStream out = new MockPrintStream(System.out);
-//        FundMonthViewer fundMonthViewer = new FundMonthViewer(out);
-//        fundMonthViewer.showMonths(fund);
-//        Assert.assertThat(out.getPrintedMessages(), Matchers.hasItems("03  ", "02  "));
-
-        FundMonthViewer fundMonthViewer = mock(FundMonthViewer.class);
+        // when
         fundMonthViewer.showMonths(fund);
 
-        verify(fundMonthViewer).showMonths(fund);
+        // then
+        verify(printStream).print("03  ");
+        verify(printStream).print("02  ");
     }
 }
