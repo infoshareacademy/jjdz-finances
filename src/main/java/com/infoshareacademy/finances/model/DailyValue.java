@@ -2,24 +2,22 @@ package com.infoshareacademy.finances.model;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.ZonedDateTime;
-import java.util.Date;
 
 public class DailyValue {
 
-    private ZonedDateTime date;
+    private LocalDate date;
     private BigDecimal closeValue;
 
-    public DailyValue(ZonedDateTime date, BigDecimal closeValue) {
+    public DailyValue(LocalDate date, BigDecimal closeValue) {
         this.date = date;
         this.closeValue = closeValue;
     }
 
-    public ZonedDateTime getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(ZonedDateTime date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 
