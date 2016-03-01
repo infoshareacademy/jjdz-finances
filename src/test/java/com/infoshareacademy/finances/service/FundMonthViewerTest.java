@@ -35,7 +35,7 @@ public class FundMonthViewerTest {
         FundMonthViewer fundMonthViewer = new FundMonthViewer(printStream) ;
 
         // when
-        fundMonthViewer.showMonths(fund);
+        fundMonthViewer.showAvailableMonths(fund);
 
         // then
         verify(printStream).print("03  ");
@@ -52,7 +52,7 @@ public class FundMonthViewerTest {
 
         //when
         FundMonthViewer fundMonthViewer = new FundMonthViewer(System.out);
-        fundMonthViewer.showMonths(fund);
+        fundMonthViewer.showAvailableMonths(fund);
 
         //then
     }
