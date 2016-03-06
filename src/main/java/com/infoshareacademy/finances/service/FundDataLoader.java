@@ -11,6 +11,10 @@ import java.nio.file.Paths;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 public class FundDataLoader {
@@ -23,7 +27,8 @@ public class FundDataLoader {
             int size = lines.size();
             for (int i = 1; i < size; i++) {
                 String[] fields = lines.get(i).split(",");
-                String date = fields[1];
+
+                ZonedDateTime date = ZonedDateTime.parse(fields[1], DateTimeFormatter.BASIC_ISO_DATE.withZone(ZoneId.of("Poland")));
                 BigDecimal closeValue = new BigDecimal(fields[4]);
                 DailyValue dailyValue = new DailyValue(date, closeValue);
                 dailyValues.add(dailyValue);

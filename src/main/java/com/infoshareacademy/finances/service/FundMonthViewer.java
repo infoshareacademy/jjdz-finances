@@ -4,19 +4,25 @@ import com.infoshareacademy.finances.model.DailyValue;
 import com.infoshareacademy.finances.model.Fund;
 import com.infoshareacademy.finances.model.YearMonth;
 
-import java.time.Year;
+import java.io.PrintStream;
 import java.util.*;
 
 public class FundMonthViewer {
 
-    public static void showMonths(Fund fund) {
+    private final PrintStream out;
+
+    public FundMonthViewer(PrintStream out) {
+        this.out = out;
+    }
+
+    public void showMonths(Fund fund) {
         List<DailyValue> dailyValues = fund.getDailyValues();
         List<YearMonth> yearsMonths;
 
         yearsMonths = parseYearsAndMonthsToObjectList(getYearMonthsStringsFromDailyValues(dailyValues));
         int size = yearsMonths.size();
         for (int i = 0; i < size; i++) {
-            System.out.print(yearsMonths.get(i).getYear() + "  ");
+            out.print(yearsMonths.get(i).getYear() + "  ");
             int sizeJ = yearsMonths.get(i).getMonths().size();
             for (int j = 0; j < sizeJ; j++) {
                 String month = yearsMonths.get(i).getMonths().get(j);
@@ -25,16 +31,16 @@ public class FundMonthViewer {
                     int k = j + 1;
                     while (monthInt != k){
                         k++;
-                        System.out.print("    ");
+                        out.print("    ");
                     }
                 }
-                System.out.print(month + "  ");
+                out.print(month + "  ");
             }
-            System.out.println();
+            out.println();
         }
     }
 
-    private static ArrayList<YearMonth> parseYearsAndMonthsToObjectList(List<String> yearMonthsStrings) {
+    private ArrayList<YearMonth> parseYearsAndMonthsToObjectList(List<String> yearMonthsStrings) {
         YearMonth yearMonth;
         ArrayList<YearMonth> yearMonths = new ArrayList<YearMonth>();
         int size = yearMonthsStrings.size();
@@ -56,7 +62,7 @@ public class FundMonthViewer {
         return yearMonths;
     }
 
-    private static List<String> getYearMonthsStringsFromDailyValues(List<DailyValue> dailyValues) {
+    private List<String> getYearMonthsStringsFromDailyValues(List<DailyValue> dailyValues) {
         List<String> months = new ArrayList<String>();
         int size = dailyValues.size();
         for (int i = 0; i < size; i++) {

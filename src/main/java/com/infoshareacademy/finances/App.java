@@ -7,13 +7,10 @@ import com.infoshareacademy.finances.service.FundDataLoader;
 import com.infoshareacademy.finances.service.FundMonthViewer;
 import com.infoshareacademy.finances.service.Unziper;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
-public class App
-{
-    public static void main( String[] args ) throws Exception {
+public class App {
+    public static void main(String[] args) throws Exception {
         System.out.println("Financial analyser 1.0");
         if ((args != null) && (args.length == 3)) {
             String zipPath = args[0];
@@ -22,13 +19,12 @@ public class App
             List<DailyValue> dailyValues;
 
             Unziper unziper = new Unziper();
-            unziper.UnzipToFolder(zipPath,extractionPath);
+            unziper.UnzipToFolder(zipPath, extractionPath);
 
             FundDataLoader loader = new FundDataLoader();
             dailyValues = loader.loadDataFromFile(fundCode);
 
-            Fund fund = new Fund(dailyValues,fundCode,fundCode);
-            FundMonthViewer.showMonths(fund);
+
         } else {
             System.out.println("Enter arguments:");
             System.out.println("<program_name> <path to fund zip file> <path extract files> <fund ID>");
