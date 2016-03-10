@@ -36,7 +36,7 @@ public class Currency {
     @Override
     public String toString() {
         return "Currency[dailyCarrencyValue=" + dailyCarrencyValue + ", currencyName=" + currencyName
-                + ", currencyCode=" + currencyCode + "]";
+                + ", currencyCode=" + currencyCode + "] ";
     }
 
     private List<DailyValue> dailyCarrencyValue;
