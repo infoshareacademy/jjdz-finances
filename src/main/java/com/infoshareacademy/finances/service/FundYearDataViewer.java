@@ -2,7 +2,6 @@ package com.infoshareacademy.finances.service;
 
 import com.infoshareacademy.finances.model.DailyValue;
 import com.infoshareacademy.finances.model.Fund;
-import com.infoshareacademy.finances.model.YearMonth;
 
 import java.math.BigDecimal;
 import java.util.*;
@@ -29,7 +28,7 @@ public class FundYearDataViewer {
             if (x.getDate().getYear() == giveYear) yearValues.add(x.getCloseValue());
             }
 
-        System.out.println("yearValues = " + yearValues);
+        System.out.println("Year values = " + yearValues);
 
         minMax.put("Max", Collections.max(yearValues));
         minMax.put("Min", Collections.min(yearValues));

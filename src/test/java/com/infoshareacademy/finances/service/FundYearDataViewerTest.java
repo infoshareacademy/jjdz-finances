@@ -2,26 +2,34 @@ package com.infoshareacademy.finances.service;
 
 import com.infoshareacademy.finances.model.DailyValue;
 import com.infoshareacademy.finances.model.Fund;
-import org.hamcrest.CoreMatchers;
-import org.hamcrest.Matcher;
 import org.junit.Test;
 
 import java.math.BigDecimal;
-import java.util.*;
+import java.time.LocalDate;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Set;
 
 import static org.hamcrest.CoreMatchers.*;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertThat;
 
 public class FundYearDataViewerTest {
 
     @Test
     public void testMinMaxValues() {
+//        FundDataLoader loader = new FundDataLoader();
+//        List<DailyValue> dailyValues = loader.loadDataFromFile("Data/Unziped/AGI001.txt");
+
+
+
+
         List<DailyValue> dailyValues = Arrays.asList(
-                new DailyValue("20091212", new BigDecimal("12.1")),
-                new DailyValue("20091213", new BigDecimal("12.3")));
+                new DailyValue(LocalDate.of(2009, 12, 12), new BigDecimal("12.1")),
+                new DailyValue(LocalDate.of(2009, 12, 13), new BigDecimal("12.3")));
 
         FundYearDataViewer viewer = new FundYearDataViewer();
-        HashMap<String, BigDecimal> map = viewer.yearExtremes(new Fund(dailyValues, "", ""), "2009");
+        HashMap<String, BigDecimal> map = viewer.yearExtremes(new Fund(dailyValues, "", ""), 2009);
 
         assertThat(map.get("Max"), is(equalTo(new BigDecimal("12.3"))));
         assertThat(map.get("Min"), is(equalTo(new BigDecimal("12.1"))));
@@ -34,17 +42,17 @@ public class FundYearDataViewerTest {
 //        List<DailyValue> dailyValues = loader.loadDataFromFile("Data/Unziped/AGI001.txt");
 
         List<DailyValue> dailyValues = Arrays.asList(
-                new DailyValue("20091212", new BigDecimal("12.3")),
-                new DailyValue("20091213", new BigDecimal("12.3")),
-                new DailyValue("20101212", new BigDecimal("12.3")));
+                new DailyValue(LocalDate.of(2009, 12, 12), new BigDecimal("12.3")),
+                new DailyValue(LocalDate.of(2009, 12, 13), new BigDecimal("12.3")),
+                new DailyValue(LocalDate.of(2010, 12, 12), new BigDecimal("12.3")));
 
         FundYearDataViewer viewer = new FundYearDataViewer();
-        Set<String> strings = viewer.showYears(new Fund(dailyValues, "", ""));
+        Set<Integer> integers = viewer.showYears(new Fund(dailyValues, "", ""));
 
-        System.out.println("strings = " + strings);
+        System.out.println("strings = " + integers);
 
-        assertThat(strings.size(), is(equalTo(2)));
-        assertThat(strings, hasItems("2009", "2010"));
+        assertThat(integers.size(), is(equalTo(2)));
+        assertThat(integers, hasItems(2009, 2010));
     }
 
 
