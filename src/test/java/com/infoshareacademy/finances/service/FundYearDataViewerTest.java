@@ -18,11 +18,6 @@ public class FundYearDataViewerTest {
 
     @Test
     public void testMinMaxValues() {
-//        FundDataLoader loader = new FundDataLoader();
-//        List<DailyValue> dailyValues = loader.loadDataFromFile("Data/Unziped/AGI001.txt");
-
-
-
 
         List<DailyValue> dailyValues = Arrays.asList(
                 new DailyValue(LocalDate.of(2009, 12, 12), new BigDecimal("12.1")),
@@ -38,8 +33,6 @@ public class FundYearDataViewerTest {
 
     @Test
     public void testShowYears() throws Exception {
-//        FundDataLoader loader = new FundDataLoader();
-//        List<DailyValue> dailyValues = loader.loadDataFromFile("Data/Unziped/AGI001.txt");
 
         List<DailyValue> dailyValues = Arrays.asList(
                 new DailyValue(LocalDate.of(2009, 12, 12), new BigDecimal("12.3")),
@@ -49,11 +42,10 @@ public class FundYearDataViewerTest {
         FundYearDataViewer viewer = new FundYearDataViewer();
         Set<Integer> integers = viewer.showYears(new Fund(dailyValues, "", ""));
 
-        System.out.println("strings = " + integers);
+        System.out.println("Dates as integers = " + integers);
 
         assertThat(integers.size(), is(equalTo(2)));
         assertThat(integers, hasItems(2009, 2010));
     }
-
 
 }
