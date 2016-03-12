@@ -33,4 +33,23 @@ public class DailyValue {
     public String toString() {
         return date + " - " + closeValue;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        DailyValue that = (DailyValue) o;
+
+        if (!getDate().equals(that.getDate())) return false;
+        return getCloseValue().equals(that.getCloseValue());
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = getDate().hashCode();
+        result = 31 * result + getCloseValue().hashCode();
+        return result;
+    }
 }

@@ -24,10 +24,13 @@ public class FundYearDataViewerTest {
                 new DailyValue(LocalDate.of(2009, 12, 13), new BigDecimal("12.3")));
 
         FundYearDataViewer viewer = new FundYearDataViewer();
-        HashMap<String, BigDecimal> map = viewer.yearExtremes(new Fund(dailyValues, "", ""), 2009);
 
-        assertThat(map.get("Max"), is(equalTo(new BigDecimal("12.3"))));
-        assertThat(map.get("Min"), is(equalTo(new BigDecimal("12.1"))));
+        List<DailyValue> out = viewer.yearMaxValues(dailyValues, 2009);
+
+//        HashMap<String, BigDecimal> map = viewer.yearExtremes(new Fund(dailyValues, "", ""), 2009);
+
+        assertThat(out.get(0), equalTo(new DailyValue(LocalDate.of(2009, 12, 13), new BigDecimal("12.3"))));
+//        assertThat(out.get("Min"), is(equalTo(new BigDecimal("12.1"))));
     }
 
 
