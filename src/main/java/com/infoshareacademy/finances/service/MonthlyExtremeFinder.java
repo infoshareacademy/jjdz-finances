@@ -6,47 +6,36 @@ import com.infoshareacademy.finances.model.Fund;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.Month;
+import java.util.Comparator;
 import java.util.List;
+import java.util.function.Predicate;
 
 public class MonthlyExtremeFinder {
     LocalDate localDate;
-    Fund fund;
+    List<DailyValue> dailyValues;
+    final static Comparator<DailyValue> DAILY_VALUE_COMPARATOR = (a,b) -> a.getCloseValue().compareTo(b.getCloseValue());
 
-    MonthlyExtremeFinder(LocalDate localDate, Fund fund){
+    MonthlyExtremeFinder(LocalDate localDate, List<DailyValue> dailyValues){
         this.localDate = localDate;
-        this.fund = fund;
+        this.dailyValues= dailyValues;
+    }
+
+    public enum Order {
+        MIN,
+        MAX;
     }
 
     public DailyValue findMin(){
-        List<DailyValue>  dailyValues = fund.getDailyValues();
-        Integer year = localDate.getYear();
-        Month month = localDate.getMonth();
-        DailyValue minDailyValue = null;
-        DailyValue currentDailyValue;
-        BigDecimal minCloseValue = null;
-        BigDecimal currentCloseValue;
-        boolean firstAssign = true;
-
-        for (DailyValue dailyValue : dailyValues) {
-            currentDailyValue = dailyValue;
-            if (year.equals(currentDailyValue.getDate().getYear()) && month.equals(currentDailyValue.getDate().getMonth())) {
-                currentCloseValue = currentDailyValue.getCloseValue();
-                if (firstAssign) {
-                    minCloseValue = currentCloseValue;
-                    firstAssign = false;
-                    continue;
-                }
-                if (currentCloseValue.compareTo(minCloseValue) < 0) {
-                    minCloseValue = currentCloseValue;
-                    minDailyValue = currentDailyValue;
-                }
-            }
-        }
-        return minDailyValue;
+        return findExtreme(Order.MIN);
     }
 
     public DailyValue findMax(){
-        List<DailyValue>  dailyValues = fund.getDailyValues();
+        return findExtreme(Order.MAX);
+    }
+
+    public DailyValue findExtreme(Order order) {
+
+
         Integer year = localDate.getYear();
         Month month = localDate.getMonth();
         DailyValue maxDailyValue = null;
@@ -54,17 +43,22 @@ public class MonthlyExtremeFinder {
         BigDecimal maxCloseValue = null;
         BigDecimal currentCloseValue;
         boolean firstAssign = true;
+        int sign = order == Order.MAX ? 1 : -1;
+
+        Predicate<DailyValue> yearPredicate = dv -> year.equals(dv.getDate().getYear());
+        Predicate<DailyValue> monthPredicate = dv -> month.equals(dv.getDate().getMonth());
+
 
         for (DailyValue dailyValue : dailyValues) {
             currentDailyValue = dailyValue;
-            if (year.equals(currentDailyValue.getDate().getYear()) && month.equals(currentDailyValue.getDate().getMonth())) {
+            if (yearPredicate.test(currentDailyValue) && monthPredicate.test(currentDailyValue)) {
                 currentCloseValue = currentDailyValue.getCloseValue();
                 if (firstAssign) {
                     maxCloseValue = currentCloseValue;
                     firstAssign = false;
                     continue;
                 }
-                if (currentCloseValue.compareTo(maxCloseValue) > 0) {
+                if (maxDailyValue == null || sign * DAILY_VALUE_COMPARATOR.compare(currentDailyValue, maxDailyValue) > 0)  {
                     maxCloseValue = currentCloseValue;
                     maxDailyValue = currentDailyValue;
                 }
@@ -72,4 +66,10 @@ public class MonthlyExtremeFinder {
         }
         return maxDailyValue;
     }
+
+//    public List<DailyValue> findMinDailyValues(){
+//
+//    };
+
+
 }

@@ -4,25 +4,29 @@ import com.infoshareacademy.finances.model.DailyValue;
 import com.infoshareacademy.finances.model.Fund;
 import org.hamcrest.Matchers;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
+import java.lang.reflect.Array;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.Assert.assertThat;
 
 public class MonthlyExtremeFinderTest {
 
-    private Fund fund;
+    private List<DailyValue> dailyValues;
 
     @Before
     public void initialize(){
         LocalDate date;
         BigDecimal closeValue;
-        List<DailyValue> dailyValues = new ArrayList<DailyValue>();
+
         String fundCode = "AGI001";
+        dailyValues = new ArrayList<DailyValue>();
 
         date = LocalDate.now().withMonth(3).withDayOfMonth(1);
         closeValue = new BigDecimal(43.25);
@@ -52,14 +56,16 @@ public class MonthlyExtremeFinderTest {
         closeValue = new BigDecimal(50.25);
         dailyValues.add(new DailyValue(date , closeValue));
 
-        fund = new Fund(dailyValues, fundCode, fundCode);
+        date = LocalDate.now().withMonth(2).withDayOfMonth(7);
+        closeValue = new BigDecimal(50.25);
+        dailyValues.add(new DailyValue(date , closeValue));
     }
 
     @Test
     public void testFindMin() {
         // given
         LocalDate date = LocalDate.now().withMonth(2);
-        MonthlyExtremeFinder monthlyExtremeFinder = new MonthlyExtremeFinder(date,fund);
+        MonthlyExtremeFinder monthlyExtremeFinder = new MonthlyExtremeFinder(date,dailyValues);
         BigDecimal minValue = new BigDecimal(3.16);
 
         //when
@@ -73,7 +79,7 @@ public class MonthlyExtremeFinderTest {
     public void testFindMax() {
         // given
         LocalDate date = LocalDate.now().withMonth(2);
-        MonthlyExtremeFinder monthlyExtremeFinder = new MonthlyExtremeFinder(date,fund);
+        MonthlyExtremeFinder monthlyExtremeFinder = new MonthlyExtremeFinder(date,dailyValues);
         BigDecimal maxValue = new BigDecimal(50.25);
 
         //when
@@ -81,5 +87,26 @@ public class MonthlyExtremeFinderTest {
 
         //then
         assertThat(dailyValue.getCloseValue(), Matchers.equalTo(maxValue));
+    }
+
+    @Test
+    @Ignore
+    public void testFindDuplicates(){
+        //given
+        List<DailyValue> expectedMinDailyValues  = new ArrayList<DailyValue>();
+        LocalDate searchDate = LocalDate.now().withMonth(2);
+
+        LocalDate date = LocalDate.now().withMonth(2).withDayOfMonth(7);
+        BigDecimal closeValue = new BigDecimal(50.25);
+        expectedMinDailyValues.add(new DailyValue(date , closeValue));
+        date = LocalDate.now().withMonth(2).withDayOfMonth(4);
+        closeValue = new BigDecimal(50.25);
+        expectedMinDailyValues.add(new DailyValue(date , closeValue));
+
+        MonthlyExtremeFinder monthlyExtremeFinder = new MonthlyExtremeFinder(searchDate,dailyValues);
+
+        //when
+
+
     }
 }
