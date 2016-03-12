@@ -1,7 +1,6 @@
 package com.infoshareacademy.finances.service;
 
 import com.infoshareacademy.finances.model.DailyValue;
-import com.infoshareacademy.finances.model.Fund;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -10,34 +9,26 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.function.Predicate;
 
+import static java.util.stream.Collectors.toList;
+
 public class MonthlyExtremeFinder {
-    LocalDate localDate;
+    Integer year;
+    Month month;
     List<DailyValue> dailyValues;
     final static Comparator<DailyValue> DAILY_VALUE_COMPARATOR = (a,b) -> a.getCloseValue().compareTo(b.getCloseValue());
 
     MonthlyExtremeFinder(LocalDate localDate, List<DailyValue> dailyValues){
-        this.localDate = localDate;
+        this.year = localDate.getYear();
+        this.month = localDate.getMonth();
         this.dailyValues= dailyValues;
     }
 
     public enum Order {
         MIN,
-        MAX;
-    }
-
-    public DailyValue findMin(){
-        return findExtreme(Order.MIN);
-    }
-
-    public DailyValue findMax(){
-        return findExtreme(Order.MAX);
+        MAX
     }
 
     public DailyValue findExtreme(Order order) {
-
-
-        Integer year = localDate.getYear();
-        Month month = localDate.getMonth();
         DailyValue maxDailyValue = null;
         DailyValue currentDailyValue;
         BigDecimal maxCloseValue = null;
@@ -47,7 +38,6 @@ public class MonthlyExtremeFinder {
 
         Predicate<DailyValue> yearPredicate = dv -> year.equals(dv.getDate().getYear());
         Predicate<DailyValue> monthPredicate = dv -> month.equals(dv.getDate().getMonth());
-
 
         for (DailyValue dailyValue : dailyValues) {
             currentDailyValue = dailyValue;
@@ -67,9 +57,22 @@ public class MonthlyExtremeFinder {
         return maxDailyValue;
     }
 
-//    public List<DailyValue> findMinDailyValues(){
-//
-//    };
+    public List<DailyValue> findMaxDailyValues(){
+        return findDuplicates(findExtreme(Order.MAX));
+    }
 
+    public List<DailyValue> findMinDailyValues(){
+        return findDuplicates(findExtreme(Order.MIN));
+    }
+
+    public List<DailyValue> findDuplicates(DailyValue dailyValue){
+        Predicate<DailyValue> yearPredicate = dv -> year.equals(dv.getDate().getYear());
+        Predicate<DailyValue> monthPredicate = dv -> month.equals(dv.getDate().getMonth());
+
+        return dailyValues.stream()
+                .filter(yearPredicate.and(monthPredicate))
+                .filter(dv -> dv.getCloseValue().equals(dailyValue.getCloseValue()))
+                .collect(toList());
+    }
 
 }
