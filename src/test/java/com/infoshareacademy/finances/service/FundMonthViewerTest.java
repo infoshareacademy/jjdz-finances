@@ -1,8 +1,11 @@
 package com.infoshareacademy.finances.service;
 
+import com.infoshareacademy.finances.model.AvailableMonthsAndYear;
 import com.infoshareacademy.finances.model.DailyValue;
 import com.infoshareacademy.finances.model.Fund;
-import org.junit.Ignore;
+import static org.junit.Assert.*;
+
+import org.hamcrest.Matchers;
 import org.junit.Test;
 
 import java.io.PrintStream;
@@ -16,9 +19,33 @@ import static org.mockito.Mockito.verify;
 
 public class FundMonthViewerTest {
 
-    @Ignore
     @Test
     public void testShowMonths() throws Exception {
+        // given
+        LocalDate date;
+        BigDecimal closeValue;
+        List<DailyValue> dailyValues = new ArrayList<DailyValue>();
+        String fundCode = "AGI001";
+        date = LocalDate.now().withMonth(2);
+        closeValue = new BigDecimal(3.16);
+        dailyValues.add(new DailyValue(date , closeValue));
+        date = LocalDate.now().withMonth(3);
+        closeValue = new BigDecimal(43.25);
+        dailyValues.add(new DailyValue(date , closeValue));
+        Fund fund = new Fund(dailyValues, fundCode, fundCode);
+        PrintStream printStream = mock(PrintStream.class);
+        FundMonthViewer fundMonthViewer = new FundMonthViewer(printStream) ;
+
+        // when
+        fundMonthViewer.showAvailableMonths(fund);
+
+        // then
+        verify(printStream).print("3  ");
+        verify(printStream).print("2  ");
+    }
+
+    @Test
+    public void testGetListOfAvailableMonthsAndYears() throws Exception {
         // given
         LocalDate date;
         BigDecimal closeValue;
@@ -33,27 +60,16 @@ public class FundMonthViewerTest {
         Fund fund = new Fund(dailyValues, fundCode, fundCode);
         PrintStream printStream = mock(PrintStream.class);
         FundMonthViewer fundMonthViewer = new FundMonthViewer(printStream) ;
+        ArrayList<AvailableMonthsAndYear> availableMonthsAndYears;
+        AvailableMonthsAndYear availableMonthsAndYear;
 
         // when
-        fundMonthViewer.showMonths(fund);
+        availableMonthsAndYears = fundMonthViewer.getListOfAvailableMonthsAndYears(fund);
+        availableMonthsAndYear = availableMonthsAndYears.get(0);
 
         // then
-        verify(printStream).print("03  ");
-        verify(printStream).print("02  ");
-    }
-
-    @Test
-    public void testPrintType() {
-        // given
-        FundDataLoader fundDataLoader = new FundDataLoader();
-        List<DailyValue> dailyValues = fundDataLoader.loadDataFromFile("D:\\IdeaProjects\\jjdz-finances\\Data\\AGI001.txt");
-        String fundCode = "AGI001";
-        Fund fund = new Fund(dailyValues, fundCode, fundCode);
-
-        //when
-        FundMonthViewer fundMonthViewer = new FundMonthViewer(System.out);
-        fundMonthViewer.showMonths(fund);
-
-        //then
+        assertThat(availableMonthsAndYears, Matchers.hasSize(1));
+        assertThat(availableMonthsAndYear.getYear() , Matchers.equalTo(LocalDate.now().getYear()));
+        assertThat(availableMonthsAndYear.getMonths(), Matchers.hasSize(2));
     }
 }

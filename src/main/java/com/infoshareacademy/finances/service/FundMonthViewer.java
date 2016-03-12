@@ -1,10 +1,11 @@
 package com.infoshareacademy.finances.service;
 
+import com.infoshareacademy.finances.model.AvailableMonthsAndYear;
 import com.infoshareacademy.finances.model.DailyValue;
 import com.infoshareacademy.finances.model.Fund;
-import com.infoshareacademy.finances.model.YearMonth;
 
 import java.io.PrintStream;
+import java.time.Month;
 import java.util.*;
 
 public class FundMonthViewer {
@@ -15,69 +16,52 @@ public class FundMonthViewer {
         this.out = out;
     }
 
-    public void showMonths(Fund fund) {
-        List<DailyValue> dailyValues = fund.getDailyValues();
-        List<YearMonth> yearsMonths;
+    public void showAvailableMonths(Fund fund) {
+        List<AvailableMonthsAndYear> availableMonthsAndYears;
 
-        int size = dailyValues.size();
-        for (int i = 0; i < size; i++) {
-             out.println(dailyValues.get(i).getDate().getYear());
+        availableMonthsAndYears = getListOfAvailableMonthsAndYears(fund);
+
+        for (AvailableMonthsAndYear availableMonthsAndYear : availableMonthsAndYears) {
+            out.print(availableMonthsAndYear.getYear() + "  ");
+            int sizeJ = availableMonthsAndYear.getMonths().size();
+            for (int j = 0; j < sizeJ; j++) {
+                Month month = availableMonthsAndYear.getMonths().get(j);
+                int monthInt = month.getValue();
+                if (j == 0) {
+                    int k = j + 1;
+                    while (monthInt != k) {
+                        k++;
+                        out.print("   ");
+                    }
+                }
+                out.print(month.getValue() + "  ");
+            }
+            out.println();
         }
     }
-//        yearsMonths = parseYearsAndMonthsToObjectList(getYearMonthsStringsFromDailyValues(dailyValues));
-//
-//        int size = yearsMonths.size();
-//        for (int i = 0; i < size; i++) {
-//            out.print(yearsMonths.get(i).getYear() + "  ");
-//            int sizeJ = yearsMonths.get(i).getMonths().size();
-//            for (int j = 0; j < sizeJ; j++) {
-//                String month = yearsMonths.get(i).getMonths().get(j);
-//                int monthInt = Integer.parseInt(month);
-//                if (j == 0){
-//                    int k = j + 1;
-//                    while (monthInt != k){
-//                        k++;
-//                        out.print("    ");
-//                    }
-//                }
-//                out.print(month + "  ");
-//            }
-//            out.println();
-//        }
-//    }
-//
-//    private ArrayList<YearMonth> parseYearsAndMonthsToObjectList(List<String> yearMonthsStrings) {
-//        YearMonth yearMonth;
-//        ArrayList<YearMonth> yearMonths = new ArrayList<YearMonth>();
-//        int size = yearMonthsStrings.size();
-//        int i = 0;
-//
-//        while (i < size) {
-//            String year = yearMonthsStrings.get(i).substring(0, 4);
-//            List<String> months = new ArrayList<String>();
-//            while (year.equals(yearMonthsStrings.get(i).substring(0, 4))) {
-//                months.add(yearMonthsStrings.get(i).substring(4));
-//                i++;
-//                if (i == size) {
-//                    break;
-//                }
-//            }
-//            yearMonth = new YearMonth(year, months);
-//            yearMonths.add(yearMonth);
-//        }
-//        return yearMonths;
-//    }
-//
-//    private List<String> getYearMonthsStringsFromDailyValues(List<DailyValue> dailyValues) {
-//        List<String> months = new ArrayList<String>();
-//        int size = dailyValues.size();
-//        for (int i = 0; i < size; i++) {
-//            String yearMonth;
-//            yearMonth = dailyValues.get(i).getDate();
-//            if (!months.contains(yearMonth)) {
-//                months.add(yearMonth);
-//            }
-//        }
-//        return months;
-//    }
+
+    public ArrayList<AvailableMonthsAndYear> getListOfAvailableMonthsAndYears(Fund fund) {
+        AvailableMonthsAndYear availableMonthsAndYear;
+        List<DailyValue> dailyValues = fund.getDailyValues();
+        ArrayList<AvailableMonthsAndYear> availableMonthsAndYears = new ArrayList<AvailableMonthsAndYear>();
+        int size = dailyValues.size();
+        int i = 0;
+        while (i < size) {
+            Integer year = dailyValues.get(i).getDate().getYear();
+            List<Month> months = new ArrayList<Month>();
+            while (year.equals(dailyValues.get(i).getDate().getYear())) {
+                Month nextMonth = dailyValues.get(i).getDate().getMonth();
+                if (!months.contains(nextMonth)){
+                    months.add(nextMonth);
+                }
+                i++;
+                if (i == size) {
+                    break;
+                }
+            }
+            availableMonthsAndYear = new AvailableMonthsAndYear(year, months);
+            availableMonthsAndYears.add(availableMonthsAndYear);
+        }
+        return availableMonthsAndYears;
+    }
 }

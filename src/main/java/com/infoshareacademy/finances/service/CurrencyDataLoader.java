@@ -14,7 +14,7 @@ import java.util.List;
 public class CurrencyDataLoader {
     public List<DailyValue> loadDataFromFile(String filePath) {
         Path path = FileSystems.getDefault().getPath(filePath);
-        List<DailyValue> listDailyCurrencyValue = new ArrayList<>();
+        List<DailyValue> listDailyCurrencyValue = new ArrayList<DailyValue>();
         try {
             List<String> listaLines = Files.readAllLines(path);
             int size = listaLines.size();
