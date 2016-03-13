@@ -21,20 +21,20 @@ public class FundYearDataViewer {
 
 
     public List<DailyValue> yearMaxValues (List<DailyValue> dailyValues, Integer giveYear) {
-        List<BigDecimal> yearValues = new ArrayList<>();
+        List<BigDecimal> yearValues = new ArrayList<BigDecimal>();
         for (DailyValue x: dailyValues) if (x.getDate().getYear() == giveYear) yearValues.add(x.getCloseValue());
 
-        List<DailyValue> output = new ArrayList<>();
+        List<DailyValue> output = new ArrayList<DailyValue>();
         for (DailyValue x: dailyValues) if (Objects.equals(x.getCloseValue(), Collections.max(yearValues))) output.add(x);
 
         return output;
     }
 
     public List<DailyValue> yearMinValues (List<DailyValue> dailyValues, Integer giveYear) {
-        List<BigDecimal> yearValues = new ArrayList<>();
+        List<BigDecimal> yearValues = new ArrayList<BigDecimal>();
         for (DailyValue x: dailyValues) if (x.getDate().getYear() == giveYear) yearValues.add(x.getCloseValue());
 
-        List<DailyValue> output = new ArrayList<>();
+        List<DailyValue> output = new ArrayList<DailyValue>();
         for (DailyValue x: dailyValues) if (Objects.equals(x.getCloseValue(), Collections.min(yearValues))) output.add(x);
 
         return output;
