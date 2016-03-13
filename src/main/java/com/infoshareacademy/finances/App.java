@@ -54,11 +54,11 @@ public class App {
             MonthlyExtremeFinder monthlyExtremeFinder = new MonthlyExtremeFinder(localDate,fund.getDailyValues());
 
             FundYearDataViewer fundYearDataViewer = new FundYearDataViewer();
-            System.out.println("Year Max values: " + fundYearDataViewer.yearMaxValues(fund.getDailyValues(),localDate.getYear()));
-            System.out.println("Year Min values: " + fundYearDataViewer.yearMinValues(fund.getDailyValues(),localDate.getYear()));
+            System.out.println("Yearly Max value: " + fundYearDataViewer.yearMaxValues(fund.getDailyValues(),localDate.getYear()));
+            System.out.println("Yearly Min value: " + fundYearDataViewer.yearMinValues(fund.getDailyValues(),localDate.getYear()));
 
-            System.out.println("Max value was: " + monthlyExtremeFinder.findMaxDailyValues());
-            System.out.println("Min value was: " + monthlyExtremeFinder.findMinDailyValues());
+            System.out.println("Monthly Max value: " + monthlyExtremeFinder.findMaxDailyValues());
+            System.out.println("Monthly Min value: " + monthlyExtremeFinder.findMinDailyValues());
 
 
         } else {
