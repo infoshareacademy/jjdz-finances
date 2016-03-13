@@ -60,6 +60,7 @@ public class App {
             System.out.println("Monthly Max value: " + monthlyExtremeFinder.findMaxDailyValues());
             System.out.println("Monthly Min value: " + monthlyExtremeFinder.findMinDailyValues());
 
+            System.out.println("Done.");
 
         } else {
             System.out.println("Enter arguments:");
