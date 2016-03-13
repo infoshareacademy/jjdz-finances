@@ -14,14 +14,6 @@ import java.util.zip.ZipInputStream;
 
 public class Unziper {
 
-   // private static final String zipFileName = "Data/omegafun.zip";
-   // private static final String outputFolderName = "Data/Unziped";
-
-   // public static void main(String[] args) throws IOException {
-   //    Unziper unziper = new Unziper();
-   //    unziper.UnzipToFolder(zipFileName, outputFolderName);
-   // }
-
     public void UnzipToFolder(String zipFilePath, String outputFolderPath) throws IOException {
 
         byte[] buffer = new byte[2048];
@@ -46,8 +38,6 @@ public class Unziper {
 
         zipInput.closeEntry();
         zipInput.close();
-
-        // System.out.println("Tadaaa");
 
     }
 }

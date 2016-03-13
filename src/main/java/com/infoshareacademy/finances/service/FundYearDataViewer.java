@@ -5,6 +5,7 @@ import com.infoshareacademy.finances.model.Fund;
 
 import java.math.BigDecimal;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class FundYearDataViewer {
 
@@ -20,27 +21,39 @@ public class FundYearDataViewer {
     }
 
 
-    public List<DailyValue> yearMaxValues (List<DailyValue> dailyValues, Integer giveYear) {
-        List<BigDecimal> yearValues = new ArrayList<BigDecimal>();
-        for (DailyValue x: dailyValues) if (x.getDate().getYear() == giveYear) yearValues.add(x.getCloseValue());
 
-        List<DailyValue> output = new ArrayList<DailyValue>();
-        for (DailyValue x: dailyValues) if (Objects.equals(x.getCloseValue(), Collections.max(yearValues))) output.add(x);
+    public List<DailyValue> yearMaxValues (List<DailyValue> dailyValues, int giveYear) {
+        BigDecimal yearlyMax = getMaxCloseYearValue(dailyValues, giveYear);
 
-        return output;
+        return dailyValues.stream()
+                .filter(dailyValue -> dailyValue.getDate().getYear() == giveYear)
+                .filter(dailyValue -> dailyValue.getCloseValue().compareTo(yearlyMax) == 0)
+                .collect(Collectors.toList());
     }
 
-    public List<DailyValue> yearMinValues (List<DailyValue> dailyValues, Integer giveYear) {
-        List<BigDecimal> yearValues = new ArrayList<BigDecimal>();
-        for (DailyValue x: dailyValues) if (x.getDate().getYear() == giveYear) yearValues.add(x.getCloseValue());
-
-        List<DailyValue> output = new ArrayList<DailyValue>();
-        for (DailyValue x: dailyValues) if (Objects.equals(x.getCloseValue(), Collections.min(yearValues))) output.add(x);
-
-        return output;
+    private BigDecimal getMaxCloseYearValue(List<DailyValue> dailyValues, int giveYear) {
+        return dailyValues.stream()
+                .filter(dailyValue -> dailyValue.getDate().getYear() == giveYear)
+                .max((dailyValue1, dailyValue2) -> dailyValue1.getCloseValue().compareTo(dailyValue2.getCloseValue()))
+                .get().getCloseValue();
     }
 
+    public List<DailyValue> yearMinValues (List<DailyValue> dailyValues, int giveYear) {
+        BigDecimal yearlyMin = getMinCloseYearValue(dailyValues, giveYear);
 
+        return dailyValues.stream()
+                .filter(dailyValue -> dailyValue.getDate().getYear() == giveYear)
+                .filter(dailyValue -> dailyValue.getCloseValue().compareTo(yearlyMin) == 0)
+                .collect(Collectors.toList());
     }
+
+    private BigDecimal getMinCloseYearValue(List<DailyValue> dailyValues, int giveYear) {
+        return dailyValues.stream()
+                .filter(dailyValue -> dailyValue.getDate().getYear() == giveYear)
+                .min((dailyValue1, dailyValue2) -> dailyValue1.getCloseValue().compareTo(dailyValue2.getCloseValue()))
+                .get().getCloseValue();
+    }
+
+}
 
 
