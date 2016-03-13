@@ -32,7 +32,7 @@ public class Unziper {
         while(zipWorking != null) {
             String outputFileName = zipWorking.getName();
             File outputFileFinal = new File(outputFolderPath + File.separator + outputFileName);
-            System.out.println("Unzipped file: " + outputFileName);
+            // System.out.println("Unzipped file: " + outputFileName);
 
             FileOutputStream fileOutputStream = new FileOutputStream(outputFileFinal);
 
