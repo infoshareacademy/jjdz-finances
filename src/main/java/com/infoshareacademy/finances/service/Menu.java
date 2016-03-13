@@ -58,7 +58,7 @@ public class Menu {
         }
 
         Scanner input = new Scanner(System.in);
-        System.out.print("Enter Fund to calculations (1-" + sizeFundList + "): ");
+        System.out.print("Enter Fund to calculations (0-" + sizeFundList + "): ");
         int fundNR = input.nextInt();
         return fundNR;
     }
