@@ -17,7 +17,7 @@ public class MonthlyExtremeFinder {
     List<DailyValue> dailyValues;
     final static Comparator<DailyValue> DAILY_VALUE_COMPARATOR = (a,b) -> a.getCloseValue().compareTo(b.getCloseValue());
 
-    MonthlyExtremeFinder(LocalDate localDate, List<DailyValue> dailyValues){
+    public MonthlyExtremeFinder(LocalDate localDate, List<DailyValue> dailyValues){
         this.year = localDate.getYear();
         this.month = localDate.getMonth();
         this.dailyValues= dailyValues;
