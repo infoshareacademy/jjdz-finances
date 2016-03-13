@@ -30,14 +30,13 @@ public class App {
 
             // get fund name
             String menuName = menuInstance.getFundName(menuItem);
-            System.out.println("Fund name: " + menuName);
+
 
 
             //get fund filename
             String filename = menuInstance.getFundFileName(menuItem);
-            System.out.println("Filename choosed: " + filename);
+            System.out.println("Fund name: " + menuName + " (" + filename + ")");
             String fundCode = extractionPath + "/" + filename;
-            System.out.println("FundCode: " + fundCode);
 
             List<DailyValue> dailyValues;
 
