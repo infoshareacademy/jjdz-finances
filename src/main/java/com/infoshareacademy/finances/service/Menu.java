@@ -1,9 +1,12 @@
 package com.infoshareacademy.finances.service;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -17,6 +20,8 @@ public class Menu {
 
         String patternString = "(?<date>^\\S+)(\\s{2,})(?<time>\\S+)(\\s{2,})(?<size>\\S+{2,}).(?<unit>\\S+)(\\s{2,})(?<file>\\S+)(\\s{2,})(?<fund>.*$)";
         Pattern pattern = Pattern.compile(patternString);
+
+        System.out.println("Loading file: " + lstFile);
 
         InputStream fis = new FileInputStream(lstFile);
         InputStreamReader isr = new InputStreamReader(fis, "UTF-8");
@@ -49,7 +54,7 @@ public class Menu {
         int sizeFundList = fundsList.size();
 
         for (int i = 0; i < sizeFundList; i++) {
-            System.out.println(fundsList.get(i));
+            System.out.println(i + ": " + fundsList.get(i));
         }
 
         Scanner input = new Scanner(System.in);
@@ -66,6 +71,22 @@ public class Menu {
         return fundsFile.get(FundIndex);
     }
 
+    public LocalDate askForDate() throws ParseException {
+        int year, month;
+
+        Scanner input = new Scanner(System.in);
+        System.out.print("Enter year Fund to calculations (YYYY): ");
+        year = input.nextInt();
+        System.out.print("Enter month Fund to calculations (MM): ");
+        month = input.nextInt();
+
+        // DateFormat format = new SimpleDateFormat("YYYY-MM");
+        // LocalDate localDate = LocalDate.parse(answer, DateTimeFormatter.BASIC_ISO_DATE);
+
+        LocalDate localDate = LocalDate.now().withYear(year).withMonth(month);
+        return localDate;
+    }
+/*
 
     // ########################### MAIN #############################################
 
@@ -89,7 +110,7 @@ public class Menu {
 
 // ########################### END MAIN ##########################################
 
-
+*/
 }
 
 
