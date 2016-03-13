@@ -3,15 +3,16 @@ package com.infoshareacademy.finances;
 
 import com.infoshareacademy.finances.model.DailyValue;
 import com.infoshareacademy.finances.model.Fund;
-import com.infoshareacademy.finances.service.FundDataLoader;
-import com.infoshareacademy.finances.service.FundMonthViewer;
-import com.infoshareacademy.finances.service.Menu;
-import com.infoshareacademy.finances.service.Unziper;
+import com.infoshareacademy.finances.service.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public class App {
     public static void main(String[] args) throws Exception {
+        //todo remove parametry:
+        // /home/$user/workspace/jjdz-finances/Data/omegafun.zip  /home/$user/workspace/jjdz-finances/Data/omegafun.lst /tmp/Data
+
         System.out.println("Financial analyser 1.0");
         if ((args != null) && (args.length == 3)) {
 
@@ -50,6 +51,11 @@ public class App {
             FundMonthViewer fundMonthViewer = new FundMonthViewer(System.out);
             fundMonthViewer.showAvailableMonths(fund);
 
+            LocalDate localDate = menuInstance.askForDate();
+            MonthlyExtremeFinder monthlyExtremeFinder = new MonthlyExtremeFinder(localDate,fund.getDailyValues());
+
+            System.out.println("Max value was: " + monthlyExtremeFinder.findMaxDailyValues());
+            System.out.println("Min value was: " + monthlyExtremeFinder.findMinDailyValues());
 
 
         } else {
