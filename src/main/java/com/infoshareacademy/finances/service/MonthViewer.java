@@ -1,25 +1,25 @@
 package com.infoshareacademy.finances.service;
 
+import com.infoshareacademy.finances.model.Asset;
 import com.infoshareacademy.finances.model.AvailableMonthsAndYear;
 import com.infoshareacademy.finances.model.DailyValue;
-import com.infoshareacademy.finances.model.Fund;
 
 import java.io.PrintStream;
 import java.time.Month;
 import java.util.*;
 
-public class FundMonthViewer {
+public class MonthViewer {
 
     private final PrintStream out;
 
-    public FundMonthViewer(PrintStream out) {
+    public MonthViewer(PrintStream out) {
         this.out = out;
     }
 
-    public void showAvailableMonths(Fund fund) {
+    public void showAvailableMonths(Asset asset) {
         List<AvailableMonthsAndYear> availableMonthsAndYears;
 
-        availableMonthsAndYears = getListOfAvailableMonthsAndYears(fund);
+        availableMonthsAndYears = getListOfAvailableMonthsAndYears(asset);
 
         for (AvailableMonthsAndYear availableMonthsAndYear : availableMonthsAndYears) {
             out.print(availableMonthsAndYear.getYear() + "  ");
@@ -40,9 +40,9 @@ public class FundMonthViewer {
         }
     }
 
-    public ArrayList<AvailableMonthsAndYear> getListOfAvailableMonthsAndYears(Fund fund) {
+    public ArrayList<AvailableMonthsAndYear> getListOfAvailableMonthsAndYears(Asset asset) {
         AvailableMonthsAndYear availableMonthsAndYear;
-        List<DailyValue> dailyValues = fund.getDailyValues();
+        List<DailyValue> dailyValues = asset.getDailyValues();
         ArrayList<AvailableMonthsAndYear> availableMonthsAndYears = new ArrayList<AvailableMonthsAndYear>();
         int size = dailyValues.size();
         int i = 0;

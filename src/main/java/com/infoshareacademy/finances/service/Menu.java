@@ -58,7 +58,7 @@ public class Menu {
         }
 
         Scanner input = new Scanner(System.in);
-        System.out.print("Enter Fund to calculations (0-" + sizeFundList + "): ");
+        System.out.print("Enter Asset to calculations (0-" + sizeFundList + "): ");
         int fundNR = input.nextInt();
         return fundNR;
     }
@@ -75,9 +75,9 @@ public class Menu {
         int year, month;
 
         Scanner input = new Scanner(System.in);
-        System.out.print("Enter year Fund to calculations (YYYY): ");
+        System.out.print("Enter year Asset to calculations (YYYY): ");
         year = input.nextInt();
-        System.out.print("Enter month Fund to calculations (MM): ");
+        System.out.print("Enter month Asset to calculations (MM): ");
         month = input.nextInt();
 
         // DateFormat format = new SimpleDateFormat("YYYY-MM");
@@ -99,10 +99,10 @@ public class Menu {
         Integer FundsCount = menuInstance.loadFunds(lstFile);
 
         Integer menuItem = menuInstance.drawMenu();
-        System.out.println("Fund choosed: " + menuItem);
+        System.out.println("Asset choosed: " + menuItem);
 
         String menuName = menuInstance.getFundName(menuItem);
-        System.out.println("Fund name: " + menuName);
+        System.out.println("Asset name: " + menuName);
 
         String filename = menuInstance.getFundFileName(menuItem);
         System.out.println("Filename choosed: " + filename);

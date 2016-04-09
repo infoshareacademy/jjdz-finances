@@ -1,8 +1,8 @@
 package com.infoshareacademy.finances;
 
 
+import com.infoshareacademy.finances.model.Asset;
 import com.infoshareacademy.finances.model.DailyValue;
-import com.infoshareacademy.finances.model.Fund;
 import com.infoshareacademy.finances.service.*;
 
 import java.time.LocalDate;
@@ -26,16 +26,16 @@ public class App {
 
             // display Funds
             Integer menuItem = menuInstance.drawMenu();
-            System.out.println("Fund choosed: " + menuItem);
+            System.out.println("Asset choosed: " + menuItem);
 
-            // get fund name
+            // get asset name
             String menuName = menuInstance.getFundName(menuItem);
 
 
 
-            //get fund filename
+            //get asset filename
             String filename = menuInstance.getFundFileName(menuItem);
-            System.out.println("Fund name: " + menuName + " (" + filename + ")");
+            System.out.println("Asset name: " + menuName + " (" + filename + ")");
             String fundCode = extractionPath + "/" + filename;
 
             List<DailyValue> dailyValues;
@@ -43,19 +43,19 @@ public class App {
             Unziper unziper = new Unziper();
             unziper.UnzipToFolder(zipPath, extractionPath);
 
-            FundDataLoader loader = new FundDataLoader();
+            DataLoader loader = new DataLoader();
             dailyValues = loader.loadDataFromFile(fundCode);
 
-            Fund fund = new Fund(dailyValues, menuName, filename);
-            FundMonthViewer fundMonthViewer = new FundMonthViewer(System.out);
-            fundMonthViewer.showAvailableMonths(fund);
+            Asset asset = new Asset(dailyValues, menuName, filename);
+            MonthViewer monthViewer = new MonthViewer(System.out);
+            monthViewer.showAvailableMonths(asset);
 
             LocalDate localDate = menuInstance.askForDate();
-            MonthlyExtremeFinder monthlyExtremeFinder = new MonthlyExtremeFinder(localDate,fund.getDailyValues());
+            MonthlyExtremeFinder monthlyExtremeFinder = new MonthlyExtremeFinder(localDate, asset.getDailyValues());
 
-            FundYearDataViewer fundYearDataViewer = new FundYearDataViewer();
-            System.out.println("Yearly Max value: " + fundYearDataViewer.yearMaxValues(fund.getDailyValues(),localDate.getYear()));
-            System.out.println("Yearly Min value: " + fundYearDataViewer.yearMinValues(fund.getDailyValues(),localDate.getYear()));
+            YearDataViewer yearDataViewer = new YearDataViewer();
+            System.out.println("Yearly Max value: " + yearDataViewer.yearMaxValues(asset.getDailyValues(),localDate.getYear()));
+            System.out.println("Yearly Min value: " + yearDataViewer.yearMinValues(asset.getDailyValues(),localDate.getYear()));
 
             System.out.println("Monthly Max value: " + monthlyExtremeFinder.findMaxDailyValues());
             System.out.println("Monthly Min value: " + monthlyExtremeFinder.findMinDailyValues());

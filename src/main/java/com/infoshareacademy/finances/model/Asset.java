@@ -2,13 +2,13 @@ package com.infoshareacademy.finances.model;
 
 import java.util.List;
 
-public class Fund {
+public class Asset {
 
     private List<DailyValue> dailyValues;
     private String fundName;
     private String fundCode;
 
-    public Fund(List<DailyValue> dailyValues, String fundName, String fundCode) {
+    public Asset(List<DailyValue> dailyValues, String fundName, String fundCode) {
 
         this.dailyValues = dailyValues;
         this.fundName = fundName;

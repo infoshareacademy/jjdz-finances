@@ -11,7 +11,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
-public class FundDataLoader {
+public class DataLoader {
 
     public List<DailyValue> loadDataFromFile(String filePath) {
         Path path = Paths.get(filePath);

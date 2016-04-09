@@ -1,8 +1,9 @@
 package com.infoshareacademy.finances.service;
 
+import com.infoshareacademy.finances.model.Asset;
 import com.infoshareacademy.finances.model.AvailableMonthsAndYear;
 import com.infoshareacademy.finances.model.DailyValue;
-import com.infoshareacademy.finances.model.Fund;
+
 import static org.junit.Assert.*;
 
 import org.hamcrest.Matchers;
@@ -17,7 +18,7 @@ import java.util.List;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
-public class FundMonthViewerTest {
+public class MonthViewerTest {
 
     @Test
     public void testShowMonths() throws Exception {
@@ -32,12 +33,12 @@ public class FundMonthViewerTest {
         date = LocalDate.now().withMonth(3);
         closeValue = new BigDecimal(43.25);
         dailyValues.add(new DailyValue(date , closeValue));
-        Fund fund = new Fund(dailyValues, fundCode, fundCode);
+        Asset asset = new Asset(dailyValues, fundCode, fundCode);
         PrintStream printStream = mock(PrintStream.class);
-        FundMonthViewer fundMonthViewer = new FundMonthViewer(printStream) ;
+        MonthViewer monthViewer = new MonthViewer(printStream) ;
 
         // when
-        fundMonthViewer.showAvailableMonths(fund);
+        monthViewer.showAvailableMonths(asset);
 
         // then
         verify(printStream).print("3  ");
@@ -57,14 +58,14 @@ public class FundMonthViewerTest {
         date = LocalDate.now().withMonth(3);
         closeValue = new BigDecimal(43.25);
         dailyValues.add(new DailyValue(date , closeValue));
-        Fund fund = new Fund(dailyValues, fundCode, fundCode);
+        Asset asset = new Asset(dailyValues, fundCode, fundCode);
         PrintStream printStream = mock(PrintStream.class);
-        FundMonthViewer fundMonthViewer = new FundMonthViewer(printStream) ;
+        MonthViewer monthViewer = new MonthViewer(printStream) ;
         ArrayList<AvailableMonthsAndYear> availableMonthsAndYears;
         AvailableMonthsAndYear availableMonthsAndYear;
 
         // when
-        availableMonthsAndYears = fundMonthViewer.getListOfAvailableMonthsAndYears(fund);
+        availableMonthsAndYears = monthViewer.getListOfAvailableMonthsAndYears(asset);
         availableMonthsAndYear = availableMonthsAndYears.get(0);
 
         // then
