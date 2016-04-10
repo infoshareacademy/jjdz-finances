@@ -23,16 +23,19 @@ public class InMemoryPlanDao implements PlanDao {
 
     @Override
     public PlanViewDto read(int id) {
-        return null;
+        return plansById.get(id);
     }
 
     @Override
     public void update(int id, PlanCreationDto plan) {
-
+        PlanViewDto temp = plansById.get(id);
+        PlanViewDto outputPlan = new PlanViewDto(temp.getSellTime(), temp.getBuyTime(), plan.getAsset(), id);
+        plansById.put(id, outputPlan);
     }
 
     @Override
     public void delete(int id) {
+        plansById.remove(id);
 
     }
 

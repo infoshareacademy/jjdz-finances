@@ -7,7 +7,7 @@ public class PlanCreationDto {
     private final ZonedDateTime buyTime;
     private final Asset asset;
 
-    public PlanCreationDto(ZonedDateTime sellTime, ZonedDateTime buyTime, Asset asset, int id) {
+    public PlanCreationDto(ZonedDateTime sellTime, ZonedDateTime buyTime, Asset asset) {
         this.sellTime = sellTime;
         this.buyTime = buyTime;
         this.asset = asset;

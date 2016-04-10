@@ -30,4 +30,27 @@ public class PlanViewDto {
     public int getId() {
         return id;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        PlanViewDto that = (PlanViewDto) o;
+
+        if (getId() != that.getId()) return false;
+        if (!getSellTime().equals(that.getSellTime())) return false;
+        if (!getBuyTime().equals(that.getBuyTime())) return false;
+        return getAsset().equals(that.getAsset());
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = getSellTime().hashCode();
+        result = 31 * result + getBuyTime().hashCode();
+        result = 31 * result + getAsset().hashCode();
+        result = 31 * result + getId();
+        return result;
+    }
 }
