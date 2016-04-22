@@ -1,9 +1,6 @@
 package com.infoshareacademy.finances.web;
 
-import com.infoshareacademy.finances.jee.WelcomeFinances;
-
 import javax.ejb.EJB;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
