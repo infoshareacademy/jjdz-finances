@@ -1,8 +1,10 @@
 package com.infoshareacademy.finances.web;
 
-import com.infoshareacademy.finances.service.Google2Api;
-import org.scribe.builder.ServiceBuilder;
-import org.scribe.oauth.OAuthService;
+
+import com.github.scribejava.apis.GoogleApi20;
+import com.github.scribejava.core.builder.ServiceBuilder;
+import com.github.scribejava.core.oauth.OAuth20Service;
+import com.github.scribejava.core.oauth.OAuthService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -21,18 +23,19 @@ public class GooglePlusServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         ServiceBuilder builder = new ServiceBuilder();
-        OAuthService service = builder.provider(Google2Api.class)
+        OAuth20Service service = builder
                 .apiKey(CLIENT_ID)
                 .apiSecret(CLIENT_SECRET)
-                .callback("http://localhost:8080/FoundsAnalyzer-1.0-SNAPSHOT/welcome.jsp")
-                        .scope("openid profile email " +
-                                        "https://www.googleapis.com/auth/plus.login " +
-                                "https://www.googleapis.com/auth/plus.me")
-                .build(); //Now build the call
+                .callback("http://localhost:8080/AssetsAnalyzer-1.0-SNAPSHOT/oauth2callback")
+                .scope("openid profile email " +
+                        "https://www.googleapis.com/auth/plus.login " +
+                        "https://www.googleapis.com/auth/plus.me")
+                .build(GoogleApi20.instance()); //Now build the call
 
         HttpSession session = req.getSession();
         session.setAttribute("oauth2Service", service);
 
-        resp.sendRedirect(service.getAuthorizationUrl(null));
+
+        resp.sendRedirect(service.getAuthorizationUrl());
     }
 }
