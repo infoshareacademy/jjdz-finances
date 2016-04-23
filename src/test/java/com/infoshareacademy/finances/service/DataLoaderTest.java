@@ -18,6 +18,7 @@ public class DataLoaderTest {
         //given
         ClassLoader classLoader = getClass().getClassLoader();
         String fundFilePath = classLoader.getResource("AGI001.txt").getPath();
+        fundFilePath = fundFilePath.replaceFirst("^/(.:/)", "$1");
         DataLoader dataLoader = new DataLoader();
         LocalDate date = LocalDate.now().withYear(2009).withMonth(6).withDayOfMonth(25);
         BigDecimal value = new BigDecimal("1000.28");
@@ -36,6 +37,7 @@ public class DataLoaderTest {
         //given
         ClassLoader classLoader = getClass().getClassLoader();
         String currencyFilePath = classLoader.getResource("EUR.txt").getPath();
+        currencyFilePath = currencyFilePath.replaceFirst("^/(.:/)", "$1");
         DataLoader dataLoader = new DataLoader();
         LocalDate date = LocalDate.now().withYear(1999).withMonth(1).withDayOfMonth(4);
         BigDecimal value = new BigDecimal("4.0670");
