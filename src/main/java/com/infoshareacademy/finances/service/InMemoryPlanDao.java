@@ -15,8 +15,8 @@ public class InMemoryPlanDao implements PlanDao {
 
     @Override
     public int create(PlanCreationDto plan) {
-        PlanViewDto planViewDto = new PlanViewDto(plan.getSellTime(), plan.getBuyTime(), plan.getAsset(), nextId);
         nextId++;
+        PlanViewDto planViewDto = new PlanViewDto(plan.getSellTime(), plan.getBuyTime(), plan.getAsset(), nextId);
         plansById.put(nextId, planViewDto);
         return planViewDto.getId();
     }
