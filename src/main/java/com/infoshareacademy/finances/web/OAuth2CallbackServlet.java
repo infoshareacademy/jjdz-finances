@@ -10,6 +10,7 @@ import javax.json.Json;
 import javax.json.JsonObject;
 import javax.json.JsonReader;
 import javax.servlet.AsyncContext;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -39,6 +40,10 @@ public class OAuth2CallbackServlet extends HttpServlet {
         logger.debug("OK the user have consented so lets find out about the user");
         AsyncContext ctx = req.startAsync();
         ctx.start(new GetUserInfo(req, resp, ctx));
+        RequestDispatcher dispatcher = req.getRequestDispatcher("/");
+        dispatcher.forward(req, resp);
+
+
     }
 }
 
@@ -83,7 +88,7 @@ class GetUserInfo implements Runnable {
 
         session.setAttribute("name", profile.getString("name"));
         session.setAttribute("email", profile.getString("email"));
-        logger.debug("User information [name:{}, email:{}] acquired for thread: {} - end", threadId);
+        logger.debug("User information [name:{}, email:{}] acquired for thread: {} - end",session.getAttribute("name") , session.getAttribute("email"), threadId);
         asyncCtx.complete();
     }
 }
