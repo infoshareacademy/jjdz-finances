@@ -22,3 +22,5 @@ jboss/server/minimal/work/**/*
 
 *.iml
 Data/*
+/.project
+target/*
