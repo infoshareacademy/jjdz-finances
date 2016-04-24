@@ -29,7 +29,7 @@ public class InMemoryPlanDao implements PlanDao {
     @Override
     public void update(int id, PlanCreationDto plan) {
         PlanViewDto temp = plansById.get(id);
-        PlanViewDto outputPlan = new PlanViewDto(temp.getSellTime(), temp.getBuyTime(), plan.getAsset(), id);
+        PlanViewDto outputPlan = new PlanViewDto(plan.getSellTime(), plan.getBuyTime(), plan.getAsset(), id);
         plansById.put(id, outputPlan);
     }
 

@@ -4,14 +4,6 @@ import java.io.*;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
-/**
- * Do App.java wrzucić
- *
- *         Unziper unziper = new Unziper();
- *         unziper.UnzipToFolder(zipFileName, outputFolderName);
- *
- */
-
 public class Unziper {
 
     public void UnzipToFolder(String zipFilePath, String outputFolderPath) throws IOException {
@@ -24,7 +16,6 @@ public class Unziper {
         while(zipWorking != null) {
             String outputFileName = zipWorking.getName();
             File outputFileFinal = new File(outputFolderPath + File.separator + outputFileName);
-            // System.out.println("Unzipped file: " + outputFileName);
 
             FileOutputStream fileOutputStream = new FileOutputStream(outputFileFinal);
 

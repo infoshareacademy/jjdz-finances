@@ -70,19 +70,17 @@ public class InMemoryPlanDaoTest {
         //then
         assertEquals("Check read buy time", ZonedDateTime.of(2015, 4, 23, 0, 0, 0, 0, ZoneId.systemDefault()), read.getSellTime());
     }
-    @Ignore
+
     @Test
     public void testUpdate() throws Exception {
-    //given
-    int idTest = 2;
-    PlanCreationDto planCreationDtoTest = new PlanCreationDto(ZonedDateTime.of(2016, 4, 1, 0, 0, 0, 0, ZoneId.systemDefault()),
+        //given
+        int idTest = 2;
+        PlanCreationDto planCreationDtoTest = new PlanCreationDto(ZonedDateTime.of(2016, 4, 1, 0, 0, 0, 0, ZoneId.systemDefault()),
             ZonedDateTime.of(2016, 1, 1, 0, 0, 0, 0, ZoneId.systemDefault()), mock(Asset.class));
-    //when
-    sut.update(idTest, planCreationDtoTest);
-    //then
-    assertEquals(planCreationDtoTest.getBuyTime(), sut.read(idTest).getBuyTime());
-
-
+        //when
+        sut.update(idTest, planCreationDtoTest);
+        //then
+        assertEquals(planCreationDtoTest.getBuyTime(), sut.read(idTest).getBuyTime());
     }
 
     @Test
