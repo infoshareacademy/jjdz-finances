@@ -3,6 +3,8 @@ package com.infoshareacademy.finances.web;
 
 import com.github.scribejava.core.model.*;
 import com.github.scribejava.core.oauth.OAuth20Service;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.json.Json;
 import javax.json.JsonObject;
@@ -19,28 +21,30 @@ import java.io.IOException;
 
 @WebServlet(urlPatterns = "/oauth2callback", asyncSupported=true)
 public class OAuth2CallbackServlet extends HttpServlet {
+    private static Logger logger = LoggerFactory.getLogger(OAuth2CallbackServlet.class);
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws IOException, ServletException {
 
-        //Check if the user have rejected
+        logger.debug("Checking if user consented");
         String error = req.getParameter("error");
         if ((null != error) && ("access_denied".equals(error.trim()))) {
-            HttpSession sess = req.getSession();
-            sess.invalidate();
+            HttpSession session = req.getSession();
+            session.invalidate();
             resp.sendRedirect(req.getContextPath());
             return;
         }
 
-        //OK the user have consented so lets find out about the user
+        logger.debug("OK the user have consented so lets find out about the user");
         AsyncContext ctx = req.startAsync();
         ctx.start(new GetUserInfo(req, resp, ctx));
     }
-
-
 }
 
 class GetUserInfo implements Runnable {
+    private static Logger logger = LoggerFactory.getLogger(GetUserInfo.class);
+
     private HttpServletRequest req;
     private HttpServletResponse resp;
     private AsyncContext asyncCtx;
@@ -53,42 +57,33 @@ class GetUserInfo implements Runnable {
 
     @Override
     public void run() {
-        HttpSession sess = req.getSession();
-        OAuth20Service service = (OAuth20Service) sess.getAttribute("oauth2Service");
+        Long threadId = Thread.currentThread().getId();
+        logger.debug("Getting user information for thread: {} - start", threadId);
 
-        //Get the all important authorization code
+        HttpSession session = req.getSession();
+        OAuth20Service service = (OAuth20Service) session.getAttribute("oauth2Service");
+
+        logger.debug("Getting the authorization code for thread: {} ", threadId);
         String code = req.getParameter("code");
-        //Construct the access token
+        logger.debug("Constructing the access token for thread: {} ", threadId);
         OAuth2AccessToken token = service.getAccessToken(code);
-        //Save the token for the duration of the session
-        sess.setAttribute("token", token);
+        session.setAttribute("token", token);
 
-        //Perform a proxy login
-        try {
-            req.login("fred", "fredfred");
-        } catch (ServletException e) {
-            //Handle error - should not happen
-        }
-
-        //Now do something with it - get the user's G+ profile
+        logger.debug("Getting the user's G+ profile for thread: {} ", threadId);
         OAuthRequest oReq = new OAuthRequest(Verb.GET,
                 "https://www.googleapis.com/oauth2/v2/userinfo",
                 service);
         service.signRequest(token, oReq);
         Response oResp = oReq.send();
 
-        System.out.println("oResp = " + oResp.getBody());
-
-        //Read the result
+        logger.debug("Getting result and saving to session for thread: {} ", threadId);
         JsonReader reader = Json.createReader(new ByteArrayInputStream(
                 oResp.getBody().getBytes()));
         JsonObject profile = reader.readObject();
 
-        System.out.println("profile = " + profile);
-
-        //Save the user details somewhere or associate it with
-        sess.setAttribute("name", profile.getString("name"));
-        sess.setAttribute("email", profile.getString("email"));
+        session.setAttribute("name", profile.getString("name"));
+        session.setAttribute("email", profile.getString("email"));
+        logger.debug("User information [name:{}, email:{}] acquired for thread: {} - end", threadId);
         asyncCtx.complete();
     }
 }
