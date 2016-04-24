@@ -40,17 +40,17 @@ public class InMemoryPlanDaoTest {
     @Before
     public void initialize() {
         sut = new InMemoryPlanDao();
-        sut.create(new PlanCreationDto(ZonedDateTime.now(), ZonedDateTime.now().minusDays(6), mock(Asset.class)));
-        sut.create(new PlanCreationDto(ZonedDateTime.now().minusHours(8), ZonedDateTime.now().plusDays(4), mock(Asset.class)));
+        sut.create(new PlanCreationDto(ZonedDateTime.now(), ZonedDateTime.now().minusDays(6), mock(Asset.class), 20));
+        sut.create(new PlanCreationDto(ZonedDateTime.now().minusHours(8), ZonedDateTime.now().plusDays(4), mock(Asset.class), 30));
         sut.create(new PlanCreationDto(ZonedDateTime.of(2015, 4, 23, 0, 0, 0, 0, ZoneId.systemDefault()),
                 ZonedDateTime.of(2015, 5, 23, 0, 0, 0, 0, ZoneId.systemDefault()),
-                mock(Asset.class)));
+                mock(Asset.class), 23));
     }
 
     @Test
     public void testCreate() throws Exception {
         //given
-        PlanCreationDto creation = new PlanCreationDto(ZonedDateTime.now().plusMonths(5), ZonedDateTime.now().minusDays(6), mock(Asset.class));
+        PlanCreationDto creation = new PlanCreationDto(ZonedDateTime.now().plusMonths(5), ZonedDateTime.now().minusDays(6), mock(Asset.class), 3);
         int idTest = sut.create(creation);
         //when
         PlanViewDto read = sut.read(idTest);
@@ -76,7 +76,7 @@ public class InMemoryPlanDaoTest {
         //given
         int idTest = 2;
         PlanCreationDto planCreationDtoTest = new PlanCreationDto(ZonedDateTime.of(2016, 4, 1, 0, 0, 0, 0, ZoneId.systemDefault()),
-            ZonedDateTime.of(2016, 1, 1, 0, 0, 0, 0, ZoneId.systemDefault()), mock(Asset.class));
+            ZonedDateTime.of(2016, 1, 1, 0, 0, 0, 0, ZoneId.systemDefault()), mock(Asset.class), 3);
         //when
         sut.update(idTest, planCreationDtoTest);
         //then
