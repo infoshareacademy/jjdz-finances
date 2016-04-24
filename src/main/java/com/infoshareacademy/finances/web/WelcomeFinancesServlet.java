@@ -36,9 +36,7 @@ WelcomeFinances Funds;
             }
         } else {
             List<LstList> FundList = Funds.getAllFunds();
-       /*     for(int i=0;i<FundList.size();i++){
-                System.out.println(FundList.get(i));
-            }*/
+            System.out.println("Run main.jsp");
             forwardListFunds(req, resp, FundList);
         }
     }
@@ -54,21 +52,21 @@ WelcomeFinances Funds;
     private void fundSelected(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
 
-        req.setAttribute("action", "fundSelect");
+   /*     req.setAttribute("action", "fundSelect");
         req.setAttribute("fund", "AGI001");
         String nextJSP = "/jsp/funds.jsp";
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextJSP);
-        dispatcher.forward(req, resp);
+        dispatcher.forward(req, resp);*/
     }
 
     private void currencieSelected(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
 
-        req.setAttribute("action", "currencies");
+        /*req.setAttribute("action", "currencies");
         req.setAttribute("currencies", "EUR");
         String nextJSP = "/jsp/currencies.jsp";
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextJSP);
-        dispatcher.forward(req, resp);
+        dispatcher.forward(req, resp);*/
     }
 
 }
