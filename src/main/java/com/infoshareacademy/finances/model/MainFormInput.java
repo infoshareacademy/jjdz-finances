@@ -15,6 +15,17 @@ public class MainFormInput {
     private Year year;
     private String user;
 
+    public MainFormInput() {
+    }
+
+    public MainFormInput(AssetType type, String assetName, Month month, Year year, String user) {
+        this.type = type;
+        this.assetName = assetName;
+        this.month = month;
+        this.year = year;
+        this.user = user;
+    }
+
 
     public AssetType getType() {
         return type;
