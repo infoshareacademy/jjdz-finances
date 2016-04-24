@@ -3,11 +3,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.infoshareacademy.finances</groupId>
-    <artifactId>FoundsAnalyzer</artifactId>
+    <artifactId>AssetsAnalyzer</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
 
-    <name>FoundsAnalyzer</name>
+    <name>AssetsAnalyzer</name>
     <url>http://maven.apache.org</url>
 
     <properties>
