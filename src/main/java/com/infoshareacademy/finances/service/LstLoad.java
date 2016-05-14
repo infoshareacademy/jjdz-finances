@@ -31,7 +31,7 @@ public class LstLoad {
         Set<Map.Entry<Integer, Asset>> entrySet = mapAssetName.entrySet();
         for (Map.Entry<Integer, Asset> entry : entrySet){
             Asset asset = entry.getValue();
-            System.out.printf("%d :\t %s (%s) %n",entry.getKey(), asset.getFundName(), asset.getFundCode());
+            System.out.printf("%d :\t %s (%s) %n",entry.getKey(), asset.getName(), asset.getCode());
         }
 
         Scanner input = new Scanner(System.in);
@@ -43,14 +43,14 @@ public class LstLoad {
 
 
     public String getFundName(Integer fundIndex) {
-        String value = (String)mapAssetName.get(fundIndex).getFundName();
+        String value = (String)mapAssetName.get(fundIndex).getName();
 
         return value;
     }
 
 
     public String getFundFileName(Integer fundIndex) {
-        String value = mapAssetName.get(fundIndex).getFundCode() + ".txt";
+        String value = mapAssetName.get(fundIndex).getCode() + ".txt";
 
         return value;
     }
