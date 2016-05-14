@@ -1,5 +1,6 @@
 package com.infoshareacademy.finances.service;
 
+import com.infoshareacademy.finances.model.LstList;
 import org.apache.commons.io.IOUtils;
 
 import java.io.*;
@@ -14,6 +15,15 @@ import java.util.regex.Pattern;
 public class LstLoad {
     private List<String> fundsList = new ArrayList();
     private List<String> fundsFile = new ArrayList();
+
+
+    public List<String> getFundsList() {
+        return fundsList;
+    }
+
+    public List<String> getFundsFile() {
+        return fundsFile;
+    }
 
     public int loadFunds(String ResourceFile) throws IOException {
         int count = 1;
@@ -50,6 +60,7 @@ public class LstLoad {
         return count - 1;
     }
 
+
     private String getResourceFile(String fileName) {
 
         String result = "";
@@ -60,18 +71,19 @@ public class LstLoad {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         return result;
     }
 
-    public boolean DrawLst() {
+    public List<LstList> LstList() {
         int sizeFundList = fundsList.size();
+        List<LstList> FundLists = new ArrayList<LstList>();
 
         for (int i = 0; i < sizeFundList; i++) {
-    //        ar[0].add(fundsList.get(i));
-     //       ar[1].add(fundsFile.get(i));
+            LstList obj = new LstList(fundsList.get(i), fundsFile.get(i));
+            FundLists.add(obj);
         }
-        return true;
+        System.out.println("LstLoad: Loaded rows:" + FundLists.size());
+        return FundLists;
     }
 
     public String getFundName(Integer FundIndex) {
