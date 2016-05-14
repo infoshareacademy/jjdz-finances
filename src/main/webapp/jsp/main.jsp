@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <Title>TriTeam Finances -1 ;)</Title>
+    <Title>TriTeam Finances - Main</Title>
     <!-- Bootstrap -->
     <link href="../css/bootstrap.min.css" rel="stylesheet">
 
@@ -22,25 +22,14 @@
 <div class="container">
     <div class="container">
         <nav class="navbar navbar-default navbar-static-top">
-            <button type="button" class="btn btn-default navbar-btn">Home</button>
-            <button type="button" class="btn btn-default navbar-btn">Funds</button>
-            <button type="button" class="btn btn-default navbar-btn">Currencies</button>
-            <button type="button" class="btn btn-default navbar-right">Admin</button>
-            <button type="button" class="btn btn-default navbar-right">Login</button>
+            <a class="btn btn-default navbar-btn" href="/main">Home</a>
+            <a class="btn btn-default navbar-btn" href="/main?action=forwardFundsMain">Funds</a>
+            <a class="btn btn-default navbar-btn" href="/main?action=currenciesSelected">Currencies</a>
+            <a class="btn btn-default navbar-right" href="/main?action=adminSelected">Admin</a>
+            <a  class="btn btn-default navbar-right" href="/main?action=loginSelected">Login</a>
         </nav>
     </div>
-    <div class="container">
-        <form action="/" method="get" id="seachFundsForm" role="form">
-            <select class="form-control">
-                <c:forEach var="LstList" items="${fundList}">
-                    <option value=${LstList.fundFile}>${LstList.fundName}</option>
-                </c:forEach>
-            </select>
-            <button type="Go!" class="btn btn-info">
-                <span class="glyphicon glyphicon-search"></span> Search
-            </button>
-        </form>
-    </div>
+    Main ...
 </div>
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
