@@ -9,7 +9,7 @@ public class UserInfoEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private String id;
+    private Long id;
     @Embedded
     private UserInfo userInfo;
 
@@ -24,11 +24,11 @@ public class UserInfoEntity {
         this.date = builder.date;
     }
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

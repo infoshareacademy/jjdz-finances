@@ -31,4 +31,12 @@ public class UserInfo {
     public void setMail(String mail) {
         this.mail = mail;
     }
+
+    @Override
+    public String toString() {
+        return "UserInfo{" +
+                "name='" + name + '\'' +
+                ", mail='" + mail + '\'' +
+                '}';
+    }
 }

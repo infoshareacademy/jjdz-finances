@@ -1,6 +1,9 @@
 package com.infoshareacademy.finances.web;
 
+import com.infoshareacademy.finances.service.users.UserSessionData;
+
 import javax.ejb.EJB;
+import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -15,9 +18,14 @@ public class WelcomeFinancesServlet extends HttpServlet {
     @EJB
     WelcomeFinances main;
 
+    @Inject
+    UserSessionData sessionData;
+
     @Override
     protected void doGet(HttpServletRequest req,
                          HttpServletResponse resp) throws ServletException, IOException {
+
+        System.out.println("sessionData.userInfo = " + sessionData.getUserInfo());
 
 //
 //        RequestDispatcher dispatcher = req.getRequestDispatcher("index.jsp");
