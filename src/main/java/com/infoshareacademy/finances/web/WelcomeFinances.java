@@ -13,6 +13,8 @@ public class WelcomeFinances {
     // Load Funds from resources lst funds
     LstLoad menuInstance = new LstLoad();
 
+
+
     @PostConstruct
     public void setup() {
 
