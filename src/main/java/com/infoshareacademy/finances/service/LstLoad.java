@@ -1,102 +1,75 @@
 package com.infoshareacademy.finances.service;
 
-import org.apache.commons.io.IOUtils;
+import com.infoshareacademy.finances.model.Asset;
+import com.infoshareacademy.finances.model.AssetsName;
 
-import java.io.*;
 import java.text.ParseException;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.*;
+
 
 public class LstLoad {
-    private List<String> fundsList = new ArrayList();
-    private List<String> fundsFile = new ArrayList();
 
-    public int loadFunds(String ResourceFile) throws IOException {
-        int count = 1;
-        String line = "";
+    private final Map<Integer, Asset> mapAssetName;
+    private AssetsName assetsName;
+    private int size;
 
-        String patternString = "(?<date>^\\S+)(\\s{2,})(?<time>\\S+)(\\s{2,})(?<size>\\S+{2,}).(?<unit>\\S+)(\\s{2,})(?<file>\\S+)(\\s{2,})(?<fund>.*$)";
-        Pattern pattern = Pattern.compile(patternString);
-
-        System.out.println("Loading: " + ResourceFile);
-
-        LstLoad obj = new LstLoad();
-        String StringBlock = (obj.getResourceFile("/omegafun.lst"));
-
-        try (BufferedReader reader = new BufferedReader(new StringReader(StringBlock))) {
-            for (int skip = 0; skip < 3; skip++) {
-                line = reader.readLine();
-            }
-
-            line = reader.readLine();
-            while (line != null) {
-                Matcher matcher = pattern.matcher(line);
-                while (matcher.find()) {
-                    String file = matcher.group("file");
-                    String fund = matcher.group("fund");
-                    fundsList.add(fund);
-                    fundsFile.add(file);
-                    count++;
-                }
-                line = reader.readLine();
-            }
-        } catch (IOException exc) {
-            // quit
-        }
-        return count - 1;
+    public LstLoad(String lstFile) {
+        AssetsName assetsName = new AssetsName();
+        this.mapAssetName = assetsName.getAssetsName(lstFile);
+        this.size = mapAssetName.size();
     }
 
-    private String getResourceFile(String fileName) {
+    public int loadFunds() {
+        return size;
+    }
 
-        String result = "";
 
-        ClassLoader classLoader = getClass().getClassLoader();
-        try {
-            result = IOUtils.toString(classLoader.getResourceAsStream(fileName));
-        } catch (IOException e) {
-            e.printStackTrace();
+    public int drawMenu() {
+        System.out.println("List of assets: ");
+
+        Set<Map.Entry<Integer, Asset>> entrySet = mapAssetName.entrySet();
+        for (Map.Entry<Integer, Asset> entry : entrySet){
+            Asset asset = entry.getValue();
+            System.out.printf("%d :\t %s (%s) %n",entry.getKey(), asset.getFundName(), asset.getFundCode());
         }
 
-        return result;
+        Scanner input = new Scanner(System.in);
+        System.out.printf("Enter number of the Asset (1-%d): ", size);
+        int assetNumber = input.nextInt();
+
+        return assetNumber;
     }
 
-    public boolean DrawLst() {
-        int sizeFundList = fundsList.size();
 
-        for (int i = 0; i < sizeFundList; i++) {
-    //        ar[0].add(fundsList.get(i));
-     //       ar[1].add(fundsFile.get(i));
-        }
-        return true;
+    public String getFundName(Integer fundIndex) {
+        String value = (String)mapAssetName.get(fundIndex).getFundName();
+
+        return value;
     }
 
-    public String getFundName(Integer FundIndex) {
-        return fundsList.get(FundIndex);
+
+    public String getFundFileName(Integer fundIndex) {
+        String value = mapAssetName.get(fundIndex).getFundCode() + ".txt";
+
+        return value;
     }
 
-    public String getFundFileName(Integer FundIndex) {
-        return fundsFile.get(FundIndex);
-    }
 
     public LocalDate askForDate() throws ParseException {
         int year, month;
 
         Scanner input = new Scanner(System.in);
-        System.out.print("Enter year Asset to calculations (YYYY): ");
+
+        System.out.println("Enter year (YYYY) to calculation: ");
         year = input.nextInt();
-        System.out.print("Enter month Asset to calculations (MM): ");
+
+        System.out.println("Enter month (MM) to calculation: ");
         month = input.nextInt();
 
-        // DateFormat format = new SimpleDateFormat("YYYY-MM");
-        // LocalDate localDate = LocalDate.parse(answer, DateTimeFormatter.BASIC_ISO_DATE);
-
         LocalDate localDate = LocalDate.now().withYear(year).withMonth(month);
+
         return localDate;
     }
-
 
 }

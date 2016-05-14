@@ -2,6 +2,7 @@ package com.infoshareacademy.finances;
 
 
 import com.infoshareacademy.finances.model.Asset;
+import com.infoshareacademy.finances.model.AssetsName;
 import com.infoshareacademy.finances.model.DailyValue;
 import com.infoshareacademy.finances.service.*;
 
@@ -19,23 +20,24 @@ public class App {
             String zipPath = args[0];
             String extractionPath = args[2];
 
-            Menu menuInstance = new Menu();
+            LstLoad menuInstance = new LstLoad(args[1]);
 
             // Load Funds from lst
-            Integer FundsCount = menuInstance.loadFunds(args[1]);
+            Integer FundsCount = menuInstance.loadFunds();
 
             // display Funds
             Integer menuItem = menuInstance.drawMenu();
-            System.out.println("Asset choosed: " + menuItem);
+            System.out.printf("Choosed asset: %d %n", menuItem);
 
             // get asset name
             String menuName = menuInstance.getFundName(menuItem);
 
-
-
             //get asset filename
             String filename = menuInstance.getFundFileName(menuItem);
             System.out.println("Asset name: " + menuName + " (" + filename + ")");
+
+
+
             String fundCode = extractionPath + "/" + filename;
 
             List<DailyValue> dailyValues;
@@ -61,6 +63,8 @@ public class App {
             System.out.println("Monthly Min value: " + monthlyExtremeFinder.findMinDailyValues());
 
             System.out.println("Done.");
+
+
 
         } else {
             System.out.println("Enter arguments:");
