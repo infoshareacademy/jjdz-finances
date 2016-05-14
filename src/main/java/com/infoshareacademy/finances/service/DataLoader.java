@@ -13,17 +13,20 @@ import java.util.*;
 
 public class DataLoader {
 
+    public static final int COLUMN_POSITION_OF_DATE = 1;
+    public static final int COLUMN_POSITION_OF_CLOSE_VALUE = 4;
+
     public List<DailyValue> loadDataFromFile(String filePath) {
         Path path = Paths.get(filePath);
-        List<DailyValue> dailyValues = new ArrayList<DailyValue>();
+        List<DailyValue> dailyValues = new ArrayList<>();
         try {
             List<String> lines = Files.readAllLines(path);
             int size = lines.size();
             for (int i = 1; i < size; i++) {
                 String[] fields = lines.get(i).split(",");
 
-                LocalDate date = LocalDate.parse(fields[1], DateTimeFormatter.BASIC_ISO_DATE);
-                BigDecimal closeValue = new BigDecimal(fields[4]);
+                LocalDate date = getLocalDate(fields[COLUMN_POSITION_OF_DATE]);
+                BigDecimal closeValue = new BigDecimal(fields[COLUMN_POSITION_OF_CLOSE_VALUE]);
                 DailyValue dailyValue = new DailyValue(date, closeValue);
                 dailyValues.add(dailyValue);
             }
@@ -35,6 +38,9 @@ public class DataLoader {
         return dailyValues;
     }
 
+    private LocalDate getLocalDate(String field) {
+        return LocalDate.parse(field, DateTimeFormatter.BASIC_ISO_DATE);
+    }
 
 
 }
