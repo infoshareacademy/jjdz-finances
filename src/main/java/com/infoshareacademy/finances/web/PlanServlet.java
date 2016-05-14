@@ -3,6 +3,7 @@ package com.infoshareacademy.finances.web;
 import com.infoshareacademy.finances.service.PlanDaoBean;
 
 import javax.ejb.EJB;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -17,13 +18,56 @@ public class PlanServlet extends HttpServlet {
     PlanDaoBean planDaoBean;
 
     @EJB
-    WelcomeFinances assets;
+    mainFinances assets;
+
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String action = request.getParameter("action");
+
+        if (action != null) {
+            switch (action) {
+                case "fundsSelected":
+                    fundsSelected(request, response);
+                    break;
+                case "currenciesSelected":
+                    currenciesSelected(request, response);
+                    break;
+            }
+        } else {
+            refresh(request, response);
+        }
+    }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
     }
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+    private void refresh(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("plan.jsp");
+        dispatcher.forward(request, response);
+    }
+
+
+
+    private void fundsSelected(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
+
+//        req.setAttribute("action", "fundsSelected");
+//        req.setAttribute("fund", "AGI001");
+//        String nextJSP = "/jsp/funds.jsp";
+//        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextJSP);
+//        dispatcher.forward(req, resp);
+    }
+
+    private void currenciesSelected(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
+
+//        req.setAttribute("action", "currenciesSelected");
+//        req.setAttribute("currencies", "EUR");
+//        String nextJSP = "/jsp/currencies.jsp";
+//        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextJSP);
+//        dispatcher.forward(req, resp);
     }
 }
