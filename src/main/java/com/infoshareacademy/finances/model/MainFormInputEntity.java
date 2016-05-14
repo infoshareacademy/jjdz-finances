@@ -7,7 +7,8 @@ import java.util.Date;
 @Entity
 public class MainFormInputEntity {
 
-    @Id @GeneratedValue(strategy = GenerationType.AUTO)
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     private MainFormInput mainFormInput;
@@ -23,32 +24,32 @@ public class MainFormInputEntity {
         this.date = builder.date;
     }
 
-    public static Builder fromMainFormInput(MainFormInput mainFormInput){
+    public static Builder fromMainFormInput(MainFormInput mainFormInput) {
         return new Builder().withMainFormInput(mainFormInput);
     }
 
-    public static class Builder{
+    public static class Builder {
         private MainFormInput mainFormInput;
         private Date date;
 
-        public Builder withMainFormInput(MainFormInput mainFormInput){
+        public Builder withMainFormInput(MainFormInput mainFormInput) {
             this.mainFormInput = mainFormInput;
             return this;
         }
 
-        public Builder withCurrentDate(){
+        public Builder withCurrentDate() {
             this.date = Calendar.getInstance().getTime();
             return this;
         }
 
-        public Builder withDate(Date date){
+        public Builder withDate(Date date) {
             this.date = date;
             return this;
         }
 
-       public MainFormInputEntity build(){
-           return new MainFormInputEntity(this);
-       }
+        public MainFormInputEntity build() {
+            return new MainFormInputEntity(this);
+        }
 
     }
 }
