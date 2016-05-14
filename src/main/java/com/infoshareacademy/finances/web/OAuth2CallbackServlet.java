@@ -3,9 +3,12 @@ package com.infoshareacademy.finances.web;
 
 import com.github.scribejava.core.model.*;
 import com.github.scribejava.core.oauth.OAuth20Service;
+import com.infoshareacademy.finances.model.UserInfo;
+import com.infoshareacademy.finances.service.UserInfoService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.ejb.EJB;
 import javax.json.Json;
 import javax.json.JsonObject;
 import javax.json.JsonReader;
@@ -23,6 +26,9 @@ import java.io.IOException;
 @WebServlet(urlPatterns = "/oauth2callback", asyncSupported=true)
 public class OAuth2CallbackServlet extends HttpServlet {
     private static Logger logger = LoggerFactory.getLogger(OAuth2CallbackServlet.class);
+
+    @EJB
+    UserInfoService service;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
@@ -42,7 +48,6 @@ public class OAuth2CallbackServlet extends HttpServlet {
         ctx.start(new GetUserInfo(req, resp, ctx));
         RequestDispatcher dispatcher = req.getRequestDispatcher("/");
         dispatcher.forward(req, resp);
-
 
     }
 }
