@@ -2,9 +2,7 @@ package com.infoshareacademy.finances.service;
 
 import com.infoshareacademy.finances.model.PlanCreationDto;
 import com.infoshareacademy.finances.model.PlanViewDto;
-import com.sun.javafx.collections.MappingChange;
 
-import java.time.ZonedDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -15,8 +13,8 @@ public class InMemoryPlanDao implements PlanDao {
 
     @Override
     public int create(PlanCreationDto plan) {
-        PlanViewDto planViewDto = new PlanViewDto(plan.getSellTime(), plan.getBuyTime(), plan.getAsset(), nextId);
         nextId++;
+        PlanViewDto planViewDto = new PlanViewDto(plan.getSellTime(), plan.getBuyTime(), plan.getAsset(), plan.getQuantity(), nextId);
         plansById.put(nextId, planViewDto);
         return planViewDto.getId();
     }
@@ -28,8 +26,7 @@ public class InMemoryPlanDao implements PlanDao {
 
     @Override
     public void update(int id, PlanCreationDto plan) {
-        PlanViewDto temp = plansById.get(id);
-        PlanViewDto outputPlan = new PlanViewDto(temp.getSellTime(), temp.getBuyTime(), plan.getAsset(), id);
+        PlanViewDto outputPlan = new PlanViewDto(plan.getSellTime(), plan.getBuyTime(), plan.getAsset(), plan.getQuantity(), id);
         plansById.put(id, outputPlan);
     }
 

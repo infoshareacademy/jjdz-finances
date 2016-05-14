@@ -10,7 +10,7 @@
     <meta name="author" content="twittstrap.com">
 
     <!-- Le styles -->
-    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="resources/css/bootstrap.min.css" rel="stylesheet">
     <style type="text/css">
         body {
             padding-top: 60px;
