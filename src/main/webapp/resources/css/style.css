@@ -1,0 +1,8 @@
+.imgClass {
+    width: 320px;
+    height: 108px;
+    background: url(../img/signin_button.png) no-repeat;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}

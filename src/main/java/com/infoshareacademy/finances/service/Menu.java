@@ -101,7 +101,7 @@ public class Menu {
         Integer menuItem = menuInstance.drawMenu();
         System.out.println("Asset choosed: " + menuItem);
 
-        String menuName = menuInstance.getFundName(menuItem);
+        String menuName = menuInstance.getName(menuItem);
         System.out.println("Asset name: " + menuName);
 
         String filename = menuInstance.getFundFileName(menuItem);
