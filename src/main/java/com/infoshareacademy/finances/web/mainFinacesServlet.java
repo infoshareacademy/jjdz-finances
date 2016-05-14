@@ -13,10 +13,10 @@ import java.util.*;
 
 
 @WebServlet(urlPatterns = "/main")
-public class WelcomeFinancesServlet extends HttpServlet {
+public class mainFinacesServlet extends HttpServlet {
 
 @EJB
-WelcomeFinances Funds;
+mainFinances Funds;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

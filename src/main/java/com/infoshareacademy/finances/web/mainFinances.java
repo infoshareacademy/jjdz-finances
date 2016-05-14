@@ -15,10 +15,10 @@ import java.util.List;
 @Singleton
 @Startup
 @Lock(LockType.READ)
-public class WelcomeFinances {
+public class mainFinances {
     @Override
     public String toString() {
-        return "WelcomeFinances{" +
+        return "mainFinances{" +
                 "allFunds=" + allFunds +
                 '}';
     }

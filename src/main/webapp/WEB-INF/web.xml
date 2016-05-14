@@ -8,7 +8,7 @@
 
     <servlet>
         <servlet-name>default</servlet-name>
-        <servlet-class>com.infoshareacademy.finances.web.WelcomeFinancesServlet</servlet-class>
+        <servlet-class>com.infoshareacademy.finances.web.mainFinacesServlet</servlet-class>
         <init-param>
             <param-name>resolve-against-context-root</param-name>
             <param-value>true</param-value>
