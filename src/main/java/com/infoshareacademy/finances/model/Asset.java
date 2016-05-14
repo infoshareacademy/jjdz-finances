@@ -1,5 +1,7 @@
 package com.infoshareacademy.finances.model;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.util.List;
 
 public class Asset {
@@ -7,6 +9,7 @@ public class Asset {
     private List<DailyValue> dailyValues;
     private String name;
     private String code;
+
 
     public Asset(List<DailyValue> dailyValues, String name, String code) {
 

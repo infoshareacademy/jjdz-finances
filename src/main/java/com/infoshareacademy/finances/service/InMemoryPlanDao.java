@@ -3,8 +3,10 @@ package com.infoshareacademy.finances.service;
 import com.infoshareacademy.finances.model.PlanCreationDto;
 import com.infoshareacademy.finances.model.PlanViewDto;
 
+import javax.ejb.Stateless;
 import java.util.HashMap;
 import java.util.Map;
+
 
 public class InMemoryPlanDao implements PlanDao {
 
