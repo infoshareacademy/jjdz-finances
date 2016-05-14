@@ -67,7 +67,7 @@ public class MainFormInput {
         this.month = month;
     }
 
-    enum AssetType{
+    enum AssetType {
         CURRENCY, FUND
     }
 }

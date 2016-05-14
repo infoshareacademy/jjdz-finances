@@ -6,12 +6,14 @@ public class PlanViewDto {
     private final ZonedDateTime sellTime;
     private final ZonedDateTime buyTime;
     private final Asset asset;
+    private final int quantity;
     private final int id;
 
-    public PlanViewDto(ZonedDateTime sellTime, ZonedDateTime buyTime, Asset asset, int id) {
+    public PlanViewDto(ZonedDateTime sellTime, ZonedDateTime buyTime, Asset asset, int quantity, int id) {
         this.sellTime = sellTime;
         this.buyTime = buyTime;
         this.asset = asset;
+        this.quantity = quantity;
         this.id = id;
     }
 
@@ -29,5 +31,34 @@ public class PlanViewDto {
 
     public int getId() {
         return id;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        PlanViewDto that = (PlanViewDto) o;
+
+        if (getQuantity() != that.getQuantity()) return false;
+        if (getId() != that.getId()) return false;
+        if (!getSellTime().equals(that.getSellTime())) return false;
+        if (!getBuyTime().equals(that.getBuyTime())) return false;
+        return getAsset().equals(that.getAsset());
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = getSellTime().hashCode();
+        result = 31 * result + getBuyTime().hashCode();
+        result = 31 * result + getAsset().hashCode();
+        result = 31 * result + getQuantity();
+        result = 31 * result + getId();
+        return result;
     }
 }

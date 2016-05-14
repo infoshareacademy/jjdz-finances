@@ -5,14 +5,14 @@ import java.util.List;
 public class Asset {
 
     private List<DailyValue> dailyValues;
-    private String fundName;
-    private String fundCode;
+    private String name;
+    private String code;
 
-    public Asset(List<DailyValue> dailyValues, String fundName, String fundCode) {
+    public Asset(List<DailyValue> dailyValues, String name, String code) {
 
         this.dailyValues = dailyValues;
-        this.fundName = fundName;
-        this.fundCode = fundCode;
+        this.name = name;
+        this.code = code;
     }
 
     public List<DailyValue> getDailyValues() {
@@ -23,24 +23,24 @@ public class Asset {
         this.dailyValues = dailyValues;
     }
 
-    public String getFundName() {
-        return fundName;
+    public String getName() {
+        return name;
     }
 
-    public void setFundName(String fundName) {
-        this.fundName = fundName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getFundCode() {
-        return fundCode;
+    public String getCode() {
+        return code;
     }
 
-    public void setFundCode(String fundCode) {
-        this.fundCode = fundCode;
+    public void setCode(String code) {
+        this.code = code;
     }
 
     @Override
     public String toString() {
-        return dailyValues + " - " + fundName + " - " + fundCode;
+        return dailyValues + " - " + name + " - " + code;
     }
 }
