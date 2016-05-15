@@ -15,7 +15,7 @@ public class App {
         // /home/$user/workspace/jjdz-finances/Data/omegafun.zip  /home/$user/workspace/jjdz-finances/Data/omegafun.lst /tmp/Data
 
         System.out.println("Financial analyser 1.0");
-        if ((args != null) && (args.length == 3)) {
+/*        if ((args != null) && (args.length == 3)) {
 
             String zipPath = args[0];
             String extractionPath = args[2];
@@ -72,6 +72,6 @@ public class App {
             System.out.println("example: path_to/omefafun.zip path_to/omegafun.lst /tmp/Data");
             System.exit(0);
         }
-
+*/
     }
 }
