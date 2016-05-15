@@ -11,7 +11,7 @@ import java.io.*;
 @Stateless
 public class WelcomeFinances {
     // Load Funds from resources lst funds
-    LstLoad menuInstance = new LstLoad();
+    LstLoad menuInstance = new LstLoad("/omegafun.lst");
 
     @PostConstruct
     public void setup() {
@@ -19,11 +19,9 @@ public class WelcomeFinances {
         System.out.println("setup: Loading data ...");
 
         int FundsCount = 0;
-        try {
-            FundsCount = menuInstance.loadFunds("/omegafun.lst");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
+            FundsCount = menuInstance.loadFunds();
+
         System.out.printf("Funds loaded: %s%n", FundsCount);
 
     }
