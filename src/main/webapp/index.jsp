@@ -2,6 +2,8 @@
 <html>
 <body>
 <h2>Init TriFinances ...</h2>
-<!-- <jsp:forward page="/FoundsAnalyzer-1.0-SNAPSHOT" /> -->
+${userinfo.name} (${userinfo.mail})
+<%--<!-- <jsp:forward page="/FoundsAnalyzer-1.0-SNAPSHOT" /> -->--%>
 </body>
 </html>
+

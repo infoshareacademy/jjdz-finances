@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-@WebServlet(urlPatterns = "/")
+//@WebServlet(urlPatterns = "/")
 public class WelcomeFinancesServlet extends HttpServlet {
 
     @EJB
