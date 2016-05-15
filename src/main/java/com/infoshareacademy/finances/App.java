@@ -41,7 +41,7 @@ public class App {
             dailyValues = loader.loadDataFromFile(fundCode);
 
             Asset asset = new Asset(dailyValues, menuName, filename);
-            MonthViewer monthViewer = new MonthViewer(System.out);
+            AvailableMonthsRetriever monthViewer = new AvailableMonthsRetriever(System.out);
             monthViewer.showAvailableMonths(asset);
 
             LocalDate localDate = menuInstance.askForDate();

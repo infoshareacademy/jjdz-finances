@@ -14,6 +14,9 @@ public class AssetEntity {
     @Embedded
     private Asset asset;
 
+//    @Embedded
+//    private List<DailyValue> DailyValues;
+
     public AssetEntity() {
     }
 

@@ -4,6 +4,8 @@ import com.infoshareacademy.finances.model.DailyValue;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -17,9 +19,14 @@ public class DataLoader {
     public static final int COLUMN_POSITION_OF_CLOSE_VALUE = 4;
 
     public List<DailyValue> loadDataFromFile(String filePath) {
-        Path path = Paths.get(filePath);
+
+        if (!filePath.contains("/")) filePath = "/" + filePath;
+
         List<DailyValue> dailyValues = new ArrayList<>();
         try {
+            URL u = getClass().getResource(filePath);
+            Path path = Paths.get(u.toURI());
+
             List<String> lines = Files.readAllLines(path);
             int size = lines.size();
             for (int i = 1; i < size; i++) {
@@ -31,6 +38,8 @@ public class DataLoader {
                 dailyValues.add(dailyValue);
             }
         } catch (IOException e) {
+            e.printStackTrace();
+        } catch (URISyntaxException e) {
             e.printStackTrace();
         }
 

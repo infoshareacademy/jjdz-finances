@@ -5,11 +5,9 @@ import javax.ejb.*;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import com.infoshareacademy.finances.model.Asset;
-import com.infoshareacademy.finances.model.CurrencyAssests;
-import com.infoshareacademy.finances.model.FundsAssets;
-import com.infoshareacademy.finances.model.LstList;
+import com.infoshareacademy.finances.model.*;
 import com.infoshareacademy.finances.service.AssetsLoader;
+import com.infoshareacademy.finances.service.DataLoader;
 import com.infoshareacademy.finances.service.LstLoad;
 
 import java.io.*;
@@ -21,7 +19,7 @@ import java.util.List;
 @Singleton
 @Startup
 @Lock(LockType.READ)
-public class mainFinances {
+public class CacheAll {
 /*    public List<LstList> getAllFunds() {
         return em.createQuery().getResultList();
     }*/
@@ -34,8 +32,10 @@ public class mainFinances {
 
         AssetsLoader assetsLoader = new AssetsLoader();
         List<Asset> funds = assetsLoader.readAssetsFromFile("/omegafun.lst");
+        DataLoader dataLoader = new DataLoader();
         funds.forEach((f) -> {
             FundsAssets assets = new FundsAssets(f);
+            List<DailyValue> dailyValues = dataLoader.loadDataFromFile(f.getCode());
             //pobrac daily values
             //assets.setDV(dv)
             em.persist(assets);
@@ -48,5 +48,7 @@ public class mainFinances {
 
     }
 
-
+    public List<LstList> returnAllFunds() {
+        return null;
+    }
 }

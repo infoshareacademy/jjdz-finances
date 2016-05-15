@@ -16,16 +16,13 @@ public class DataLoaderTest {
     @Test
     public void testLoadFundFromFile() throws Exception {
         //given
-        ClassLoader classLoader = getClass().getClassLoader();
-        String fundFilePath = classLoader.getResource("AGI001.txt").getPath();
-        fundFilePath = fundFilePath.replaceFirst("^/(.:/)", "$1");
-        DataLoader dataLoader = new DataLoader();
+        String fileName = "AGI001.txt";
         LocalDate date = LocalDate.now().withYear(2009).withMonth(6).withDayOfMonth(25);
         BigDecimal value = new BigDecimal("1000.28");
         DailyValue expected = new DailyValue(date,value);
         
         //when
-        List<DailyValue> dailyValues = dataLoader.loadDataFromFile(fundFilePath);
+        List<DailyValue> dailyValues = new DataLoader().loadDataFromFile(fileName);
 
         //then
         assertThat(dailyValues.get(1).getDate(), Matchers.equalTo(expected.getDate()));
@@ -35,16 +32,13 @@ public class DataLoaderTest {
     @Test
     public void testLoadCurrencyFromFile() throws Exception {
         //given
-        ClassLoader classLoader = getClass().getClassLoader();
-        String currencyFilePath = classLoader.getResource("EUR.txt").getPath();
-        currencyFilePath = currencyFilePath.replaceFirst("^/(.:/)", "$1");
-        DataLoader dataLoader = new DataLoader();
+        String fileName = "EUR.txt";
         LocalDate date = LocalDate.now().withYear(1999).withMonth(1).withDayOfMonth(4);
         BigDecimal value = new BigDecimal("4.0670");
         DailyValue expected = new DailyValue(date,value);
 
         //when
-        List<DailyValue> dailyValues = dataLoader.loadDataFromFile(currencyFilePath);
+        List<DailyValue> dailyValues = new DataLoader().loadDataFromFile(fileName);
 
         //then
         assertThat(expected.getDate() , Matchers.equalTo(dailyValues.get(1).getDate()));

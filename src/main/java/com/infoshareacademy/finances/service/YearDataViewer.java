@@ -8,11 +8,10 @@ import java.util.*;
 
 public class YearDataViewer {
 
-    public Set<Integer> showYears(Asset asset) {
-        List<DailyValue> dailyData = asset.getDailyValues();
+    public Set<Integer> showYears(List<DailyValue> dailyValues) {
         Set<Integer> years = new HashSet<Integer>();
 
-        for (DailyValue x: dailyData) {
+        for (DailyValue x: dailyValues) {
             Integer y = x.getDate().getYear();
             if (!years.contains(y)) years.add(y);
         }
