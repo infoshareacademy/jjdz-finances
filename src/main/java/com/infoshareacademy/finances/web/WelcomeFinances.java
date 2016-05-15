@@ -13,6 +13,8 @@ public class WelcomeFinances {
     // Load Funds from resources lst funds
     LstLoad menuInstance = new LstLoad("/omegafun.lst");
 
+
+
     @PostConstruct
     public void setup() {
 
