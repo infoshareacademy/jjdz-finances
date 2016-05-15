@@ -1,6 +1,7 @@
 package com.infoshareacademy.finances.web;
 
 import com.infoshareacademy.finances.model.LstList;
+
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -15,31 +16,61 @@ import java.util.*;
 @WebServlet(urlPatterns = "/main")
 public class mainFinacesServlet extends HttpServlet {
 
-@EJB
-mainFinances Funds;
+    @EJB
+    mainFinances Funds;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String action = req.getParameter("action");
+        System.out.println("(" + req.getRequestURL() + ") main.jsp: " + action);
+
+        if (action == null) {
+            forwardMain(req, resp);
+            return;
+        }
+
+        switch (action) {
+            case "forwardFundsMain":
+                forwardFundsMain(req, resp);
+                break;
+            case "fundSelected":
+                fundSelected(req, resp);
+                break;
+            case "currenciesSelected":
+                currenciesSelected(req, resp);
+                break;
+            case "adminSelected":
+                adminSelected(req, resp);
+                break;
+            case "loginSelected":
+                loginSelected(req, resp);
+                break;
+        }
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String action = req.getParameter("action");
         System.out.println("main.jsp: " + action);
 
+        Enumeration<String> parameterNames = req.getParameterNames();
+
+        while (parameterNames.hasMoreElements()) {
+            String paramName = parameterNames.nextElement();
+            System.out.print("param: " + paramName);
+            String[] paramValues = req.getParameterValues(paramName);
+
+            for (int i = 0; i < paramValues.length; i++) {
+                String paramValue = paramValues[i];
+                System.out.println(" value: " + paramValue);
+            }
+        }
+
         if (action != null) {
-            System.out.println("main.jsp: " + action);
+            System.out.println("main.jsp: POST :" + action);
             switch (action) {
-                case "forwardFundsMain":
-                    forwardFundsMain(req, resp);
-                    break;
-                case "fundsSelected":
-                    fundsSelected(req, resp);
-                    break;
-                case "currenciesSelected":
-                    currenciesSelected(req, resp);
-                    break;
-                case "adminSelected":
-                    adminSelected(req, resp);
-                    break;
-                case "loginSelected":
-                    loginSelected(req, resp);
+                case "fundSelected":
+                    fundSelected(req, resp);
                     break;
             }
         } else {
@@ -50,7 +81,7 @@ mainFinances Funds;
     private void forwardMain(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
 
-        String nextJSP = "/jsp/main.jsp";
+        String nextJSP = "/main.jsp";
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextJSP);
         dispatcher.forward(req, resp);
     }
@@ -60,18 +91,18 @@ mainFinances Funds;
 
         List<LstList> fundList = Funds.getAllFunds();
 
-        String nextJSP = "/jsp/funds.jsp";
+        String nextJSP = "/funds.jsp";
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextJSP);
         req.setAttribute("fundList", fundList);
         dispatcher.forward(req, resp);
     }
 
-    private void fundsSelected(HttpServletRequest req, HttpServletResponse resp)
+    private void fundSelected(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
 
-        req.setAttribute("action", "fundsSelected");
-        req.setAttribute("fund", "AGI001");
-        String nextJSP = "/jsp/funds.jsp";
+        req.setAttribute("action", "fundSelected");
+        req.setAttribute("value", "AGI001");
+        String nextJSP = "funds.jsp";
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextJSP);
         dispatcher.forward(req, resp);
     }
@@ -81,7 +112,7 @@ mainFinances Funds;
 
         req.setAttribute("action", "currenciesSelected");
         req.setAttribute("currencies", "EUR");
-        String nextJSP = "/jsp/currencies.jsp";
+        String nextJSP = "/currencies.jsp";
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextJSP);
         dispatcher.forward(req, resp);
     }
@@ -89,7 +120,7 @@ mainFinances Funds;
     private void adminSelected(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
 
-        String nextJSP = "/jsp/admin.jsp";
+        String nextJSP = "/admin.jsp";
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextJSP);
         dispatcher.forward(req, resp);
     }
@@ -97,7 +128,7 @@ mainFinances Funds;
     private void loginSelected(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
 
-        String nextJSP = "/jsp/login.jsp";
+        String nextJSP = "/login.jsp";
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextJSP);
         dispatcher.forward(req, resp);
     }
