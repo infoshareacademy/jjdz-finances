@@ -1,6 +1,6 @@
 package com.infoshareacademy.finances.web;
 
-import com.infoshareacademy.finances.service.PlanDaoBean;
+import com.infoshareacademy.finances.service.PlanDaoService;
 
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
@@ -15,7 +15,7 @@ import java.io.IOException;
 public class PlanServlet extends HttpServlet {
 
     @EJB
-    PlanDaoBean planDaoBean;
+    PlanDaoService planDaoService;
 
     @EJB
     mainFinances assets;
@@ -53,6 +53,8 @@ public class PlanServlet extends HttpServlet {
 
     private void fundsSelected(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
+
+
 
 //        req.setAttribute("action", "fundsSelected");
 //        req.setAttribute("fund", "AGI001");

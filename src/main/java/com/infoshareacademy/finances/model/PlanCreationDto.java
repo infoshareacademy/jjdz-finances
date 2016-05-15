@@ -1,5 +1,7 @@
 package com.infoshareacademy.finances.model;
 
+import com.infoshareacademy.finances.service.DateConverter;
+
 import javax.persistence.*;
 import java.time.ZonedDateTime;
 
@@ -9,9 +11,11 @@ public class PlanCreationDto {
     @Id
     @GeneratedValue
     private Long id;
+    @Convert(converter = DateConverter.class)
     private ZonedDateTime sellTime;
+    @Convert(converter = DateConverter.class)
     private ZonedDateTime buyTime;
-//    @ManyToOne
+    @ManyToOne
     private Asset asset;
     private int quantity;
 

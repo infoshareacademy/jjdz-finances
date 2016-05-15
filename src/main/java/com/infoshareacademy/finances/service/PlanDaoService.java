@@ -7,7 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 @Stateless
-public class PlanDaoBean implements PlanDao {
+public class PlanDaoService implements PlanDao {
 
     @PersistenceContext
     EntityManager em;
