@@ -1,4 +1,6 @@
-package com.infoshareacademy.finances.model;
+package com.infoshareacademy.finances.service;
+
+import com.infoshareacademy.finances.model.Asset;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -7,18 +9,19 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Predicate;
 
 
-public class AssetsName {
-    public Map<Integer, Asset> getAssetsName(String filePath) {
+public class AssetsLoader {
+    public List<Asset> readAssetsFromFile(String filePath) {
         if (!filePath.contains("/"))
             filePath = "/" + filePath;
 
-        Map<Integer, Asset> codeAndAsset = new HashMap<>();
+        List<Asset> codeAndAsset = new ArrayList<>();
 
         try {
             URL u = getClass().getResource(filePath);
@@ -29,15 +32,12 @@ public class AssetsName {
             Predicate<String> predicate = (s) -> !s.contains("txt");
             lines.removeIf(predicate);
 
-            int number = 0;
-
             for (String line : lines){
                 String[] fields = line.split("\\s{2,}+");
                 String code = fields[3].substring(0, fields[3].indexOf("."));
                 String name = fields[4];
-                ++number;
 
-                codeAndAsset.put(number, new Asset(null, name, code));
+                codeAndAsset.add(new Asset(name, code));
             }
         } catch (IOException e) {
             e.printStackTrace();

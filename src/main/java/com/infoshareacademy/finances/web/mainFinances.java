@@ -2,8 +2,14 @@ package com.infoshareacademy.finances.web;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.*;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
+import com.infoshareacademy.finances.model.Asset;
+import com.infoshareacademy.finances.model.CurrencyAssests;
+import com.infoshareacademy.finances.model.FundsAssets;
 import com.infoshareacademy.finances.model.LstList;
+import com.infoshareacademy.finances.service.AssetsLoader;
 import com.infoshareacademy.finances.service.LstLoad;
 
 import java.io.*;
@@ -16,45 +22,31 @@ import java.util.List;
 @Startup
 @Lock(LockType.READ)
 public class mainFinances {
-    @Override
-    public String toString() {
-        return "mainFinances{" +
-                "allFunds=" + allFunds +
-                '}';
-    }
+/*    public List<LstList> getAllFunds() {
+        return em.createQuery().getResultList();
+    }*/
 
-    private List<LstList> allFunds;
-
-    public List<LstList> getAllFunds() {
-        return allFunds;
-    }
+    @PersistenceContext
+    EntityManager em;
 
     @PostConstruct
     public void initialize() {
-        System.out.println("setup: Loading data ...");
 
-        // Load Funds from resources lst funds
-        LstLoad menuInstance = new LstLoad();
-
-        int FundsCount = 0;
-        try {
-            FundsCount = menuInstance.loadFunds("/omegafun.lst");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        System.out.printf("Funds loaded from file: %s%n", FundsCount);
-
-        // load lst
-        List<LstList> FundList = menuInstance.LstList();
-
-        Collections.sort(FundList, new Comparator<LstList>() {
-            @Override
-            public int compare(LstList o1, LstList o2) {
-                return o1.getFundName().compareTo(o2.getFundName());
-            }
+        AssetsLoader assetsLoader = new AssetsLoader();
+        List<Asset> funds = assetsLoader.readAssetsFromFile("/omegafun.lst");
+        funds.forEach((f) -> {
+            FundsAssets assets = new FundsAssets(f);
+            //pobrac daily values
+            //assets.setDV(dv)
+            em.persist(assets);
         });
 
-        allFunds = FundList;
+
+        List<Asset> currencies = assetsLoader.readAssetsFromFile("/omeganbp.lst");
+        currencies.forEach((c) -> em.persist(new CurrencyAssests(c)));
+
+
     }
+
 
 }

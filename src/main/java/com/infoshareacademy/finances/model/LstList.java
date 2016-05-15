@@ -1,5 +1,6 @@
 package com.infoshareacademy.finances.model;
 
+//to do - usunac
 public class LstList {
 
     private String FundName;

@@ -7,7 +7,7 @@ import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import java.io.IOException;
 
-@WebFilter("*.jsp")
+@WebFilter("/main")
 public class AuthFilter implements Filter {
 
     @Inject
