@@ -2,6 +2,7 @@ package com.infoshareacademy.finances.service;
 
 import com.infoshareacademy.finances.model.Asset;
 
+import javax.ejb.Stateless;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -16,6 +17,7 @@ import java.util.Map;
 import java.util.function.Predicate;
 
 
+@Stateless
 public class AssetsLoader {
     public List<Asset> readAssetsFromFile(String filePath) {
         if (!filePath.contains("/"))
@@ -47,6 +49,4 @@ public class AssetsLoader {
 
         return codeAndAsset;
     }
-
-
 }

@@ -8,11 +8,7 @@ import javax.persistence.PersistenceContext;
 import com.infoshareacademy.finances.model.*;
 import com.infoshareacademy.finances.service.AssetsLoader;
 import com.infoshareacademy.finances.service.DataLoader;
-import com.infoshareacademy.finances.service.LstLoad;
 
-import java.io.*;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 
@@ -24,15 +20,18 @@ public class CacheAll {
         return em.createQuery().getResultList();
     }*/
 
-    @PersistenceContext
-    EntityManager em;
+   // @PersistenceContext
+   // EntityManager em;
+
+    //@EJB
+    //AssetsLoader assetsLoader;
 
     @PostConstruct
     public void initialize() {
 
-        AssetsLoader assetsLoader = new AssetsLoader();
-        List<Asset> funds = assetsLoader.readAssetsFromFile("/omegafun.lst");
-        DataLoader dataLoader = new DataLoader();
+      // assetsLoader = new AssetsLoader();
+      //  List<Asset> funds = assetsLoader.readAssetsFromFile("/omegafun.lst");
+   /*     DataLoader dataLoader = new DtaLoader();
         funds.forEach((f) -> {
             FundsAssets assets = new FundsAssets(f);
             List<DailyValue> dailyValues = dataLoader.loadDataFromFile(f.getCode());
@@ -44,8 +43,8 @@ public class CacheAll {
 
         List<Asset> currencies = assetsLoader.readAssetsFromFile("/omeganbp.lst");
         currencies.forEach((c) -> em.persist(new CurrencyAssests(c)));
-
-
+*/
+        return;
     }
 
     public List<LstList> returnAllFunds() {
