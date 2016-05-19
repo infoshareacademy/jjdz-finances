@@ -4,6 +4,7 @@ import com.infoshareacademy.finances.model.Asset;
 
 import javax.ejb.Stateless;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
@@ -16,20 +17,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Predicate;
 
+import org.apache.commons.io.IOUtils;
 
-@Stateless
 public class AssetsLoader {
     public List<Asset> readAssetsFromFile(String filePath) {
-        if (!filePath.contains("/"))
-            filePath = "/" + filePath;
-
         List<Asset> codeAndAsset = new ArrayList<>();
 
-        try {
-            URL u = getClass().getResource(filePath);
-            Path path = Paths.get(u.toURI());
-
-            List<String> lines = Files.readAllLines(path, StandardCharsets.UTF_8);
+       try {
+		   InputStream resourceAsStream = getClass().getClassLoader().getResourceAsStream(filePath);
+		   List<String> lines = IOUtils.readLines(resourceAsStream, StandardCharsets.UTF_8);
 
             Predicate<String> predicate = (s) -> !s.contains("txt");
             lines.removeIf(predicate);
@@ -43,10 +39,7 @@ public class AssetsLoader {
             }
         } catch (IOException e) {
             e.printStackTrace();
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
         }
-
         return codeAndAsset;
     }
 }
