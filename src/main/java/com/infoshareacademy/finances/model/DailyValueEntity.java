@@ -6,6 +6,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 
 @Entity
@@ -17,10 +18,15 @@ public class DailyValueEntity {
 	@Embedded
 	private DailyValue dailyValue;
 
-	@ManyToOne (fetch = FetchType.EAGER)
+	@ManyToOne
 	private AssetEntity assetEntity;
 
 	public DailyValueEntity() {
+	}
+
+	public DailyValueEntity(DailyValue dailyValue, AssetEntity assetEntity) {
+		this.dailyValue = dailyValue;
+		this.assetEntity = assetEntity;
 	}
 
 	public DailyValueEntity(DailyValue dailyValue) {

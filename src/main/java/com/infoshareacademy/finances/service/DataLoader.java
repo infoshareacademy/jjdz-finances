@@ -1,17 +1,17 @@
 package com.infoshareacademy.finances.service;
 
-import com.infoshareacademy.finances.model.DailyValue;
-
 import java.io.IOException;
+import java.io.InputStream;
 import java.math.BigDecimal;
-import java.net.URISyntaxException;
-import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.commons.io.IOUtils;
+
+import com.infoshareacademy.finances.model.DailyValue;
 
 public class DataLoader {
 
@@ -20,15 +20,13 @@ public class DataLoader {
 
     public List<DailyValue> loadDataFromFile(String filePath) {
 
-        if (!filePath.contains("/")) filePath = "/" + filePath;
 
         List<DailyValue> dailyValues = new ArrayList<>();
         try {
-            URL u = getClass().getResource(filePath);
-            Path path = Paths.get(u.toURI());
+			InputStream resourceAsStream = getClass().getClassLoader().getResourceAsStream(filePath);
+			List<String> lines = IOUtils.readLines(resourceAsStream, StandardCharsets.UTF_8);
 
-            List<String> lines = Files.readAllLines(path);
-            int size = lines.size();
+			int size = lines.size();
             for (int i = 1; i < size; i++) {
                 String[] fields = lines.get(i).split(",");
 
@@ -39,17 +37,11 @@ public class DataLoader {
             }
         } catch (IOException e) {
             e.printStackTrace();
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
         }
-
-
         return dailyValues;
     }
 
     private LocalDate getLocalDate(String field) {
         return LocalDate.parse(field, DateTimeFormatter.BASIC_ISO_DATE);
     }
-
-
 }

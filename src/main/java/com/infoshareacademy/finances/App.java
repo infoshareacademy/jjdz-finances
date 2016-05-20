@@ -22,7 +22,7 @@ public class App {
             System.out.printf("Choosed asset: %d %n", menuItem);
 
             // get asset name
-            String menuName = menuInstance.getFundName(menuItem);
+            String menuName = menuInstance.getName(menuItem);
 
             //get asset filename
             String filename = menuInstance.getFundFileName(menuItem);
