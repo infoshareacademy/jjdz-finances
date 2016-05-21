@@ -1,37 +1,38 @@
 package com.infoshareacademy.finances.model;
 
+//to do - usunac
 public class LstList {
 
-    private String FundName;
-    private String FundFile;
+    private String name;
+    private String code;
 
     @Override
     public String toString() {
         return "LstList{" +
-                "FundName='" + FundName + '\'' +
-                ", FundFile='" + FundFile + '\'' +
+                "name='" + name + '\'' +
+                ", code='" + code + '\'' +
                 '}';
     }
 
-    public LstList(String FundName, String FundFile) {
-        this.FundName = FundName;
-        this.FundFile = FundFile;
+    public LstList(String name, String code) {
+        this.name = name;
+        this.code = code;
     }
 
-    public String getFundName() {
-        return FundName;
+    public String getName() {
+        return name;
     }
 
-    public void setFundName(String fundName) {
-        FundName = fundName;
+    public void setName(String name) {
+		this.name = name;
     }
 
-    public String getFundFile() {
-        return FundFile;
+    public String getCode() {
+        return code;
     }
 
-    public void setFundFile(String fundFile) {
-        FundFile = fundFile;
+    public void setCode(String code) {
+		this.code = code;
     }
 
 

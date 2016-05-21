@@ -3,6 +3,9 @@ package com.infoshareacademy.finances.model;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+import javax.persistence.Embeddable;
+
+@Embeddable
 public class DailyValue {
 
     private LocalDate date;
@@ -13,7 +16,10 @@ public class DailyValue {
         this.closeValue = closeValue;
     }
 
-    public LocalDate getDate() {
+	public DailyValue() {
+	}
+
+	public LocalDate getDate() {
         return date;
     }
 

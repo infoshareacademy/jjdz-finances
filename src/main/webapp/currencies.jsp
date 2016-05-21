@@ -26,7 +26,7 @@
         <form action="/" method="get" id="seachFundsForm" role="form">
             <select class="form-control">
                 <c:forEach var="LstList" items="${fundList}">
-                    <option value=${LstList.fundFile}>${LstList.fundName}</option>
+                    <option value=${LstList.code}>${LstList.name}</option>
                 </c:forEach>
             </select>
             <button type="Go!" class="btn btn-info">

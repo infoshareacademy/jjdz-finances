@@ -3,11 +3,11 @@ package com.infoshareacademy.finances.model;
 import java.time.Month;
 import java.util.List;
 
-public class AvailableMonthsAndYear {
+public class AvailableMonths {
     private Integer year;
     private List<Month> months;
 
-    public AvailableMonthsAndYear(Integer year, List<Month> months) {
+    public AvailableMonths(Integer year, List<Month> months) {
         this.year = year;
         this.months = months;
     }

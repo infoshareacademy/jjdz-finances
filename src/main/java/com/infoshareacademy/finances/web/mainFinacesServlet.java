@@ -17,7 +17,7 @@ import java.util.*;
 public class mainFinacesServlet extends HttpServlet {
 
     @EJB
-    mainFinances Funds;
+    CacheAll cache;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -89,7 +89,7 @@ public class mainFinacesServlet extends HttpServlet {
     private void forwardFundsMain(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
 
-        List<LstList> fundList = Funds.getAllFunds();
+        List<LstList> fundList = cache.returnAllFunds();
 
         String nextJSP = "/funds.jsp";
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextJSP);
