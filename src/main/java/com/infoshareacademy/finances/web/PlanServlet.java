@@ -1,7 +1,5 @@
 package com.infoshareacademy.finances.web;
 
-import com.infoshareacademy.finances.service.PlanDaoService;
-
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -14,8 +12,8 @@ import java.io.IOException;
 @WebServlet(name = "PlanServlet", urlPatterns = "/planServlet")
 public class PlanServlet extends HttpServlet {
 
-    @EJB
-    PlanDaoService planDaoService;
+//    @EJB
+//    PlanDaoService planDaoService;
 
     @EJB
     mainFinances assets;

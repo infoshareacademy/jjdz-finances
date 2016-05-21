@@ -32,33 +32,60 @@
 </head>
 <body>
 
+<div class="container">
+    <table class="table table-hover">
+        <tr>
+            <th>Asset</th>
+            <th>Date of action</th>
+            <th>Type of action</th>
+            <th>Quantity</th>
+            <th>Edit</th>
+        </tr>
+        <tr>
+            <td>fdsfes</td>
+            <td>fdsfes</td>
+            <td>fdsfes</td>
+            <td>fdsfes</td>
+            <td><button type="submit" class="btn btn-default">Delete</button><button type="submit" class="btn btn-default">Edit</button></td>
+        </tr>
+        <tr>
+            <td>fdsfes</td>
+            <td>fdsfes</td>
+            <td>fdsfes</td>
+            <td>fdsfes</td>
+            <td><button type="submit" class="btn btn-default">Delete</button><button type="submit" class="btn btn-default">Edit</button></td>
+        </tr>
+    </table>
+
+</div>
 
 
-
-
-<form class="form-inline">
-    <div class="form-group">
-        <label>Asset</label>
-        <input type="text" class="form-control">
-    </div>
-    <div class="form-group">
-        <label>:</label>
-        <input type="email" class="form-control" id="exampleInputEmail2" placeholder="jane.doe@example.com">
-    </div>
-    <div class="form-group">
-
-        <div class="input-group date">
+<div class="container">
+    <form class="form-inline table">
+        <div class="form-group">
+            <label>Asset</label>
+            <input type="text" class="form-control">
+        </div>
+        <div class="form-group">
+            <label>:</label>
+            <input type="email" class="form-control" id="exampleInputEmail2" placeholder="jane.doe@example.com">
+        </div>
+        <div class="form-group">
             <label>Name</label>
-            <input type="text" class="form-control"><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+            <div class="input-group date">
+                <input type="text" class="form-control"><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+            </div>
+
         </div>
 
-    </div>
+
+        <button type="submit" class="btn btn-default">Create</button>
+    </form>
 
 
-    <button type="submit" class="btn btn-default">Create</button>
-</form>
 
 
+</div>
 
 
 
@@ -68,14 +95,7 @@
 <!--<script src="../js/jquery-2.2.3.min.js"></script>-->
 
 <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.1/js/bootstrap-datepicker.js"></script>-->
-<script type="text/javascript">
-    $(document).ready(function() {
-        $('.date').datepicker({
-            todayBtn: true,
-            daysOfWeekHighlighted: "0,6",
-            autoclose: true
-        });
-    })
-</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.1/js/bootstrap-datepicker.js"></script>
+<script src="resources/js/main.js"></script>
 </body>
 </html>
