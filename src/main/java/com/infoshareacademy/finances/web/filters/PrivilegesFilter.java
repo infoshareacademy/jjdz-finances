@@ -1,0 +1,66 @@
+package com.infoshareacademy.finances.web.filters;
+
+import java.io.IOException;
+import java.util.List;
+
+import javax.inject.Inject;
+import javax.servlet.Filter;
+import javax.servlet.FilterChain;
+import javax.servlet.FilterConfig;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+import javax.servlet.annotation.WebFilter;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.infoshareacademy.finances.entity.Privileges;
+import com.infoshareacademy.finances.service.users.UserSessionData;
+
+public class PrivilegesFilter implements Filter {
+	private static final Logger LOGGER = LoggerFactory.getLogger(PrivilegesFilter.class);
+
+	@Inject
+	UserSessionData userSessionData;
+
+	@Override
+	public void init(FilterConfig filterConfig) throws ServletException {
+
+	}
+
+	@Override
+	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
+			throws IOException, ServletException {
+
+		if (userSessionData.getPrivileges() == Privileges.MORTAL) {
+			LOGGER.info("User with MORTAR privileges [{}] wanted to access admin panel.",
+					userSessionData.getUserInfo().getName());
+
+			request.getRequestDispatcher("/main").forward(request, response);
+			return;
+
+		} else if (userSessionData.getPrivileges() == Privileges.ADMIN) {
+			LOGGER.info("User with ADMIN privileges [{}] accessing admin panel.",
+					userSessionData.getUserInfo().getName());
+
+			request.getRequestDispatcher("/admin.jsp").forward(request, response);
+			return;
+		} else {
+			LOGGER.info("User with UNKNOWN privileges [{}] wanted to access admin panel.",
+					userSessionData.getUserInfo().getName());
+
+			request.getRequestDispatcher("/main").forward(request, response);
+			return;
+		}
+
+	}
+
+	@Override
+	public void destroy() {
+
+	}
+}

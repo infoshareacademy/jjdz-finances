@@ -4,6 +4,8 @@ import javax.persistence.*;
 import java.util.Calendar;
 import java.util.Date;
 
+import com.infoshareacademy.finances.entity.UserPrivileges;
+
 @Entity
 public class UserInfoEntity {
 
@@ -15,6 +17,9 @@ public class UserInfoEntity {
 
     @Temporal(TemporalType.DATE)
     private Date date;
+
+	@OneToOne
+	UserPrivileges userPrivileges;
 
     public UserInfoEntity() {
     }
@@ -61,4 +66,28 @@ public class UserInfoEntity {
 
 
     }
+
+	public UserInfo getUserInfo() {
+		return userInfo;
+	}
+
+	public void setUserInfo(UserInfo userInfo) {
+		this.userInfo = userInfo;
+	}
+
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
+	}
+
+	public UserPrivileges getUserPrivileges() {
+		return userPrivileges;
+	}
+
+	public void setUserPrivileges(UserPrivileges userPrivileges) {
+		this.userPrivileges = userPrivileges;
+	}
 }

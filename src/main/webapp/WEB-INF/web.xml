@@ -5,4 +5,22 @@
 		  http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
            version="3.0">
 
+	<filter>
+		<filter-name>LogginFilter</filter-name>
+		<filter-class>com.infoshareacademy.finances.web.filters.AuthFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>LogginFilter</filter-name>
+		<url-pattern>/main</url-pattern>
+		<url-pattern>*.jsp</url-pattern>
+		<url-pattern>/admin</url-pattern>
+	</filter-mapping>
+	<filter>
+		<filter-name>AdminFilter</filter-name>
+		<filter-class>com.infoshareacademy.finances.web.filters.PrivilegesFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>AdminFilter</filter-name>
+		<url-pattern>/admin.jsp</url-pattern>
+	</filter-mapping>
  </web-app>
