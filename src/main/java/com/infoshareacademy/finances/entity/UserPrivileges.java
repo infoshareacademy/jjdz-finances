@@ -1,6 +1,7 @@
 package com.infoshareacademy.finances.entity;
 
 import javax.persistence.Entity;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -15,6 +16,7 @@ public class UserPrivileges {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
+	@Enumerated
 	private Privileges privileges;
 
 	@OneToOne

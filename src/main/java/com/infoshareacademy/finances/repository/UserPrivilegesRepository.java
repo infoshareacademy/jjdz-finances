@@ -27,9 +27,5 @@ public class UserPrivilegesRepository {
 				Privileges.class).setParameter("email", email).getSingleResult();
 	}
 
-	public List<UserInfoEntity> loadUsersWithPrivileges(Privileges privileges) {
-		return em.createQuery("select i from UserInfoEntity i join i.userPrivileges p where p.privileges = :privileges",
-				UserInfoEntity.class).setParameter("privileges", privileges).getResultList();
-	}
 
 }

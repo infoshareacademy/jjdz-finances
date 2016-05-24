@@ -18,7 +18,8 @@ import java.util.*;
 @WebServlet(urlPatterns = "/main")
 public class MainFinacesServlet extends HttpServlet {
 
-    @EJB
+	private static final long serialVersionUID = 5375886917868065269L;
+	@EJB
     CacheAll cache;
 
     @Override
@@ -115,14 +116,14 @@ public class MainFinacesServlet extends HttpServlet {
         req.setAttribute("currencies", "EUR");
         String nextJSP = "/currencies.jsp";
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextJSP);
-        dispatcher.forward(req, resp);
+		dispatcher.forward(req, resp);
     }
 
     private void adminSelected(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-
-        String nextJSP = "/admin";
-		resp.sendRedirect(nextJSP);
+		String nextJSP = "/admin";
+		req.getRequestDispatcher("/admin")
+				.forward(req, resp);
     }
 
     private void loginSelected(HttpServletRequest req, HttpServletResponse resp)

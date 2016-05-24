@@ -1,9 +1,13 @@
 package com.infoshareacademy.finances.repository;
 
+import java.util.List;
+
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import com.infoshareacademy.finances.entity.Privileges;
+import com.infoshareacademy.finances.entity.UserPrivileges;
 import com.infoshareacademy.finances.model.UserInfo;
 import com.infoshareacademy.finances.model.UserInfoEntity;
 
@@ -24,4 +28,15 @@ public class UserInfoRepository {
 				.setParameter("mail", userInfo.getMail())
 				.getResultList().isEmpty();
 	}
+
+	public List<UserInfoEntity> loadUsersWithPrivileges(Privileges privileges) {
+		return em.createQuery("select u from UserPrivileges p join p.userInfoEntity u where p.privileges = :privileges",
+				UserInfoEntity.class).setParameter("privileges", privileges).getResultList();
+	}
+	public List<UserInfoEntity> loadAllUsers() {
+		return em.createQuery("select i from UserInfoEntity i",
+				UserInfoEntity.class).getResultList();
+	}
+
+
 }

@@ -18,9 +18,6 @@ public class UserInfoEntity {
     @Temporal(TemporalType.DATE)
     private Date date;
 
-	@OneToOne
-	UserPrivileges userPrivileges;
-
     public UserInfoEntity() {
     }
 
@@ -81,13 +78,5 @@ public class UserInfoEntity {
 
 	public void setDate(Date date) {
 		this.date = date;
-	}
-
-	public UserPrivileges getUserPrivileges() {
-		return userPrivileges;
-	}
-
-	public void setUserPrivileges(UserPrivileges userPrivileges) {
-		this.userPrivileges = userPrivileges;
 	}
 }

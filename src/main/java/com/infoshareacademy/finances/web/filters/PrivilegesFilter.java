@@ -36,27 +36,16 @@ public class PrivilegesFilter implements Filter {
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
 
-		if (userSessionData.getPrivileges() == Privileges.MORTAL) {
-			LOGGER.info("User with MORTAR privileges [{}] wanted to access admin panel.",
+		if (userSessionData.getPrivileges() != Privileges.ADMIN) {
+			LOGGER.info("User with MORTAR or UNKNOWN privileges [{}] wanted to access admin panel.",
 					userSessionData.getUserInfo().getName());
-
-			request.getRequestDispatcher("/main").forward(request, response);
-			return;
-
-		} else if (userSessionData.getPrivileges() == Privileges.ADMIN) {
-			LOGGER.info("User with ADMIN privileges [{}] accessing admin panel.",
-					userSessionData.getUserInfo().getName());
-
-			request.getRequestDispatcher("/admin.jsp").forward(request, response);
-			return;
-		} else {
-			LOGGER.info("User with UNKNOWN privileges [{}] wanted to access admin panel.",
-					userSessionData.getUserInfo().getName());
-
 			request.getRequestDispatcher("/main").forward(request, response);
 			return;
 		}
+		LOGGER.info("User with ADMIN privileges [{}] accessing admin panel.",
+				userSessionData.getUserInfo().getName());
 
+		chain.doFilter(request,response);
 	}
 
 	@Override

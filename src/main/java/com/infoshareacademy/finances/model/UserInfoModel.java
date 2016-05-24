@@ -2,6 +2,8 @@ package com.infoshareacademy.finances.model;
 
 import java.io.Serializable;
 
+import javax.faces.bean.ViewScoped;
+
 public class UserInfoModel implements Serializable{
 	private String name;
 	private String email;

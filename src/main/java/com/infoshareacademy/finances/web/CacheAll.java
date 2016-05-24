@@ -52,9 +52,9 @@ public class CacheAll {
 		funds.forEach((f) -> {
 			FundsAssets asset = new FundsAssets(f);
 			List<DailyValue> dailyValues = dataLoader.loadDataFromFile("funds/" + f.getCode() + ".txt");
-			em.persist(asset);
+	//		em.persist(asset);
 			for (DailyValue dailyValue : dailyValues) {
-				em.persist(new DailyValueEntity(dailyValue, asset));
+	//			em.persist(new DailyValueEntity(dailyValue, asset));
 			}
 		});
 		//-----------------------------------------------------
@@ -67,10 +67,10 @@ public class CacheAll {
 		currencies.forEach((c) -> {
 			CurrencyAssets asset = new CurrencyAssets(c);
 			List<DailyValue> dailyValues = dataLoader.loadDataFromFile("currencies/" + c.getCode() + ".txt");
-			em.persist(asset);
+	//		em.persist(asset);
 			for (DailyValue dailyValue : dailyValues) {
-				em.persist(new DailyValueEntity(dailyValue, asset));
-			}
+//				em.persist(new DailyValueEntity(dailyValue, asset));
+				}
 		});
 
 		UserInfo userInfo = new UserInfo("Vash The Stampede","karol.zyskowski1@gmail.com");
@@ -80,7 +80,14 @@ public class CacheAll {
 				.build();
 		userInfoRepository.saveUserInfoEntityToDB(userInfoEntity);
 		userPrivilegesRepository.saveUserPrivileges(new UserPrivileges(Privileges.ADMIN,userInfoEntity));
-		return;
+
+		userInfo = new UserInfo("kowalaski","kowalski@mail.com");
+		userInfoEntity = UserInfoEntity
+				.fromUserInfo(userInfo)
+				.withCurrentDate()
+				.build();
+		userInfoRepository.saveUserInfoEntityToDB(userInfoEntity);
+		userPrivilegesRepository.saveUserPrivileges(new UserPrivileges(Privileges.MORTAL,userInfoEntity));
 	}
 
 	public List<LstList> returnAllFunds() {

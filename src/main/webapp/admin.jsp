@@ -16,12 +16,6 @@
 <%@ include file="resources/navbar.jsp" %>
 
 <div class="container">
-    <c:forEach items="${requestScope.admins}" var="admin">
-
-            <c:out value="${admin.name}"/>
-            <c:out value="${admin.email}"/>
-        <c:out value="${xxxxx}"/>yyy
-    </c:forEach>
 
     <h2>Admins</h2>
     <table class="table">
@@ -32,19 +26,30 @@
         </tr>
         </thead>
         <tbody>
+        <c:forEach items="${admins}" var="admin">
+            <tr class="info">
+                <td>"${admin.name}"</td>
+                <td>"${admin.email}"</td>
+            </tr>
+        </c:forEach>
+        </tbody>
+    </table>
 
-        <tr class="success">
-            <td>John</td>
-            <td>john@example.com</td>
+    <h2>Users</h2>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Username</th>
+            <th>Email</th>
         </tr>
-        <tr class="danger">
-            <td>Mary</td>
-            <td>mary@example.com</td>
-        </tr>
-        <tr class="info">
-            <td>Dooley</td>
-            <td>july@example.com</td>
-        </tr>
+        </thead>
+        <tbody>
+        <c:forEach items="${mortals}" var="mortal">
+            <tr class="info">
+                <td>"${mortal.name}"</td>
+                <td>"${mortal.email}"</td>
+            </tr>
+        </c:forEach>
         </tbody>
     </table>
 </div>
