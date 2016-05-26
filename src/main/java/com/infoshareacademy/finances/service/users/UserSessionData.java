@@ -1,35 +1,38 @@
 package com.infoshareacademy.finances.service.users;
 
+import java.io.Serializable;
+
+import javax.enterprise.context.SessionScoped;
+
 import com.github.scribejava.core.model.OAuth2AccessToken;
 import com.github.scribejava.core.oauth.OAuth20Service;
 import com.infoshareacademy.finances.entity.Privileges;
 import com.infoshareacademy.finances.model.UserInfo;
 
-import javax.enterprise.context.SessionScoped;
-import java.io.Serializable;
-
 @SessionScoped
 public class UserSessionData implements Serializable {
+	private static final long serialVersionUID = 5029555108673491952L;
 
-    private OAuth20Service service;
-    private OAuth2AccessToken oAuthToken;
+	private OAuth20Service service;
+    private OAuth2AccessToken authToken;
     private UserInfo userInfo;
 	private Privileges privileges;
+	private String authType;
 
-    public OAuth20Service getService() {
-        return service;
-    }
+	public void createAuthToken(String code) {
+		authToken = service.getAccessToken(code);
+	}
+
+	public OAuth2AccessToken getAuthToken() {
+		return authToken;
+	}
+
+	public OAuth20Service getService() {
+		return service;
+	}
 
     public void setService(OAuth20Service service) {
         this.service = service;
-    }
-
-    public OAuth2AccessToken getOAuthToken() {
-        return oAuthToken;
-    }
-
-    public void createOAuthToken(String code) {
-        this.oAuthToken = service.getAccessToken(code);
     }
 
     public UserInfo getUserInfo() {
@@ -46,5 +49,13 @@ public class UserSessionData implements Serializable {
 
 	public void setPrivileges(Privileges privileges) {
 		this.privileges = privileges;
+	}
+
+	public String getAuthType() {
+		return authType;
+	}
+
+	public void setAuthType(String authType) {
+		this.authType = authType;
 	}
 }

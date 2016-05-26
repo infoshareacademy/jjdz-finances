@@ -1,26 +1,26 @@
 package com.infoshareacademy.finances.web;
 
+import java.io.IOException;
 
-import com.github.scribejava.apis.GoogleApi20;
-import com.github.scribejava.core.builder.ServiceBuilder;
-import com.github.scribejava.core.oauth.OAuth20Service;
-import com.infoshareacademy.finances.service.users.UserSessionData;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import java.io.IOException;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.github.scribejava.apis.GoogleApi20;
+import com.github.scribejava.core.builder.ServiceBuilder;
+import com.github.scribejava.core.oauth.OAuth20Service;
+import com.infoshareacademy.finances.service.users.UserSessionData;
 
 @WebServlet("/googleplus")
 public class GooglePlusServlet extends HttpServlet {
-    private static Logger logger = LoggerFactory.getLogger(GooglePlusServlet.class);
+	private static final long serialVersionUID = 4330454933129667121L;
+	private static final Logger LOGGER = LoggerFactory.getLogger(GooglePlusServlet.class);
     private static final String CLIENT_ID = "611628318839-i1eelkunlja4dq4js5mnplan1bs2j0qj.apps.googleusercontent.com";
     private static final String CLIENT_SECRET = "_EBNxwGtSvloQrZXJ0LSDqSm";
 
@@ -30,7 +30,7 @@ public class GooglePlusServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        logger.info("Making a service for OAuth.");
+        LOGGER.info("Making a service for OAuth.");
         OAuth20Service service = new ServiceBuilder()
                 .apiKey(CLIENT_ID)
                 .apiSecret(CLIENT_SECRET)
@@ -41,8 +41,9 @@ public class GooglePlusServlet extends HttpServlet {
                 .build(GoogleApi20.instance());
 
         sessionData.setService(service);
+		sessionData.setAuthType("g");
 
-        logger.info("Redirecting to google for authorization.");
+        LOGGER.info("Redirecting to google for authorization.");
         resp.sendRedirect(service.getAuthorizationUrl());
     }
 }

@@ -1,8 +1,13 @@
 .imgClass {
-    width: 320px;
-    height: 108px;
-    background: url(../../resources/img/signin_button.png) no-repeat;
+    width: 330px;
+    height: 110px;
     display: block;
     margin-left: auto;
     margin-right: auto;
+}
+.imgGoogleplus {
+    background: url(../../resources/img/signin_google.png) no-repeat;
+}
+.imgFacebook {
+    background: url(../../resources/img/signin_face.png) no-repeat;
 }
