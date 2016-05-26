@@ -122,8 +122,9 @@ public class MainFinacesServlet extends HttpServlet {
     private void adminSelected(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
 		String nextJSP = "/admin";
-		req.getRequestDispatcher("/admin")
-				.forward(req, resp);
+		resp.sendRedirect("/admin");
+//		req.getRequestDispatcher("/admin")
+//				.forward(req, resp);
     }
 
     private void loginSelected(HttpServletRequest req, HttpServletResponse resp)

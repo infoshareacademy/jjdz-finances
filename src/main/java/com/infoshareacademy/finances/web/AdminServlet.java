@@ -35,13 +35,13 @@ public class AdminServlet extends HttpServlet {
 		LOGGER.info("/admin servlet - start");
 
 		List<UserInfoEntity> users = userInfoRepository.loadUsersWithPrivileges(Privileges.ADMIN);
-		LOGGER.info("Founded {} users with ADMIN privileges", users.size());
+		LOGGER.info("Found {} users with ADMIN privileges", users.size());
 		List<UserInfoModel> admins = new ArrayList<>();
 		users.forEach(a -> admins.add(new UserInfoModel(a.getUserInfo().getName(), a.getUserInfo().getMail())));
 		req.setAttribute("admins", admins);
 
 		users = userInfoRepository.loadUsersWithPrivileges(Privileges.MORTAL);
-		LOGGER.info("Founded {} users with MORTAL privileges", users.size());
+		LOGGER.info("Found {} users with MORTAL privileges", users.size());
 		List<UserInfoModel> mortals = new ArrayList<>();
 		users.forEach(a -> mortals.add(new UserInfoModel(a.getUserInfo().getName(), a.getUserInfo().getMail())));
 		req.setAttribute("mortals", mortals);
