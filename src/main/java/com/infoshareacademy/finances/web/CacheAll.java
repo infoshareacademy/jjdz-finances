@@ -45,16 +45,16 @@ public class CacheAll {
 		Asset asset1 = new Asset("NOVO Akcji Globalnych", "OPE033");
 		Asset asset2 = new Asset("NOVO Zrownowazonego Wzrostu", "SEB001");
 		Asset asset3 = new Asset("ALLIANZ Akcji", "ALL001");
-		List<Asset> funds = Arrays.asList(asset1);
+		List<Asset> funds = Arrays.asList(asset1,asset2,asset3);
 		//-----------------------------------------------------
-		//List<Asset> funds = assetsLoader.readAssetsFromFile("/omegafun.lst");
+//		List<Asset> funds = assetsLoader.readAssetsFromFile("/omegafun.lst");
 		DataLoader dataLoader = new DataLoader();
 		funds.forEach((f) -> {
 			FundsAssets asset = new FundsAssets(f);
 			List<DailyValue> dailyValues = dataLoader.loadDataFromFile("funds/" + f.getCode() + ".txt");
-			//			em.persist(asset);
+						em.persist(asset);
 			for (DailyValue dailyValue : dailyValues) {
-				//				em.persist(new DailyValueEntity(dailyValue, asset));
+								em.persist(new DailyValueEntity(dailyValue, asset));
 			}
 		});
 		//-----------------------------------------------------
@@ -63,13 +63,13 @@ public class CacheAll {
 		Asset currency3 = new Asset("jen (Japonia)", "JPY");
 		List<Asset> currencies = Arrays.asList(currency1, currency2, currency3);
 		//-----------------------------------------------------
-		//List<Asset> currencies = assetsLoader.readAssetsFromFile("/omeganbp.lst");
+//		List<Asset> currencies = assetsLoader.readAssetsFromFile("/omeganbp.lst");
 		currencies.forEach((c) -> {
 			CurrencyAssets asset = new CurrencyAssets(c);
 			List<DailyValue> dailyValues = dataLoader.loadDataFromFile("currencies/" + c.getCode() + ".txt");
-			//			em.persist(asset);
+						em.persist(asset);
 			for (DailyValue dailyValue : dailyValues) {
-				//				em.persist(new DailyValueEntity(dailyValue, asset));
+								em.persist(new DailyValueEntity(dailyValue, asset));
 			}
 		});
 
