@@ -9,21 +9,23 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.xml.ws.RequestWrapper;
+
 import java.io.IOException;
 import java.util.*;
 
 
 @WebServlet(urlPatterns = "/main")
-public class mainFinacesServlet extends HttpServlet {
+public class MainFinacesServlet extends HttpServlet {
 
-    @EJB
+	private static final long serialVersionUID = 5375886917868065269L;
+	@EJB
     CacheAll cache;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String action = req.getParameter("action");
         System.out.println("(" + req.getRequestURL() + ") main.jsp: " + action);
-
         if (action == null) {
             forwardMain(req, resp);
             return;
@@ -114,15 +116,15 @@ public class mainFinacesServlet extends HttpServlet {
         req.setAttribute("currencies", "EUR");
         String nextJSP = "/currencies.jsp";
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextJSP);
-        dispatcher.forward(req, resp);
+		dispatcher.forward(req, resp);
     }
 
     private void adminSelected(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-
-        String nextJSP = "/admin.jsp";
-        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextJSP);
-        dispatcher.forward(req, resp);
+		String nextJSP = "/admin";
+		resp.sendRedirect("/admin");
+//		req.getRequestDispatcher("/admin")
+//				.forward(req, resp);
     }
 
     private void loginSelected(HttpServletRequest req, HttpServletResponse resp)

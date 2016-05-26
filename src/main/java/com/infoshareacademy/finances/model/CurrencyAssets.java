@@ -5,12 +5,12 @@ import javax.persistence.Entity;
 
 @Entity
 @DiscriminatorValue("CURRENCY")
-public class CurrencyAssests extends AssetEntity {
+public class CurrencyAssets extends AssetEntity {
 
-    public CurrencyAssests() {
+    public CurrencyAssets() {
     }
 
-    public CurrencyAssests(Asset asset) {
+    public CurrencyAssets(Asset asset) {
         super.setAsset(asset);
     }
 }

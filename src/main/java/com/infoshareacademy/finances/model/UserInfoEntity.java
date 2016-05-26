@@ -4,6 +4,8 @@ import javax.persistence.*;
 import java.util.Calendar;
 import java.util.Date;
 
+import com.infoshareacademy.finances.entity.UserPrivileges;
+
 @Entity
 public class UserInfoEntity {
 
@@ -61,4 +63,20 @@ public class UserInfoEntity {
 
 
     }
+
+	public UserInfo getUserInfo() {
+		return userInfo;
+	}
+
+	public void setUserInfo(UserInfo userInfo) {
+		this.userInfo = userInfo;
+	}
+
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
+	}
 }

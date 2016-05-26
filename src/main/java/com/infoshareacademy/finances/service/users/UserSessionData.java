@@ -2,6 +2,7 @@ package com.infoshareacademy.finances.service.users;
 
 import com.github.scribejava.core.model.OAuth2AccessToken;
 import com.github.scribejava.core.oauth.OAuth20Service;
+import com.infoshareacademy.finances.entity.Privileges;
 import com.infoshareacademy.finances.model.UserInfo;
 
 import javax.enterprise.context.SessionScoped;
@@ -13,6 +14,7 @@ public class UserSessionData implements Serializable {
     private OAuth20Service service;
     private OAuth2AccessToken oAuthToken;
     private UserInfo userInfo;
+	private Privileges privileges;
 
     public OAuth20Service getService() {
         return service;
@@ -37,4 +39,12 @@ public class UserSessionData implements Serializable {
     public void setUserInfo(UserInfo userInfo) {
         this.userInfo = userInfo;
     }
+
+	public Privileges getPrivileges() {
+		return privileges;
+	}
+
+	public void setPrivileges(Privileges privileges) {
+		this.privileges = privileges;
+	}
 }
