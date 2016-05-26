@@ -1,15 +1,17 @@
 package com.infoshareacademy.finances.service;
 
-import com.infoshareacademy.finances.model.DailyValue;
-
 import java.io.IOException;
+import java.io.InputStream;
 import java.math.BigDecimal;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.commons.io.IOUtils;
+
+import com.infoshareacademy.finances.model.DailyValue;
 
 public class DataLoader {
 
@@ -17,11 +19,14 @@ public class DataLoader {
     public static final int COLUMN_POSITION_OF_CLOSE_VALUE = 4;
 
     public List<DailyValue> loadDataFromFile(String filePath) {
-        Path path = Paths.get(filePath);
+
+
         List<DailyValue> dailyValues = new ArrayList<>();
         try {
-            List<String> lines = Files.readAllLines(path);
-            int size = lines.size();
+			InputStream resourceAsStream = getClass().getClassLoader().getResourceAsStream(filePath);
+			List<String> lines = IOUtils.readLines(resourceAsStream, StandardCharsets.UTF_8);
+
+			int size = lines.size();
             for (int i = 1; i < size; i++) {
                 String[] fields = lines.get(i).split(",");
 
@@ -33,14 +38,10 @@ public class DataLoader {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
         return dailyValues;
     }
 
     private LocalDate getLocalDate(String field) {
         return LocalDate.parse(field, DateTimeFormatter.BASIC_ISO_DATE);
     }
-
-
 }

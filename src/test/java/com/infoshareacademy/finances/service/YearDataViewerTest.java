@@ -53,7 +53,7 @@ public class YearDataViewerTest {
                 new DailyValue(LocalDate.of(2010, 12, 12), new BigDecimal("12.3")));
 
         YearDataViewer viewer = new YearDataViewer();
-        Set<Integer> integers = viewer.showYears(new Asset(dailyValues, "", ""));
+        Set<Integer> integers = viewer.showYears(dailyValues);
 
         System.out.println("Dates as integers = " + integers);
 

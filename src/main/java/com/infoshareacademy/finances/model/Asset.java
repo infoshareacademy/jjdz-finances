@@ -1,27 +1,19 @@
 package com.infoshareacademy.finances.model;
 
-import java.util.List;
+import javax.persistence.Embeddable;
 
+@Embeddable
 public class Asset {
 
-    private List<DailyValue> dailyValues;
     private String name;
     private String code;
 
+    public Asset() {
+    }
 
-    public Asset(List<DailyValue> dailyValues, String name, String code) {
-
-        this.dailyValues = dailyValues;
+    public Asset(String name, String code) {
         this.name = name;
         this.code = code;
-    }
-
-    public List<DailyValue> getDailyValues() {
-        return dailyValues;
-    }
-
-    public void setDailyValues(List<DailyValue> dailyValues) {
-        this.dailyValues = dailyValues;
     }
 
     public String getName() {
@@ -42,6 +34,9 @@ public class Asset {
 
     @Override
     public String toString() {
-        return dailyValues + " - " + name + " - " + code;
+        return "Asset{" +
+                "name='" + name + '\'' +
+                ", code='" + code + '\'' +
+                '}';
     }
 }

@@ -1,14 +1,5 @@
 package com.infoshareacademy.finances;
 
-
-import com.infoshareacademy.finances.model.Asset;
-import com.infoshareacademy.finances.model.AssetsName;
-import com.infoshareacademy.finances.model.DailyValue;
-import com.infoshareacademy.finances.service.*;
-
-import java.time.LocalDate;
-import java.util.List;
-
 public class App {
     public static void main(String[] args) throws Exception {
         //todo remove parametry:
