@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c"
            uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <html>
@@ -43,10 +44,10 @@
         </tr>
         <tr>
             <c:forEach items="${plans}" var="plan">
-                <td>c:out value="${plan.asset.getName()}</td>
-                <td>c:out value="${plan.actionTime}</td>
-                <td>c:out value="${plan.planActionType}</td>
-                <td>c:out value="${plan.quantit}</td>
+                <td><c:out value="${plan.asset.getName()}" /></td>
+                <td><fmt:formatDate pattern="dd-MM-yyyy" value="${plan.actionType}" /></td>
+                <td><c:out value="${plan.planActionType}" /></td>
+                <td><c:out value="${plan.quantit}" /></td>
                 <td><button type="submit" class="btn btn-default">Delete</button><button type="submit" class="btn btn-default">Edit</button></td>
             </c:forEach>
         </tr>
