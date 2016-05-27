@@ -1,5 +1,7 @@
 package com.infoshareacademy.finances.web;
 
+import com.infoshareacademy.finances.repository.PlansRepository;
+
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -12,11 +14,14 @@ import java.io.IOException;
 @WebServlet(name = "PlanServlet", urlPatterns = "/planServlet")
 public class PlanServlet extends HttpServlet {
 
-//    @EJB
-//    PlanDaoService planDaoService;
+  //  @EJB
+  //  PlanDaoService planDaoService;
 
     @EJB
-    mainFinances assets;
+    PlansRepository plansRepository;
+
+    @EJB
+    CacheAll cache;
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = request.getParameter("action");

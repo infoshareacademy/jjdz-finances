@@ -1,20 +1,18 @@
 package com.infoshareacademy.finances.web;
 
-import javax.annotation.PostConstruct;
-import javax.ejb.*;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-
 import com.infoshareacademy.finances.entity.Privileges;
 import com.infoshareacademy.finances.entity.UserPrivileges;
 import com.infoshareacademy.finances.model.*;
-import com.infoshareacademy.finances.repository.CurrencyRepository;
-import com.infoshareacademy.finances.repository.FundsRepository;
-import com.infoshareacademy.finances.repository.UserInfoRepository;
-import com.infoshareacademy.finances.repository.UserPrivilegesRepository;
+import com.infoshareacademy.finances.repository.*;
 import com.infoshareacademy.finances.service.AssetsLoader;
 import com.infoshareacademy.finances.service.DataLoader;
 
+import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
+import javax.ejb.Singleton;
+import javax.ejb.Startup;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -37,6 +35,9 @@ public class CacheAll {
 
 	@EJB
 	UserInfoRepository userInfoRepository;
+
+	@EJB
+	PlansRepository plansRepository;
 
 	@PostConstruct
 	public void initialize() {

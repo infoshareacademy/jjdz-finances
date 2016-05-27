@@ -3,30 +3,31 @@ package com.infoshareacademy.finances.model;
 import com.infoshareacademy.finances.service.DateConverter;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.time.ZonedDateTime;
 
 @Entity
-public class PlanCreationDto implements Serializable {
+public class PlanCreationDto {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @Convert(converter = DateConverter.class)
-    private ZonedDateTime sellTime;
-    @Convert(converter = DateConverter.class)
-    private ZonedDateTime buyTime;
-    private String asset;
+    private ZonedDateTime actionTime;
+    @Embedded
+    private Asset asset;
+    @Enumerated(EnumType.STRING)
+    private PlanActionType planActionType;
     private int quantity;
+
 
     public PlanCreationDto() {
     }
 
-    public PlanCreationDto(Long id, ZonedDateTime sellTime, ZonedDateTime buyTime, Asset asset, int quantity) {
+    public PlanCreationDto(Long id, ZonedDateTime actionTime, Asset asset, PlanActionType planActionType, int quantity) {
         this.id = id;
-        this.sellTime = sellTime;
-        this.buyTime = buyTime;
-        this.asset = asset.getName();
+        this.actionTime = actionTime;
+        this.asset = asset;
+        this.planActionType = planActionType;
         this.quantity = quantity;
     }
 
@@ -35,19 +36,27 @@ public class PlanCreationDto implements Serializable {
         return id;
     }
 
-    public ZonedDateTime getSellTime() {
-        return sellTime;
+    public ZonedDateTime getActionTime() {
+        return actionTime;
     }
 
-    public ZonedDateTime getBuyTime() {
-        return buyTime;
-    }
-
-    public String getAsset() {
+    public Asset getAsset() {
         return asset;
     }
 
     public int getQuantity() {
         return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    public void setActionTime(ZonedDateTime actionTime) {
+        this.actionTime = actionTime;
+    }
+
+    public enum PlanActionType {
+        BUY, SELL
     }
 }

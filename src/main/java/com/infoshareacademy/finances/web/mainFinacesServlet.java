@@ -9,14 +9,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.xml.ws.RequestWrapper;
-
 import java.io.IOException;
-import java.util.*;
+import java.util.Enumeration;
+import java.util.List;
 
 
 @WebServlet(urlPatterns = "/main")
-public class MainFinacesServlet extends HttpServlet {
+class MainFinacesServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 5375886917868065269L;
 	@EJB

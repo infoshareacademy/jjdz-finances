@@ -39,21 +39,16 @@
             <th>Date of action</th>
             <th>Type of action</th>
             <th>Quantity</th>
-            <th>Edit</th>
+            <th colspan="2">Edit</th>
         </tr>
         <tr>
-            <td>fdsfes</td>
-            <td>fdsfes</td>
-            <td>fdsfes</td>
-            <td>fdsfes</td>
-            <td><button type="submit" class="btn btn-default">Delete</button><button type="submit" class="btn btn-default">Edit</button></td>
-        </tr>
-        <tr>
-            <td>fdsfes</td>
-            <td>fdsfes</td>
-            <td>fdsfes</td>
-            <td>fdsfes</td>
-            <td><button type="submit" class="btn btn-default">Delete</button><button type="submit" class="btn btn-default">Edit</button></td>
+            <c:forEach items="${plans}" var="plan">
+                <td>c:out value="${plan.asset.getName()}</td>
+                <td>c:out value="${plan.actionTime}</td>
+                <td>c:out value="${plan.planActionType}</td>
+                <td>c:out value="${plan.quantit}</td>
+                <td><button type="submit" class="btn btn-default">Delete</button><button type="submit" class="btn btn-default">Edit</button></td>
+            </c:forEach>
         </tr>
     </table>
 
@@ -63,13 +58,43 @@
 <div class="container">
     <form class="form-inline table">
         <div class="form-group">
-            <label>Asset</label>
+            <label>Fund</label>
+            <input type="text" class="form-control">
+
+            <select class="form-control">
+                <c:forEach var="LstList" items="${fundList}">
+                    <option value=${LstList.code}>${LstList.name}</option>
+                </c:forEach>
+            </select>
+
+
+
+
+        </div>
+        <%--<div class="form-group">--%>
+            <%--<label>:</label>--%>
+            <%--<input type="email" class="form-control" id="exampleInputEmail2" placeholder="jane.doe@example.com">--%>
+        <%--</div>--%>
+        <div class="form-group">
+            <label>Name</label>
+            <div class="input-group date">
+                <input type="text" class="form-control"><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+            </div>
+
+        </div>
+
+
+        <button type="submit" class="btn btn-default">Create</button>
+    </form>
+    <form class="form-inline table">
+        <div class="form-group">
+            <label>Currency</label>
             <input type="text" class="form-control">
         </div>
-        <div class="form-group">
-            <label>:</label>
-            <input type="email" class="form-control" id="exampleInputEmail2" placeholder="jane.doe@example.com">
-        </div>
+        <%--<div class="form-group">--%>
+        <%--<label>:</label>--%>
+        <%--<input type="email" class="form-control" id="exampleInputEmail2" placeholder="jane.doe@example.com">--%>
+        <%--</div>--%>
         <div class="form-group">
             <label>Name</label>
             <div class="input-group date">
