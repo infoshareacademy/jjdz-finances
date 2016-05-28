@@ -17,7 +17,7 @@ public class PlansRepository {
 	EntityManager em;
 
 	public List<PlanCreationDto> findAllPlans(Long userId) {
-	return em.createQuery("select p from PlanCreationDto p where UserInfoEntity.id = :Id", PlanCreationDto.class)
+	return em.createQuery("select p from PlanCreationDto p join p.userInfoEntity u where u.id = :Id", PlanCreationDto.class)
 			.setParameter("Id", userId).getResultList();
 	}
 }

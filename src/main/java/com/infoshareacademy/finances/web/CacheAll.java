@@ -90,6 +90,11 @@ public class CacheAll {
 		userInfoRepository.saveUserInfoEntityToDB(userInfoEntity);
 		userPrivilegesRepository.saveUserPrivileges(new UserPrivileges(Privileges.MORTAL, userInfoEntity));
 
+        userInfo = new UserInfo("Łukasz Goc", "goc.lukasz@gmail.com");
+		userInfoEntity = UserInfoEntity.fromUserInfo(userInfo).withCurrentDate().build();
+		userInfoRepository.saveUserInfoEntityToDB(userInfoEntity);
+		userPrivilegesRepository.saveUserPrivileges(new UserPrivileges(Privileges.MORTAL, userInfoEntity));
+
 		String code = "OPE033";
 		AssetEntity asset = fundsRepository.findRandomAsset(code);
 		em.persist(new PlanCreationDto(PlanCreationDto.PlanActionType.BUY, 65, ZonedDateTime.now(), asset, userInfoEntity));
