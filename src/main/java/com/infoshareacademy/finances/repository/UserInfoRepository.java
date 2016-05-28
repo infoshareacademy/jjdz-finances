@@ -39,4 +39,8 @@ public class UserInfoRepository {
 	}
 
 
+	public Long findUserId(String mail) {
+		return em.createQuery("select u.id from UserInfoEntity u where u.userInfo.mail= :adres", Long.class)
+				.setParameter("adres", mail).getSingleResult();
+	}
 }

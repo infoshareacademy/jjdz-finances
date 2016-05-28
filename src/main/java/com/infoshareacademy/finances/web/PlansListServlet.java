@@ -1,6 +1,7 @@
 package com.infoshareacademy.finances.web;
 
 import com.infoshareacademy.finances.repository.PlansRepository;
+import com.infoshareacademy.finances.repository.UserInfoRepository;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -16,8 +17,12 @@ public class PlansListServlet extends HttpServlet {
     @EJB
     PlansRepository plansRepository;
 
+    @EJB
+    UserInfoRepository userInfoRepository;
+
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setAttribute("plans", plansRepository.findAllPlans());
+        Long userId=userInfoRepository.findUserId("kowalski2@mail.com");
+        request.setAttribute("plans", plansRepository.findAllPlans(userId));
         getServletContext().getRequestDispatcher("plan.jsp").forward(request, response);
     }
 }

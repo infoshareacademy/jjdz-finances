@@ -11,49 +11,55 @@ public class PlanCreationDto {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @Convert(converter = DateConverter.class)
-    private ZonedDateTime actionTime;
-    @Embedded
-    private Asset asset;
+
     @Enumerated(EnumType.STRING)
     private PlanActionType planActionType;
+
     private int quantity;
+
+    @Convert(converter = DateConverter.class)
+    private ZonedDateTime actionTime;
+
+    @ManyToOne
+    private AssetEntity assetEntity;
+
+    @ManyToOne
+    private UserInfoEntity userInfoEntity;
 
 
     public PlanCreationDto() {
     }
 
-    public PlanCreationDto(Long id, ZonedDateTime actionTime, Asset asset, PlanActionType planActionType, int quantity) {
-        this.id = id;
-        this.actionTime = actionTime;
-        this.asset = asset;
+    public PlanCreationDto(PlanActionType planActionType, int quantity, ZonedDateTime actionTime, AssetEntity assetEntity, UserInfoEntity userInfoEntity) {
         this.planActionType = planActionType;
         this.quantity = quantity;
+        this.actionTime = actionTime;
+        this.assetEntity = assetEntity;
+        this.userInfoEntity = userInfoEntity;
     }
-
 
     public Long getId() {
         return id;
     }
 
-    public ZonedDateTime getActionTime() {
-        return actionTime;
-    }
-
-    public Asset getAsset() {
-        return asset;
+    public PlanActionType getPlanActionType() {
+        return planActionType;
     }
 
     public int getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
+    public ZonedDateTime getActionTime() {
+        return actionTime;
     }
 
-    public void setActionTime(ZonedDateTime actionTime) {
-        this.actionTime = actionTime;
+    public AssetEntity getAssetEntity() {
+        return assetEntity;
+    }
+
+    public UserInfoEntity getUserInfoEntity() {
+        return userInfoEntity;
     }
 
     public enum PlanActionType {

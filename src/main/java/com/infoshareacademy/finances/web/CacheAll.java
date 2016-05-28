@@ -13,6 +13,7 @@ import javax.ejb.Singleton;
 import javax.ejb.Startup;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -88,6 +89,15 @@ public class CacheAll {
 		userInfoEntity = UserInfoEntity.fromUserInfo(userInfo).withCurrentDate().build();
 		userInfoRepository.saveUserInfoEntityToDB(userInfoEntity);
 		userPrivilegesRepository.saveUserPrivileges(new UserPrivileges(Privileges.MORTAL, userInfoEntity));
+
+		FundsAssets asset = new FundsAssets(asset1);
+		em.persist(new PlanCreationDto(PlanCreationDto.PlanActionType.BUY, 65, ZonedDateTime.now(), asset, userInfoEntity));
+		em.persist(new PlanCreationDto(PlanCreationDto.PlanActionType.SELL, 37, ZonedDateTime.now(), asset, userInfoEntity));
+		em.persist(new PlanCreationDto(PlanCreationDto.PlanActionType.BUY, 65, ZonedDateTime.now(), asset, userInfoEntity));
+		em.persist(new PlanCreationDto(PlanCreationDto.PlanActionType.SELL, 47, ZonedDateTime.now(), asset, userInfoEntity));
+		em.persist(new PlanCreationDto(PlanCreationDto.PlanActionType.BUY, 12, ZonedDateTime.now(), asset, userInfoEntity));
+
+
 	}
 
 	public List<LstList> returnAllFunds() {
@@ -103,4 +113,6 @@ public class CacheAll {
 				.forEach(s -> out.add(new LstList(s.getAsset().getName(), s.getAsset().getCode())));
 		return out;
 	}
+
+
 }
