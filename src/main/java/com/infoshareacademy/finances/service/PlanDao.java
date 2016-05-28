@@ -5,7 +5,6 @@ import com.infoshareacademy.finances.model.PlanCreationDto;
 //@Local
 public interface PlanDao {
 //    int create(PlanCreationDto plan);
-//    PlanViewDto read(int id);
 //    void update(int id, PlanCreationDto plan);
 //    void delete(int id);
     PlanCreationDto createOrUpdate (PlanCreationDto plan);
