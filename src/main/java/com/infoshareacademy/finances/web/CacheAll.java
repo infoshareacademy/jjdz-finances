@@ -13,6 +13,8 @@ import javax.persistence.PersistenceContext;
 
 import com.infoshareacademy.finances.entity.Privileges;
 import com.infoshareacademy.finances.entity.UserPrivileges;
+import com.infoshareacademy.finances.model.*;
+import com.infoshareacademy.finances.repository.*;
 import com.infoshareacademy.finances.model.Asset;
 import com.infoshareacademy.finances.model.CurrencyAssets;
 import com.infoshareacademy.finances.model.DailyValue;
@@ -27,6 +29,17 @@ import com.infoshareacademy.finances.repository.UserInfoRepository;
 import com.infoshareacademy.finances.repository.UserPrivilegesRepository;
 import com.infoshareacademy.finances.service.AssetsLoader;
 import com.infoshareacademy.finances.service.DataLoader;
+
+import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
+import javax.ejb.Singleton;
+import javax.ejb.Startup;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import java.time.ZonedDateTime;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 @Singleton
 @Startup
@@ -46,6 +59,9 @@ public class CacheAll {
 
 	@EJB
 	UserInfoRepository userInfoRepository;
+
+	@EJB
+	PlansRepository plansRepository;
 
 	@PostConstruct
 	public void initialize() {
@@ -96,5 +112,36 @@ public class CacheAll {
 		userInfoEntity = UserInfoEntity.fromUserInfo(userInfo).withCurrentDate().build();
 		userInfoRepository.saveUserInfoEntityToDB(userInfoEntity);
 		userPrivilegesRepository.saveUserPrivileges(new UserPrivileges(Privileges.MORTAL, userInfoEntity));
+
+        userInfo = new UserInfo("Łukasz Goc", "goc.lukasz@gmail.com");
+		userInfoEntity = UserInfoEntity.fromUserInfo(userInfo).withCurrentDate().build();
+		userInfoRepository.saveUserInfoEntityToDB(userInfoEntity);
+		userPrivilegesRepository.saveUserPrivileges(new UserPrivileges(Privileges.MORTAL, userInfoEntity));
+
+		String code = "OPE033";
+		AssetEntity asset = fundsRepository.findRandomAsset(code);
+		em.persist(new PlanCreationDto(PlanCreationDto.PlanActionType.BUY, 65, ZonedDateTime.now(), asset, userInfoEntity));
+		em.persist(new PlanCreationDto(PlanCreationDto.PlanActionType.SELL, 37, ZonedDateTime.now(), asset, userInfoEntity));
+		em.persist(new PlanCreationDto(PlanCreationDto.PlanActionType.BUY, 65, ZonedDateTime.now(), asset, userInfoEntity));
+		em.persist(new PlanCreationDto(PlanCreationDto.PlanActionType.SELL, 47, ZonedDateTime.now(), asset, userInfoEntity));
+		em.persist(new PlanCreationDto(PlanCreationDto.PlanActionType.BUY, 12, ZonedDateTime.now(), asset, userInfoEntity));
+
+
 	}
+
+	public List<LstList> returnAllFunds() {
+		List<LstList> out = new ArrayList<>();
+		fundsRepository.findAllFunds().parallelStream()
+				.forEach(s -> out.add(new LstList(s.getAsset().getName(), s.getAsset().getCode())));
+		return out;
+	}
+
+	public List<LstList> returnAllCurrency() {
+		List<LstList> out = new ArrayList<>();
+		currencyRepository.findAllCurrency().parallelStream()
+				.forEach(s -> out.add(new LstList(s.getAsset().getName(), s.getAsset().getCode())));
+		return out;
+	}
+
+
 }

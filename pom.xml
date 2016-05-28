@@ -80,11 +80,11 @@
             <version>7.0</version>
             <scope>provided</scope>
         </dependency>
-        <dependency>
-            <groupId>commons-io</groupId>
-            <artifactId>commons-io</artifactId>
-            <version>2.5</version>
-        </dependency>
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>2.5</version>
+		</dependency>
         <dependency>
             <groupId>com.github.scribejava</groupId>
             <artifactId>scribejava-apis</artifactId>
@@ -112,6 +112,11 @@
             <version>3.2.5</version>
         </dependency>
 
+        <dependency>
+            <groupId>net.sargue</groupId>
+            <artifactId>java-time-jsptags</artifactId>
+            <version>1.1.2</version>
+        </dependency>
     </dependencies>
     <build>
         <plugins>
@@ -122,7 +127,6 @@
                     <target>${maven.compile.target}</target>
                 </configuration>
             </plugin>
-
 
             <plugin>
                 <groupId>org.wildfly.plugins</groupId>
@@ -140,6 +144,7 @@
                     </beforeDeployment>
                 </configuration>
             </plugin>
+
         </plugins>
     </build>
 </project>
