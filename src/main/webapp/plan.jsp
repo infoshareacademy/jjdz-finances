@@ -47,7 +47,6 @@
         </tr>
         <c:forEach items="${plans}" var="plan">
             <tr>
-                <%--<% request.getAttribute()--%>
                 <%--%>--%>
                 <%--<td><c:out value="${plan.asset.getName()}" /></td>--%>
                 <%--<td><fmt:formatDate pattern="dd-MM-yyyy" value="${plan.actionTime}"/></td>--%>
