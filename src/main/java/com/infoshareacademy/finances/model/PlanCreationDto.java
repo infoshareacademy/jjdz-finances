@@ -17,7 +17,7 @@ public class PlanCreationDto {
 
     private int quantity;
 
-    @Convert(converter = DateConverter.class)
+//    @Convert(converter = DateConverter.class)
     private ZonedDateTime actionTime;
 
     @ManyToOne

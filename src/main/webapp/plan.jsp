@@ -1,26 +1,28 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c"
            uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <html>
 <head>
     <title>Plans</title>
     <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+          integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 
     <!-- Optional theme -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css"
+          integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
 
     <script src="https://code.jquery.com/jquery-2.2.3.min.js"
             integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo="
             crossorigin="anonymous"></script>
 
     <!-- Latest compiled and minified JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
-
-
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
+            integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
+            crossorigin="anonymous"></script>
 
 
     <!-- Latest compiled and minified CSS -->
@@ -36,84 +38,86 @@
 <div class="container">
     <table class="table table-hover">
         <tr>
-            <th>Asset</th>
+            <%--<th>Asset</th>--%>
             <th>Date of action</th>
             <th>Type of action</th>
             <th>Quantity</th>
             <th colspan="2">Edit</th>
         </tr>
-        <tr>
-            <c:forEach items="${plans}" var="plan">
-                <td><c:out value="${plan.asset.getName()}" /></td>
-                <td><fmt:formatDate pattern="dd-MM-yyyy" value="${plan.actionType}" /></td>
-                <td><c:out value="${plan.planActionType}" /></td>
-                <td><c:out value="${plan.quantit}" /></td>
-                <td><button type="submit" class="btn btn-default">Delete</button><button type="submit" class="btn btn-default">Edit</button></td>
-            </c:forEach>
-        </tr>
+        <c:forEach items="${plans}" var="plan">
+            <tr>
+                <%--<% request.getAttribute()--%>
+                <%--%>--%>
+                <%--<td><c:out value="${plan.asset.getName()}" /></td>--%>
+                <%--<td><fmt:formatDate pattern="dd-MM-yyyy" value="${plan.actionTime}"/></td>--%>
+                <td><c:out value="${plan.actionTime}"/></td>
+                <td><c:out value="${plan.planActionType}"/></td>
+                <td><c:out value="${plan.quantity}"/></td>
+                <td>
+                    <button type="submit" class="btn btn-default">Delete</button>
+                    <button type="submit" class="btn btn-default">Edit</button>
+                </td>
+            </tr>
+        </c:forEach>
     </table>
 
 </div>
 
 
-<div class="container">
-    <form class="form-inline table">
-        <div class="form-group">
-            <label>Fund</label>
-            <input type="text" class="form-control">
-
-            <select class="form-control">
-                <c:forEach var="LstList" items="${fundList}">
-                    <option value=${LstList.code}>${LstList.name}</option>
-                </c:forEach>
-            </select>
-
-
-
-
-        </div>
+<%--<div class="container">--%>
+    <%--<form class="form-inline table">--%>
         <%--<div class="form-group">--%>
-            <%--<label>:</label>--%>
-            <%--<input type="email" class="form-control" id="exampleInputEmail2" placeholder="jane.doe@example.com">--%>
+            <%--<label>Fund</label>--%>
+            <%--<input type="text" class="form-control">--%>
+
+            <%--<select class="form-control">--%>
+                <%--<c:forEach var="LstList" items="${fundList}">--%>
+                    <%--<option value=${LstList.code}>${LstList.name}</option>--%>
+                <%--</c:forEach>--%>
+            <%--</select>--%>
+
+
         <%--</div>--%>
-        <div class="form-group">
-            <label>Name</label>
-            <div class="input-group date">
-                <input type="text" class="form-control"><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
-            </div>
-
-        </div>
-
-
-        <button type="submit" class="btn btn-default">Create</button>
-    </form>
-    <form class="form-inline table">
-        <div class="form-group">
-            <label>Currency</label>
-            <input type="text" class="form-control">
-        </div>
+        <%--&lt;%&ndash;<div class="form-group">&ndash;%&gt;--%>
+        <%--&lt;%&ndash;<label>:</label>&ndash;%&gt;--%>
+        <%--&lt;%&ndash;<input type="email" class="form-control" id="exampleInputEmail2" placeholder="jane.doe@example.com">&ndash;%&gt;--%>
+        <%--&lt;%&ndash;</div>&ndash;%&gt;--%>
         <%--<div class="form-group">--%>
-        <%--<label>:</label>--%>
-        <%--<input type="email" class="form-control" id="exampleInputEmail2" placeholder="jane.doe@example.com">--%>
+            <%--<label>Name</label>--%>
+            <%--<div class="input-group date">--%>
+                <%--<input type="text" class="form-control"><span class="input-group-addon"><i--%>
+                    <%--class="glyphicon glyphicon-th"></i></span>--%>
+            <%--</div>--%>
+
         <%--</div>--%>
-        <div class="form-group">
-            <label>Name</label>
-            <div class="input-group date">
-                <input type="text" class="form-control"><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
-            </div>
-
-        </div>
 
 
-        <button type="submit" class="btn btn-default">Create</button>
-    </form>
+        <%--<button type="submit" class="btn btn-default">Create</button>--%>
+    <%--</form>--%>
+    <%--<form class="form-inline table">--%>
+        <%--<div class="form-group">--%>
+            <%--<label>Currency</label>--%>
+            <%--<input type="text" class="form-control">--%>
+        <%--</div>--%>
+        <%--&lt;%&ndash;<div class="form-group">&ndash;%&gt;--%>
+        <%--&lt;%&ndash;<label>:</label>&ndash;%&gt;--%>
+        <%--&lt;%&ndash;<input type="email" class="form-control" id="exampleInputEmail2" placeholder="jane.doe@example.com">&ndash;%&gt;--%>
+        <%--&lt;%&ndash;</div>&ndash;%&gt;--%>
+        <%--<div class="form-group">--%>
+            <%--<label>Name</label>--%>
+            <%--<div class="input-group date">--%>
+                <%--<input type="text" class="form-control"><span class="input-group-addon"><i--%>
+                    <%--class="glyphicon glyphicon-th"></i></span>--%>
+            <%--</div>--%>
+
+        <%--</div>--%>
 
 
+        <%--<button type="submit" class="btn btn-default">Create</button>--%>
+    <%--</form>--%>
 
 
-</div>
-
-
+<%--</div>--%>
 
 
 <!-- Latest compiled and minified JavaScript -->
