@@ -40,6 +40,9 @@ public class MainFinacesServlet extends HttpServlet {
 		case "currenciesSelected":
 			currenciesSelected(req, resp);
 			break;
+		case "showStatistics":
+			showStatistics(req,resp);
+			break;
 		case "adminSelected":
 			adminSelected(req, resp);
 			break;
@@ -109,6 +112,12 @@ public class MainFinacesServlet extends HttpServlet {
 		req.setAttribute("action", "currenciesSelected");
 		req.setAttribute("currencies", "EUR");
 		String nextJSP = "/currencies.jsp";
+		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextJSP);
+		dispatcher.forward(req, resp);
+	}
+
+	private void showStatistics(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
+		String nextJSP = "/statistics.jsp";
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextJSP);
 		dispatcher.forward(req, resp);
 	}
