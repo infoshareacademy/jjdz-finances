@@ -3,6 +3,7 @@
            uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://sargue.net/jsptags/time" prefix="javatime" %>
 
 <html>
 <head>
@@ -50,7 +51,7 @@
                 <%--%>--%>
                 <%--<td><c:out value="${plan.asset.getName()}" /></td>--%>
                 <%--<td><fmt:formatDate pattern="dd-MM-yyyy" value="${plan.actionTime}"/></td>--%>
-                <td><c:out value="${plan.actionTime}"/></td>
+                <td><javatime:format value="${plan.actionTime}" style="MS"/></td>
                 <td><c:out value="${plan.planActionType}"/></td>
                 <td><c:out value="${plan.quantity}"/></td>
                 <td>
