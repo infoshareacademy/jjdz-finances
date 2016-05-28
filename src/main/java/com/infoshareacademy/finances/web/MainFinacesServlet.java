@@ -14,7 +14,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.infoshareacademy.finances.model.LstList;
 
-
 @WebServlet(urlPatterns = "/main")
 public class MainFinacesServlet extends HttpServlet {
 
@@ -80,8 +79,7 @@ public class MainFinacesServlet extends HttpServlet {
 		}
 	}
 
-	private void forwardMain(HttpServletRequest req, HttpServletResponse resp)
-			throws ServletException, IOException {
+	private void forwardMain(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 		String nextJSP = "/main.jsp";
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextJSP);
@@ -91,16 +89,12 @@ public class MainFinacesServlet extends HttpServlet {
 	private void forwardFundsMain(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 
-		List<LstList> fundList = cache.returnAllFunds();
-
-		String nextJSP = "/funds.jsp";
+		String nextJSP = "/inputForm";
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextJSP);
-		req.setAttribute("fundList", fundList);
 		dispatcher.forward(req, resp);
 	}
 
-	private void fundSelected(HttpServletRequest req, HttpServletResponse resp)
-			throws ServletException, IOException {
+	private void fundSelected(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 		req.setAttribute("action", "fundSelected");
 		req.setAttribute("value", "AGI001");
@@ -119,16 +113,12 @@ public class MainFinacesServlet extends HttpServlet {
 		dispatcher.forward(req, resp);
 	}
 
-	private void adminSelected(HttpServletRequest req, HttpServletResponse resp)
-			throws ServletException, IOException {
+	private void adminSelected(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String nextJSP = "/admin";
 		resp.sendRedirect("/admin");
-		//		req.getRequestDispatcher("/admin")
-		//				.forward(req, resp);
 	}
 
-	private void loginSelected(HttpServletRequest req, HttpServletResponse resp)
-			throws ServletException, IOException {
+	private void loginSelected(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 		String nextJSP = "/login.jsp";
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextJSP);

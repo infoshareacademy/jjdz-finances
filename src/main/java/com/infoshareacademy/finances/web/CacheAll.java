@@ -97,18 +97,4 @@ public class CacheAll {
 		userInfoRepository.saveUserInfoEntityToDB(userInfoEntity);
 		userPrivilegesRepository.saveUserPrivileges(new UserPrivileges(Privileges.MORTAL, userInfoEntity));
 	}
-
-	public List<LstList> returnAllFunds() {
-		List<LstList> out = new ArrayList<>();
-		fundsRepository.findAllFunds().parallelStream()
-				.forEach(s -> out.add(new LstList(s.getAsset().getName(), s.getAsset().getCode())));
-		return out;
-	}
-
-	public List<LstList> returnAllCurrency() {
-		List<LstList> out = new ArrayList<>();
-		currencyRepository.findAllCurrency().parallelStream()
-				.forEach(s -> out.add(new LstList(s.getAsset().getName(), s.getAsset().getCode())));
-		return out;
-	}
 }

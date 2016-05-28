@@ -27,6 +27,7 @@ import com.infoshareacademy.finances.repository.UserPrivilegesRepository;
 public class AdminServlet extends HttpServlet {
 	private static final Logger LOGGER = LoggerFactory.getLogger(AdminServlet.class);
 	private static final long serialVersionUID = -1098883883988907023L;
+
 	@EJB
 	UserInfoRepository userInfoRepository;
 
