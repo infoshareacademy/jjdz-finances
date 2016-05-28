@@ -10,20 +10,20 @@ public class MainFormInput {
     @Enumerated(EnumType.STRING)
     private AssetType type;
 
-    private String assetName;
+    private String assetCode;
     private Month month;
     private Year year;
-    private String user;
+    private Long userId;
 
     public MainFormInput() {
     }
 
-    public MainFormInput(AssetType type, String assetName, Month month, Year year, String user) {
+    public MainFormInput(AssetType type, String assetCode, Month month, Year year, Long userId) {
         this.type = type;
-        this.assetName = assetName;
+        this.assetCode = assetCode;
         this.month = month;
         this.year = year;
-        this.user = user;
+        this.userId = userId;
     }
 
 
@@ -35,20 +35,20 @@ public class MainFormInput {
         this.type = type;
     }
 
-    public String getUser() {
-        return user;
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setUser(String user) {
-        this.user = user;
+    public void setUserId(Long user) {
+        this.userId = user;
     }
 
-    public String getAssetName() {
-        return assetName;
+    public String getAssetCode() {
+        return assetCode;
     }
 
-    public void setAssetName(String assetName) {
-        this.assetName = assetName;
+    public void setAssetCode(String assetName) {
+        this.assetCode = assetName;
     }
 
     public Year getYear() {

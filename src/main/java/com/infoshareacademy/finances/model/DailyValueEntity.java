@@ -48,4 +48,13 @@ public class DailyValueEntity {
 	public void setDailyValue(DailyValue dailyValue) {
 		this.dailyValue = dailyValue;
 	}
+
+	@Override
+	public String toString() {
+		return "DailyValueEntity{" +
+				"id=" + id +
+				", dailyValue=" + dailyValue +
+				", assetEntity=" + assetEntity +
+				'}';
+	}
 }

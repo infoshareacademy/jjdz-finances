@@ -32,4 +32,13 @@ public class AssetEntity {
     public void setAsset(Asset asset) {
         this.asset = asset;
     }
+
+	@Override
+	public String toString() {
+		return "AssetEntity{" +
+				"id=" + id +
+				", asset=" + asset +
+				'}';
+	}
 }
+

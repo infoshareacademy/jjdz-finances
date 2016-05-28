@@ -1,6 +1,5 @@
 package com.infoshareacademy.finances.service;
 
-import com.infoshareacademy.finances.model.Asset;
 import com.infoshareacademy.finances.model.DailyValue;
 import org.junit.Test;
 
@@ -13,7 +12,7 @@ import java.util.Set;
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.assertThat;
 
-public class YearDataViewerTest {
+public class YearDataTest {
 
     @Test
     public void testMaxValues() {
@@ -22,7 +21,7 @@ public class YearDataViewerTest {
                 new DailyValue(LocalDate.of(2009, 12, 12), new BigDecimal("12.1")),
                 new DailyValue(LocalDate.of(2009, 12, 13), new BigDecimal("12.3")));
 
-        YearDataViewer viewer = new YearDataViewer();
+        YearData viewer = new YearData();
 
         List<DailyValue> out = viewer.yearMaxValues(dailyValues, 2009);
 
@@ -36,7 +35,7 @@ public class YearDataViewerTest {
                 new DailyValue(LocalDate.of(2009, 12, 12), new BigDecimal("12.1")),
                 new DailyValue(LocalDate.of(2009, 12, 13), new BigDecimal("12.3")));
 
-        YearDataViewer viewer = new YearDataViewer();
+        YearData viewer = new YearData();
 
         List<DailyValue> out = viewer.yearMinValues(dailyValues, 2009);
 
@@ -52,8 +51,8 @@ public class YearDataViewerTest {
                 new DailyValue(LocalDate.of(2009, 12, 13), new BigDecimal("12.3")),
                 new DailyValue(LocalDate.of(2010, 12, 12), new BigDecimal("12.3")));
 
-        YearDataViewer viewer = new YearDataViewer();
-        Set<Integer> integers = viewer.showYears(dailyValues);
+        YearData viewer = new YearData();
+        Set<Integer> integers = viewer.returnAllYears(dailyValues);
 
         System.out.println("Dates as integers = " + integers);
 

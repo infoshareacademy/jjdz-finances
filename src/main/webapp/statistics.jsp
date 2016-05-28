@@ -20,33 +20,17 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 </head>
+
 <body>
 
 <%@ include file="resources/navbar.jsp" %>
+
 <div class="container">
-    <form action="/inputForm" method="get" id="fund" role="form">
-        <select class="form-control" name="selectAsset">
-            <c:forEach var="LstList" items="${fundList}">
-                <option value=${LstList.code}>${LstList.name}</option>
-            </c:forEach>
-        </select>
-        <button type="Go!" class="btn btn-info">
-            <span class="glyphicon glyphicon-search"></span> Select
-        </button>
-    </form>
-    <form action="/inputForm" method="get" role="form">
-        <select class="form-inline" name="selectYear">
-            <c:forEach var="year" items="${years}">
-                <option value=${year}>${year}</option>
-            </c:forEach>
-        </select>
-        <button type="Go!" class="btn btn-info">
-            <span class="glyphicon glyphicon-search"></span> Select
-        </button>
-    </form>
-</div>
+    <h1>Statistics</h1>
 
 </div>
+
+
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
