@@ -13,7 +13,6 @@
 		<filter-name>LogginFilter</filter-name>
 		<url-pattern>/main</url-pattern>
 		<url-pattern>*.jsp</url-pattern>
-		<url-pattern>/admin</url-pattern>
 	</filter-mapping>
 	<filter>
 		<filter-name>AdminFilter</filter-name>

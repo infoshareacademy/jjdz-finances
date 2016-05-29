@@ -11,3 +11,7 @@
 .imgFacebook {
     background: url(../../resources/img/signin_face.png) no-repeat;
 }
+
+#id {
+    width: 90%;
+}
