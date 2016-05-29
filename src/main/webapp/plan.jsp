@@ -35,6 +35,7 @@
 
 </head>
 <body>
+<%@ include file="resources/navbar.jsp" %>
 
 <div class="container">
     <table class="table table-hover">
