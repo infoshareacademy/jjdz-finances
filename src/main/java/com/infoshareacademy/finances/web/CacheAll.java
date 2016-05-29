@@ -118,13 +118,14 @@ public class CacheAll {
 		userInfoRepository.saveUserInfoEntityToDB(userInfoEntity);
 		userPrivilegesRepository.saveUserPrivileges(new UserPrivileges(Privileges.MORTAL, userInfoEntity));
 
-		String code = "OPE033";
-		AssetEntity asset = fundsRepository.findRandomAsset(code);
-		em.persist(new PlanCreationDto(PlanCreationDto.PlanActionType.BUY, 65, ZonedDateTime.now(), asset, userInfoEntity));
-		em.persist(new PlanCreationDto(PlanCreationDto.PlanActionType.SELL, 37, ZonedDateTime.now(), asset, userInfoEntity));
-		em.persist(new PlanCreationDto(PlanCreationDto.PlanActionType.BUY, 65, ZonedDateTime.now(), asset, userInfoEntity));
-		em.persist(new PlanCreationDto(PlanCreationDto.PlanActionType.SELL, 47, ZonedDateTime.now(), asset, userInfoEntity));
-		em.persist(new PlanCreationDto(PlanCreationDto.PlanActionType.BUY, 12, ZonedDateTime.now(), asset, userInfoEntity));
+		AssetEntity asset4 = fundsRepository.findRandomAsset("OPE033");
+		AssetEntity asset5 = fundsRepository.findRandomAsset("SEB001");
+		AssetEntity asset6 = fundsRepository.findRandomAsset("ALL001");
+		em.persist(new PlanCreationDto(PlanCreationDto.PlanActionType.BUY, 65, ZonedDateTime.now(), asset4, userInfoEntity));
+		em.persist(new PlanCreationDto(PlanCreationDto.PlanActionType.SELL, 37, ZonedDateTime.now(), asset5, userInfoEntity));
+		em.persist(new PlanCreationDto(PlanCreationDto.PlanActionType.BUY, 65, ZonedDateTime.now(), asset6, userInfoEntity));
+		em.persist(new PlanCreationDto(PlanCreationDto.PlanActionType.SELL, 47, ZonedDateTime.now(), asset4, userInfoEntity));
+		em.persist(new PlanCreationDto(PlanCreationDto.PlanActionType.BUY, 12, ZonedDateTime.now(), asset5, userInfoEntity));
 
 
 	}
