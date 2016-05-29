@@ -1,5 +1,6 @@
 package com.infoshareacademy.finances.web;
 
+import com.infoshareacademy.finances.model.AssetType;
 import com.infoshareacademy.finances.model.LstList;
 
 import javax.ejb.EJB;
@@ -93,11 +94,9 @@ class MainFinacesServlet extends HttpServlet {
     private void forwardFundsMain(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
 
-        List<LstList> fundList = cache.returnAllFunds();
-
-        String nextJSP = "/funds.jsp";
+        String nextJSP = "/showAssets";
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextJSP);
-        req.setAttribute("fundList", fundList);
+        req.setAttribute("assetType", AssetType.FUND);
         dispatcher.forward(req, resp);
     }
 
@@ -106,7 +105,7 @@ class MainFinacesServlet extends HttpServlet {
 
         req.setAttribute("action", "fundSelected");
         req.setAttribute("value", "AGI001");
-        String nextJSP = "funds.jsp";
+        String nextJSP = "assets.jsp";
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextJSP);
         dispatcher.forward(req, resp);
     }
@@ -114,10 +113,9 @@ class MainFinacesServlet extends HttpServlet {
     private void currenciesSelected(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
 
-        req.setAttribute("action", "currenciesSelected");
-        req.setAttribute("currencies", "EUR");
-        String nextJSP = "/currencies.jsp";
+        String nextJSP = "/showAssets";
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextJSP);
+        req.setAttribute("assetType", AssetType.CURRENCY);
         dispatcher.forward(req, resp);
     }
 

@@ -40,6 +40,6 @@ public class CalculationServlet extends HttpServlet {
 
 		dailyValuesByRange.forEach(f -> LOGGER.info(String.valueOf(f)));
 
-		req.getRequestDispatcher("funds.jsp").forward(req, resp);
+		req.getRequestDispatcher("assets.jsp").forward(req, resp);
 	}
 }

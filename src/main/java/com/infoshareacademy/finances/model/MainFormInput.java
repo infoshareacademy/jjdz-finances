@@ -7,48 +7,39 @@ import java.time.Year;
 @Embeddable
 public class MainFormInput {
 
-    @Enumerated(EnumType.STRING)
-    private AssetType type;
+    @ManyToOne
+    private AssetEntity assetCode;
 
-    private String assetCode;
     private Month month;
     private Year year;
-    private Long userId;
+
+    @ManyToOne
+    private UserInfoEntity userId;
 
     public MainFormInput() {
     }
 
-    public MainFormInput(AssetType type, String assetCode, Month month, Year year, Long userId) {
-        this.type = type;
+    public MainFormInput(AssetEntity assetCode, Month month, Year year, UserInfoEntity userId) {
         this.assetCode = assetCode;
         this.month = month;
         this.year = year;
         this.userId = userId;
     }
 
-
-    public AssetType getType() {
-        return type;
-    }
-
-    public void setType(AssetType type) {
-        this.type = type;
-    }
-
-    public Long getUserId() {
+    public UserInfoEntity getUserId() {
         return userId;
     }
 
-    public void setUserId(Long user) {
-        this.userId = user;
+    public void setUserId(UserInfoEntity userId) {
+        this.userId = userId;
     }
 
-    public String getAssetCode() {
+    public AssetEntity getAssetCode() {
         return assetCode;
     }
 
-    public void setAssetCode(String assetName) {
-        this.assetCode = assetName;
+    public void setAssetCode(AssetEntity assetCode) {
+        this.assetCode = assetCode;
     }
 
     public Year getYear() {
@@ -67,7 +58,5 @@ public class MainFormInput {
         this.month = month;
     }
 
-    enum AssetType {
-        CURRENCY, FUND
-    }
+
 }

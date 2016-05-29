@@ -47,4 +47,13 @@ public class AssetService {
 		integers.forEach(i -> years.add(i.toString()));
 		return years;
 	}
+
+	public List<String> returnAvailableMonths(Long assetCode) {
+		List<String> months = new ArrayList<>();
+		months.add("none");
+		months.add("1");
+		months.add("2");
+
+		return months;
+	}
 }

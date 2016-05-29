@@ -24,9 +24,9 @@
 
 <%@ include file="resources/navbar.jsp" %>
 <div class="container">
-    <form action="/inputForm" method="get" id="fund" role="form">
+    <form action="/showYears" method="get" id="fund" role="form">
         <select class="form-control" name="selectAsset">
-            <c:forEach var="LstList" items="${fundList}">
+            <c:forEach var="LstList" items="${assetList}">
                 <option value=${LstList.code}>${LstList.name}</option>
             </c:forEach>
         </select>
@@ -34,16 +34,7 @@
             <span class="glyphicon glyphicon-search"></span> Select
         </button>
     </form>
-    <form action="/inputForm" method="get" role="form">
-        <select class="form-inline" name="selectYear">
-            <c:forEach var="year" items="${years}">
-                <option value=${year}>${year}</option>
-            </c:forEach>
-        </select>
-        <button type="Go!" class="btn btn-info">
-            <span class="glyphicon glyphicon-search"></span> Select
-        </button>
-    </form>
+
 </div>
 
 </div>
