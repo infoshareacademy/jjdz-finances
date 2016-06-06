@@ -1,25 +1,20 @@
 package com.infoshareacademy.finances.web;
 
-import com.infoshareacademy.finances.model.LstList;
+import java.io.IOException;
+import java.util.Enumeration;
 
-import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.util.Enumeration;
-import java.util.List;
 
 
 @WebServlet(urlPatterns = "/main")
 class MainFinacesServlet extends HttpServlet {
 
     private static final long serialVersionUID = 5375886917868065269L;
-    @EJB
-    CacheAll cache;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -90,11 +85,8 @@ class MainFinacesServlet extends HttpServlet {
     private void forwardFundsMain(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
 
-        List<LstList> fundList = cache.returnAllFunds();
-
-        String nextJSP = "/funds.jsp";
+        String nextJSP = "/inputForm";
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextJSP);
-        req.setAttribute("fundList", fundList);
         dispatcher.forward(req, resp);
     }
 
