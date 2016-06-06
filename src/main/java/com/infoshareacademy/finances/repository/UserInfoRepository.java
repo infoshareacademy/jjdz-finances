@@ -14,29 +14,30 @@ import com.infoshareacademy.finances.model.UserInfoEntity;
 @Stateless
 public class UserInfoRepository {
 
-	@PersistenceContext
-	EntityManager em;
+    @PersistenceContext
+    EntityManager em;
 
-	public void saveUserInfoEntityToDB(UserInfoEntity userInfoEntity) {
-		em.persist(userInfoEntity);
-	}
+    public void saveUserInfoEntityToDB(UserInfoEntity userInfoEntity) {
+        em.persist(userInfoEntity);
+    }
 
-	public boolean userNotExists(UserInfo userInfo) {
-		return em.createQuery("select u from UserInfoEntity u " +
-				"where u.userInfo.name = :user and u.userInfo.mail = :mail")
-				.setParameter("user", userInfo.getName())
-				.setParameter("mail", userInfo.getMail())
-				.getResultList().isEmpty();
-	}
+    public boolean userNotExists(UserInfo userInfo) {
+        return em.createQuery("select u from UserInfoEntity u " +
+                "where u.userInfo.name = :user and u.userInfo.mail = :mail")
+                .setParameter("user", userInfo.getName())
+                .setParameter("mail", userInfo.getMail())
+                .getResultList().isEmpty();
+    }
 
-	public List<UserInfoEntity> loadUsersWithPrivileges(Privileges privileges) {
-		return em.createQuery("select u from UserPrivileges p join p.userInfoEntity u where p.privileges = :privileges",
-				UserInfoEntity.class).setParameter("privileges", privileges).getResultList();
-	}
-	public List<UserInfoEntity> loadAllUsers() {
-		return em.createQuery("select i from UserInfoEntity i",
-				UserInfoEntity.class).getResultList();
-	}
+    public List<UserInfoEntity> loadUsersWithPrivileges(Privileges privileges) {
+        return em.createQuery("select u from UserPrivileges p join p.userInfoEntity u where p.privileges = :privileges",
+                UserInfoEntity.class).setParameter("privileges", privileges).getResultList();
+    }
+
+    public List<UserInfoEntity> loadAllUsers() {
+        return em.createQuery("select i from UserInfoEntity i",
+                UserInfoEntity.class).getResultList();
+    }
 
 
 	public Long findUserId(String mail) {

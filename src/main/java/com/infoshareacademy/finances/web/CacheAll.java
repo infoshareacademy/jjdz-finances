@@ -93,9 +93,9 @@ public class CacheAll {
 		currencies.forEach(c -> {
 			CurrencyAssets asset = new CurrencyAssets(c);
 			List<DailyValue> dailyValues = dataLoader.loadDataFromFile("currencies/" + c.getCode() + ".txt");
-		//	em.persist(asset);
+						em.persist(asset);
 			for (DailyValue dailyValue : dailyValues) {
-		//		em.persist(new DailyValueEntity(dailyValue, asset));
+								em.persist(new DailyValueEntity(dailyValue, asset));
 			}
 		});
 
@@ -114,7 +114,7 @@ public class CacheAll {
 		userInfoRepository.saveUserInfoEntityToDB(userInfoEntity);
 		userPrivilegesRepository.saveUserPrivileges(new UserPrivileges(Privileges.MORTAL, userInfoEntity));
 
-		userInfo = new UserInfo("Łukasz Goc", "goc.lukasz@gmail.com");
+        userInfo = new UserInfo("Łukasz Goc", "goc.lukasz@gmail.com");
 		userInfoEntity = UserInfoEntity.fromUserInfo(userInfo).withCurrentDate().build();
 		userInfoRepository.saveUserInfoEntityToDB(userInfoEntity);
 		userPrivilegesRepository.saveUserPrivileges(new UserPrivileges(Privileges.MORTAL, userInfoEntity));
@@ -131,6 +131,14 @@ public class CacheAll {
 				userInfoEntity));
 		em.persist(new PlanCreationDto(PlanCreationDto.PlanActionType.BUY, 12, ZonedDateTime.now(), asset,
 				userInfoEntity));
+		AssetEntity asset4 = fundsRepository.findRandomAsset("OPE033");
+		AssetEntity asset5 = fundsRepository.findRandomAsset("SEB001");
+		AssetEntity asset6 = fundsRepository.findRandomAsset("ALL001");
+		em.persist(new PlanCreationDto(PlanCreationDto.PlanActionType.BUY, 65, ZonedDateTime.now(), asset4, userInfoEntity));
+		em.persist(new PlanCreationDto(PlanCreationDto.PlanActionType.SELL, 37, ZonedDateTime.now(), asset5, userInfoEntity));
+		em.persist(new PlanCreationDto(PlanCreationDto.PlanActionType.BUY, 65, ZonedDateTime.now(), asset6, userInfoEntity));
+		em.persist(new PlanCreationDto(PlanCreationDto.PlanActionType.SELL, 47, ZonedDateTime.now(), asset4, userInfoEntity));
+		em.persist(new PlanCreationDto(PlanCreationDto.PlanActionType.BUY, 12, ZonedDateTime.now(), asset5, userInfoEntity));
 
 		String codeVash = "SEB001";
 		AssetEntity assetVash = fundsRepository.findRandomAsset(codeVash);

@@ -24,7 +24,7 @@ public class CalculationServlet extends HttpServlet {
 	DailyValuesRepository dailyValuesRepository;
 
 	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		LocalDate dateFrom = LocalDate.now().withMonth(5).withYear(2014).withDayOfMonth(1);
 		int interval = dateFrom.lengthOfMonth();
 		LocalDate dateTo = dateFrom.withDayOfMonth(interval);
@@ -32,6 +32,6 @@ public class CalculationServlet extends HttpServlet {
 		String assetCode = req.getParameter("selectAsset");
 		LOGGER.info("Selecting daily values for assetCode: {}", assetCode);
 
-		req.getRequestDispatcher("results.jsp").forward(req, resp);
+		req.getRequestDispatcher("assets.jsp").forward(req, resp);
 	}
 }
