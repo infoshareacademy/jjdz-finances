@@ -1,4 +1,4 @@
-package com.infoshareacademy.finances.web.filters;
+package com.infoshareacademy.finances.web;
 
 import java.awt.Color;
 import java.io.IOException;
@@ -7,7 +7,6 @@ import java.time.LocalDate;
 import java.util.List;
 
 import javax.ejb.EJB;
-import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.annotation.WebServlet;
@@ -33,7 +32,6 @@ import org.slf4j.LoggerFactory;
 import com.infoshareacademy.finances.model.DailyValue;
 import com.infoshareacademy.finances.repository.DailyValuesRepository;
 import com.infoshareacademy.finances.service.MonthlyTrendsService;
-import com.infoshareacademy.finances.service.users.UserSessionData;
 
 @WebServlet("/drawChart")
 public class DrawServlet extends HttpServlet {
