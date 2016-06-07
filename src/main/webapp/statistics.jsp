@@ -26,7 +26,47 @@
 <%@ include file="resources/navbar.jsp" %>
 
 <div class="container">
-    <h1>Statistics</h1>
+    <h1>Report</h1>
+
+    <div class="container">
+        <h2>Most often purchased funds</h2>
+        <table class="table table-condensed">
+            <thead>
+            <tr>
+                <th>Fund</th>
+                <th>Quantity</th>
+            </tr>
+            </thead>
+            <tbody>
+            <c:forEach items="${buyMax}" var="item">
+                <tr>
+                    <td>${item.assetName}</td>
+                    <td>${item.sum}</td>
+                </tr>
+            </c:forEach>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="container">
+        <h2>Most often sold funds</h2>
+        <table class="table table-condensed">
+            <thead>
+            <tr>
+                <th>Fund</th>
+                <th>Quantity</th>
+            </tr>
+            </thead>
+            <tbody>
+            <c:forEach items="${sellMax}" var="item">
+                <tr>
+                    <td>${item.assetName}</td>
+                    <td>${item.sum}</td>
+                </tr>
+            </c:forEach>
+            </tbody>
+        </table>
+    </div>
 
 </div>
 
