@@ -7,6 +7,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 import javax.ejb.EJB;
+import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.annotation.WebServlet;
@@ -31,6 +32,7 @@ import org.slf4j.LoggerFactory;
 
 import com.infoshareacademy.finances.model.DailyValue;
 import com.infoshareacademy.finances.repository.DailyValuesRepository;
+import com.infoshareacademy.finances.service.MainFormInputData;
 import com.infoshareacademy.finances.service.MonthlyTrendsService;
 
 @WebServlet("/drawChart")
@@ -44,11 +46,20 @@ public class DrawServlet extends HttpServlet {
 	@EJB
 	DailyValuesRepository dailyValuesRepository;
 
+	@Inject
+	MainFormInputData mainFormInputData;
+
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		LocalDate dateFrom = LocalDate.now().withMonth(9).withYear(2014).withDayOfMonth(1);
 		int interval = dateFrom.lengthOfMonth();
 		LocalDate dateTo = dateFrom.withDayOfMonth(interval);
+
+		LOGGER.info("Asset code :", mainFormInputData.getAssetCode());
+		LOGGER.info("Year :", mainFormInputData.getYear());
+		LOGGER.info("Month :", mainFormInputData.getMonth());
+		LOGGER.info("Asset id :", mainFormInputData.getAssetId());
+		LOGGER.info("user id :", mainFormInputData.getUserId());
 
 		List<DailyValue> dailyValues = dailyValuesRepository.findDailyValuesByRange("OPE033", dateFrom, dateTo);
 		TimeSeriesCollection dataSet = new TimeSeriesCollection();
@@ -104,6 +115,5 @@ public class DrawServlet extends HttpServlet {
 			LOGGER.info("Write chart as PNG failed: {}", e);
 			throw e;
 		}
-
 	}
 }

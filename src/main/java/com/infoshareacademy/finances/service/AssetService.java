@@ -48,12 +48,13 @@ public class AssetService {
 		return years;
 	}
 
-	public List<String> returnAvailableMonths(Long assetCode) {
-		List<String> months = new ArrayList<>();
-		months.add("none");
-		months.add("1");
-		months.add("2");
+	public List<String> returnAvailableMonths(String assetCode, int year) {
+		List<DailyValue> dailyValues = dailyValuesRepository.findAllDailyValues(assetCode);
+		Set<String> months = new MonthData().returnAllMonths(dailyValues, year);
 
-		return months;
+		List<String> monthsList = new ArrayList<>();
+		months.forEach(m -> monthsList.add(m));
+		monthsList.sort((m,n) -> m.compareTo(n));
+		return monthsList;
 	}
 }

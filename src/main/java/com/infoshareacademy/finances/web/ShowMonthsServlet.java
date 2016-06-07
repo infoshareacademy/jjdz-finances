@@ -29,16 +29,11 @@ public class ShowMonthsServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
+		String year = req.getParameter("selectYear");
+		mainFormInputData.setYear(year);
 
-        Long assetId = mainFormInputData.getAssetId();
-
-        String year = req.getParameter("year");
-        System.out.println("1" + year);
-        mainFormInputData.setYear(year);
-
-        System.out.println(year);
-
-        List<String> months = assetService.returnAvailableMonths(assetId);
+		String assetCode = mainFormInputData.getAssetCode();
+		List<String> months = assetService.returnAvailableMonths(assetCode, Integer.parseInt(year));
 
         req.setAttribute("selectAsset", mainFormInputData.getAssetCode());
         req.setAttribute("year", year);

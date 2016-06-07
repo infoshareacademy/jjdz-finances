@@ -28,6 +28,9 @@
 <div class="container">
     <h1>Statistics</h1>
 
+
+    <img src="/drawChart" width="900" height="400" border="0"
+         usemap="#chart">
 </div>
 
 

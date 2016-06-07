@@ -34,7 +34,7 @@
             <c:out value="${year}"></c:out>
         </button>
         <div class="container">
-            <form action="/showMonths" method="get" role="form">
+            <form action="/calculation" method="get" role="form">
                 <select class="form-inline" name="selectYear">
                     <c:forEach var="month" items="${months}">
                         <option value=${month}>${month}</option>
