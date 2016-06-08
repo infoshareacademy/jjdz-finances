@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.Month;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -51,17 +52,23 @@ public class DrawServlet extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		LocalDate dateFrom = LocalDate.now().withMonth(9).withYear(2014).withDayOfMonth(1);
+		LocalDate dateFrom = LocalDate.now()
+				.withMonth(Integer.parseInt(mainFormInputData.getMonth()))
+				.withYear(Integer.parseInt(mainFormInputData.getYear()))
+				.withDayOfMonth(1);
+
 		int interval = dateFrom.lengthOfMonth();
 		LocalDate dateTo = dateFrom.withDayOfMonth(interval);
 
-		LOGGER.info("Asset code :", mainFormInputData.getAssetCode());
-		LOGGER.info("Year :", mainFormInputData.getYear());
-		LOGGER.info("Month :", mainFormInputData.getMonth());
-		LOGGER.info("Asset id :", mainFormInputData.getAssetId());
-		LOGGER.info("user id :", mainFormInputData.getUserId());
+		LOGGER.info("Asset code : {} ", mainFormInputData.getAssetCode());
+		LOGGER.info("Year : {}", mainFormInputData.getYear());
+		LOGGER.info("Month : {}", mainFormInputData.getMonth());
+		LOGGER.info("Asset id : {}", mainFormInputData.getAssetId());
+		LOGGER.info("user id : {}", mainFormInputData.getUserId());
 
-		List<DailyValue> dailyValues = dailyValuesRepository.findDailyValuesByRange("OPE033", dateFrom, dateTo);
+		List<DailyValue> dailyValues = dailyValuesRepository
+				.findDailyValuesByRange(mainFormInputData.getAssetCode(), dateFrom, dateTo);
+
 		TimeSeriesCollection dataSet = new TimeSeriesCollection();
 
 		TimeSeries monthlyValues = new TimeSeries("Daily Values");

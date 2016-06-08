@@ -25,26 +25,11 @@
     <%@ include file="resources/navbar.jsp" %>
 
     <div class="container">
-        Fund Selected:
-        <button disabled="disabled">
-            <c:out value="${selectAsset}"></c:out>
-        </button>
-        Year selected:
-        <button disabled="disabled">
-            <c:out value="${year}"></c:out>
-        </button>
-        <div class="container">
-            <form action="/calculation" method="get" role="form">
-                <select class="form-inline" name="selectMonth">
-                    <c:forEach var="month" items="${months}">
-                        <option value=${month}>${month}</option>
-                    </c:forEach>
-                </select>
-                <button type="Go!" class="btn btn-info">
-                    <span class="glyphicon glyphicon-search"></span> Select
-                </button>
-            </form>
-        </div>
+        <h1>Results</h1>
+
+
+        <img src="/drawChart" width="900" height="400" border="0"
+             usemap="#chart">
 
     </div>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->

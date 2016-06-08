@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 
 import javax.ejb.EJB;
+import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -14,6 +15,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.infoshareacademy.finances.repository.DailyValuesRepository;
+import com.infoshareacademy.finances.service.MainFormInputData;
 
 @WebServlet("/calculation")
 public class CalculationServlet extends HttpServlet {
@@ -23,12 +25,14 @@ public class CalculationServlet extends HttpServlet {
 	@EJB
 	DailyValuesRepository dailyValuesRepository;
 
+	@Inject
+	MainFormInputData mainFormInputData;
+
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		LocalDate dateFrom = LocalDate.now().withMonth(5).withYear(2014).withDayOfMonth(1);
-		int interval = dateFrom.lengthOfMonth();
-		LocalDate dateTo = dateFrom.withDayOfMonth(interval);
 
-		req.getRequestDispatcher("statistics.jsp").forward(req, resp);
+		mainFormInputData.setMonth(req.getParameter("selectMonth"));
+
+		req.getRequestDispatcher("result.jsp").forward(req, resp);
 	}
 }

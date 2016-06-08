@@ -33,7 +33,7 @@ public class ShowMonthsServlet extends HttpServlet {
 		mainFormInputData.setYear(year);
 
 		String assetCode = mainFormInputData.getAssetCode();
-		List<String> months = assetService.returnAvailableMonths(assetCode, Integer.parseInt(year));
+		List<Integer> months = assetService.returnAvailableMonths(assetCode, Integer.parseInt(year));
 
         req.setAttribute("selectAsset", mainFormInputData.getAssetCode());
         req.setAttribute("year", year);

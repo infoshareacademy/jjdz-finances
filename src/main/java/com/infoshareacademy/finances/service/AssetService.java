@@ -6,6 +6,7 @@ import java.util.Set;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.persistence.criteria.CriteriaBuilder;
 
 import com.infoshareacademy.finances.model.DailyValue;
 import com.infoshareacademy.finances.model.LstList;
@@ -48,13 +49,9 @@ public class AssetService {
 		return years;
 	}
 
-	public List<String> returnAvailableMonths(String assetCode, int year) {
+	public List<Integer> returnAvailableMonths(String assetCode, int year) {
 		List<DailyValue> dailyValues = dailyValuesRepository.findAllDailyValues(assetCode);
-		Set<String> months = new MonthData().returnAllMonths(dailyValues, year);
-
-		List<String> monthsList = new ArrayList<>();
-		months.forEach(m -> monthsList.add(m));
-		monthsList.sort((m,n) -> m.compareTo(n));
-		return monthsList;
+		List<Integer> months = new MonthData().returnAllMonths(dailyValues, year);
+		return months;
 	}
 }
