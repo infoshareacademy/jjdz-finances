@@ -1,13 +1,10 @@
 package com.infoshareacademy.finances.repository;
 
-import com.infoshareacademy.finances.model.Asset;
 import com.infoshareacademy.finances.model.PlanCreationDto;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import java.time.ZonedDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 @Stateless

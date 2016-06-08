@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.slf4j.Logger;
+import org.apache.taglibs.standard.lang.jstl.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.infoshareacademy.finances.entity.Privileges;
@@ -25,7 +25,7 @@ import com.infoshareacademy.finances.repository.UserPrivilegesRepository;
 
 @WebServlet(urlPatterns = "/admin")
 public class AdminServlet extends HttpServlet {
-	private static final Logger LOGGER = LoggerFactory.getLogger(AdminServlet.class);
+	private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(AdminServlet.class);
 	private static final long serialVersionUID = -1098883883988907023L;
 
 	@EJB

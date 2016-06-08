@@ -7,7 +7,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Plans</title>
+    <title>Edit</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -29,102 +29,67 @@
 <%@ include file="resources/navbar.jsp" %>
 
 <div class="container">
-
-    <div class="btn-group" role="group" aria-label="...">
-        <button type="button" class="btn btn-default">Funds</button>
-        <button type="button" class="btn btn-default">Currencies</button>
-    </div>
-
-    <form action="/delete" method="post">
-    <table class="table table-hover">
-        <tr>
-            <%--<th></th>--%>
-            <th>Asset</th>
-            <th>Date of action</th>
-            <th>Type of action</th>
-            <th>Quantity</th>
-            <th colspan="2">Action</th>
-        </tr>
-        <c:forEach items="${plans}" var="plan">
-            <tr>
-                <%--<td>--%>
-
-                            <%--<input type="checkbox">--%>
-
-                <%--</td>--%>
-                <td><c:out value="${plan.assetEntity.getAsset().getName()}" /></td>
-                <%--<td><fmt:formatDate pattern="dd-MM-yyyy" value="${plan.actionTime}"/></td>--%>
-                <td><javatime:format value="${plan.actionTime}" style="MS"/></td>
-                <td><c:out value="${plan.planActionType}"/></td>
-                <td><c:out value="${plan.quantity}"/></td>
-                <td>
-                    <button type="submit" class="btn btn-default" name="id" value="${plan.id}"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
-                    <button class="btn btn-default"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span></button>
-                </td>
-            </tr>
-        </c:forEach>
-    </table>
-        </form>
-    <button class="btn btn-default" type="submit">Add</button>
-
-
-<h2>___</h2>
-</div>
-
-
-<div class="container">
-    <form class="form-inline table">
+    <form class="form-inline table" action="crud" method="post">
         <div class="form-group">
-            <label>Fund</label>
-            <input type="text" class="form-control">
-
-            <select class="form-control">
+            <label>Asset</label>
+            <select class="form-control" name="asset">
                 <c:forEach var="LstList" items="${fundList}">
                     <option value=${LstList.code}>${LstList.name}</option>
                 </c:forEach>
             </select>
-
-
+        </div>
+        <div class="form-group">
+            <label>Action</label>
+            <select class="form-control" name="action">
+                    <option value="buy">BUY</option>
+                    <option value="sell">SELL</option>
+            </select>
         </div>
         <%--<div class="form-group">--%>
         <%--<label>:</label>--%>
         <%--<input type="email" class="form-control" id="exampleInputEmail2" placeholder="jane.doe@example.com">--%>
         <%--</div>--%>
         <div class="form-group">
-            <label>Name</label>
+            <label>Date</label>
             <div class="input-group date">
-                <input type="text" class="form-control"><span class="input-group-addon"><i
+                <input type="text" class="form-control" name="date"><span class="input-group-addon"><i
                     class="glyphicon glyphicon-th"></i></span>
             </div>
 
         </div>
+        <div class="form-group">
+            <label>Quantity</label>
+            <input class="form-control" name="quantity">
+            </select>
+        </div>
 
 
-        <button type="submit" class="btn btn-default">Create</button>
+
+        <button type="submit" class="btn btn-default">Save</button>
     </form>
-    <form class="form-inline table">
-        <div class="form-group">
-            <label>Currency</label>
-            <input type="text" class="form-control">
-        </div>
+    <%--<form class="form-inline table">--%>
+        <%--<div class="form-group">--%>
+            <%--<label>Currency</label>--%>
+            <%--<input type="text" class="form-control">--%>
+        <%--</div>--%>
         <%--<div class="form-group">--%>
         <%--<label>:</label>--%>
         <%--<input type="email" class="form-control" id="exampleInputEmail2" placeholder="jane.doe@example.com">--%>
         <%--</div>--%>
-        <div class="form-group">
-            <label>Name</label>
-            <div class="input-group date">
-                <input type="text" class="form-control"><span class="input-group-addon"><i
-                    class="glyphicon glyphicon-th"></i></span>
-            </div>
+        <%--<div class="form-group">--%>
+            <%--<label>Name</label>--%>
+            <%--<div class="input-group date">--%>
+                <%--<input type="text" class="form-control"><span class="input-group-addon"><i--%>
+                    <%--class="glyphicon glyphicon-th"></i></span>--%>
+            <%--</div>--%>
 
-        </div>
+        <%--</div>--%>
 
 
-        <button type="submit" class="btn btn-default">Create</button>
+        <%--<button type="submit" class="btn btn-default">Create</button>--%>
 
-        </form>
-    </div>
+    <%--</form>--%>
+</div>
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
