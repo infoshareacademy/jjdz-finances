@@ -1,7 +1,6 @@
 package com.infoshareacademy.finances.web;
 
 import java.io.IOException;
-import java.time.LocalDate;
 
 import javax.ejb.EJB;
 import javax.inject.Inject;
@@ -14,8 +13,10 @@ import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.infoshareacademy.finances.repository.DailyValuesRepository;
+import com.infoshareacademy.finances.model.MainFormInput;
 import com.infoshareacademy.finances.service.MainFormInputData;
+import com.infoshareacademy.finances.service.MainFormInputLogService;
+import com.infoshareacademy.finances.service.users.UserSessionData;
 
 @WebServlet("/calculation")
 public class CalculationServlet extends HttpServlet {
@@ -23,7 +24,10 @@ public class CalculationServlet extends HttpServlet {
 	private static final Logger LOGGER = LoggerFactory.getLogger(CalculationServlet.class);
 
 	@EJB
-	DailyValuesRepository dailyValuesRepository;
+	MainFormInputLogService mainFormInputLogService;
+
+	@Inject
+	UserSessionData userSessionData;
 
 	@Inject
 	MainFormInputData mainFormInputData;
@@ -32,6 +36,11 @@ public class CalculationServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 		mainFormInputData.setMonth(req.getParameter("selectMonth"));
+
+		LOGGER.info("Saving MainFormInput to DB");
+		MainFormInput mainFormInput = new MainFormInput(mainFormInputData.getAssetCode(), userSessionData.getUserId(),
+				mainFormInputData.getMonth(), mainFormInputData.getYear());
+		mainFormInputLogService.logToDB(mainFormInput);
 
 		req.getRequestDispatcher("result.jsp").forward(req, resp);
 	}

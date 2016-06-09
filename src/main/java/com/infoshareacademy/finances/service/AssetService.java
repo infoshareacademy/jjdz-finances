@@ -26,6 +26,12 @@ public class AssetService {
 	@EJB
 	DailyValuesRepository dailyValuesRepository;
 
+	@EJB
+	MonthData monthData;
+
+	@EJB
+	YearData yearData;
+
 	public List<LstList> returnAllFunds() {
 		List<LstList> out = new ArrayList<>();
 		fundsRepository.findAllFunds().parallelStream()
@@ -42,7 +48,7 @@ public class AssetService {
 
 	public List<String> returnAvailableYears(String assetCode) {
 		List<DailyValue> dailyValues = dailyValuesRepository.findAllDailyValues(assetCode);
-		Set<Integer> integers = new YearData().returnAllYears(dailyValues);
+		Set<Integer> integers = yearData.returnAllYears(dailyValues);
 
 		List<String> years = new ArrayList<>();
 		integers.forEach(i -> years.add(i.toString()));
@@ -51,7 +57,7 @@ public class AssetService {
 
 	public List<Integer> returnAvailableMonths(String assetCode, int year) {
 		List<DailyValue> dailyValues = dailyValuesRepository.findAllDailyValues(assetCode);
-		List<Integer> months = new MonthData().returnAllMonths(dailyValues, year);
+		List<Integer> months = monthData.returnAllMonths(dailyValues, year);
 		return months;
 	}
 }

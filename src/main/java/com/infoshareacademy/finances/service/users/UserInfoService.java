@@ -71,13 +71,18 @@ public class UserInfoService {
 		sessionData.setUserInfo(userInfo);
 
 		if (userInfoRepository.userNotExists(userInfo)) {
+
 			UserInfoEntity userInfoEntity = UserInfoEntity.fromUserInfo(userInfo).withCurrentDate().build();
 			userInfoRepository.saveUserInfoEntityToDB(userInfoEntity);
+
 			userPrivilegesRepository.saveUserPrivileges(new UserPrivileges(Privileges.MORTAL, userInfoEntity));
 			sessionData.setPrivileges(Privileges.MORTAL);
+
 		} else {
 			sessionData.setPrivileges(userPrivilegesRepository.loadUserPrivileges(userInfo.getMail()));
 		}
+		Long userId = userInfoRepository.findUserId(userInfo.getMail());
+		sessionData.setUserId(userId);
 	}
 
 }

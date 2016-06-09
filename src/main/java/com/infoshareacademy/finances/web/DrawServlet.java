@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.Month;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -36,10 +35,16 @@ import com.infoshareacademy.finances.repository.DailyValuesRepository;
 import com.infoshareacademy.finances.service.MainFormInputData;
 import com.infoshareacademy.finances.service.MonthlyTrendsService;
 
+import static org.jfree.chart.ChartFactory.*;
+
 @WebServlet("/drawChart")
 public class DrawServlet extends HttpServlet {
 	private static final Logger LOGGER = LoggerFactory.getLogger(DrawServlet.class);
 	private static final long serialVersionUID = -7756691594094618687L;
+	public static final String FIRST_TIME_SERIES_NAME = "Daily Values";
+	public static final String SECOND_TIME_SERIES_NAME = "Trend Values";
+	public static final String TIME_AXIS_LABEL = "Days";
+	public static final String VALUE_AXIS_LABEL = "Close Values";
 
 	@EJB
 	MonthlyTrendsService monthlyTrendsService;
@@ -52,45 +57,30 @@ public class DrawServlet extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		LocalDate dateFrom = LocalDate.now()
-				.withMonth(Integer.parseInt(mainFormInputData.getMonth()))
-				.withYear(Integer.parseInt(mainFormInputData.getYear()))
-				.withDayOfMonth(1);
-
+		LocalDate dateFrom = LocalDate.now().withMonth(Integer.parseInt(mainFormInputData.getMonth()))
+				.withYear(Integer.parseInt(mainFormInputData.getYear())).withDayOfMonth(1);
 		int interval = dateFrom.lengthOfMonth();
 		LocalDate dateTo = dateFrom.withDayOfMonth(interval);
-
-		LOGGER.info("Asset code : {} ", mainFormInputData.getAssetCode());
-		LOGGER.info("Year : {}", mainFormInputData.getYear());
-		LOGGER.info("Month : {}", mainFormInputData.getMonth());
-		LOGGER.info("Asset id : {}", mainFormInputData.getAssetId());
-		LOGGER.info("user id : {}", mainFormInputData.getUserId());
 
 		List<DailyValue> dailyValues = dailyValuesRepository
 				.findDailyValuesByRange(mainFormInputData.getAssetCode(), dateFrom, dateTo);
 
-		TimeSeriesCollection dataSet = new TimeSeriesCollection();
+		try {
+			ChartRenderingInfo info = new ChartRenderingInfo(new StandardEntityCollection());
+			JFreeChart chart = createChart(dailyValues);
+			ServletOutputStream out = resp.getOutputStream();
 
-		TimeSeries monthlyValues = new TimeSeries("Daily Values");
-		dailyValues.forEach(a -> {
-			LocalDate date = a.getDate();
-			monthlyValues.add(new Day(date.getDayOfMonth(), date.getMonth().getValue(), date.getYear()),
-					a.getCloseValue().doubleValue());
-		});
-		dataSet.addSeries(monthlyValues);
+			ChartUtilities.writeChartAsPNG(out, chart, 900, 400, info);
+		} catch (Exception e) {
+			LOGGER.info("Write chart as PNG failed: {}", e);
+			throw e;
+		}
+	}
 
-		List<DailyValue> dailyValuesTemp = monthlyTrendsService.calculateMonthlyTrend(dailyValues);
-		List<DailyValue> dailyValuesTrend = monthlyTrendsService.calculateMonthlyTrend(dailyValuesTemp);
+	private JFreeChart createChart(List<DailyValue> dailyValues) {
+		JFreeChart chart = createTimeSeriesChart("", TIME_AXIS_LABEL, VALUE_AXIS_LABEL, createDataSet(dailyValues),
+				true, true, false);
 
-		TimeSeries trendValues = new TimeSeries("Trend Line");
-		dailyValuesTrend.forEach(a -> {
-			LocalDate date = a.getDate();
-			trendValues.add(new Day(date.getDayOfMonth(), date.getMonth().getValue(), date.getYear()),
-					a.getCloseValue().doubleValue());
-		});
-		dataSet.addSeries(trendValues);
-
-		JFreeChart chart = ChartFactory.createTimeSeriesChart("", "Days", "Close Values", dataSet, true, true, false);
 		chart.setBackgroundPaint(Color.cyan);
 
 		XYPlot plot = chart.getXYPlot();
@@ -112,15 +102,28 @@ public class DrawServlet extends HttpServlet {
 		//show points
 		renderer.setBaseShapesFilled(true);
 		renderer.setBaseShapesVisible(true);
+		return chart;
+	}
 
-		try {
-			ChartRenderingInfo info = new ChartRenderingInfo(new StandardEntityCollection());
+	private TimeSeriesCollection createDataSet(List<DailyValue> dailyValues) {
+		TimeSeriesCollection dataSet = new TimeSeriesCollection();
 
-			ServletOutputStream out = resp.getOutputStream();
-			ChartUtilities.writeChartAsPNG(out, chart, 900, 400, info);
-		} catch (Exception e) {
-			LOGGER.info("Write chart as PNG failed: {}", e);
-			throw e;
-		}
+		dataSet.addSeries(returnTimeSeries(dailyValues, FIRST_TIME_SERIES_NAME));
+
+		List<DailyValue> dailyValuesTemp = monthlyTrendsService.calculateMonthlyTrend(dailyValues);
+		List<DailyValue> dailyValuesTrend = monthlyTrendsService.calculateMonthlyTrend(dailyValuesTemp);
+
+		dataSet.addSeries(returnTimeSeries(dailyValuesTrend, SECOND_TIME_SERIES_NAME));
+		return dataSet;
+	}
+
+	private TimeSeries returnTimeSeries(List<DailyValue> dailyValues, String seriesName) {
+		TimeSeries timeSeries = new TimeSeries(seriesName);
+		dailyValues.forEach(a -> {
+			LocalDate date = a.getDate();
+			timeSeries.add(new Day(date.getDayOfMonth(), date.getMonth().getValue(), date.getYear()),
+					a.getCloseValue().doubleValue());
+		});
+		return timeSeries;
 	}
 }

@@ -16,7 +16,7 @@ public class MonthlyTrendsService {
 
 	public List<DailyValue> calculateMonthlyTrend(List<DailyValue> dailyValues) {
 
-		dailyValues.forEach(d -> LOGGER.info("|{}|", d.getCloseValue()));
+		dailyValues.forEach(d -> LOGGER.debug("|{}|", d.getCloseValue()));
 
 		List<DailyValue> extremes = new ArrayList<>();
 		extremes.add(dailyValues.get(0));
@@ -39,8 +39,8 @@ public class MonthlyTrendsService {
 
 		}
 		extremes.add(dailyValues.get(size - 1));
-		LOGGER.info("Extrema:");
-		extremes.forEach(d -> LOGGER.info("|{}|", d.getCloseValue()));
+		LOGGER.debug("Extrema:");
+		extremes.forEach(d -> LOGGER.debug("|{}|", d.getCloseValue()));
 		return extremes;
 	}
 }

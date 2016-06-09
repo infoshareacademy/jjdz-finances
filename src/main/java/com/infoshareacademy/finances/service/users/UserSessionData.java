@@ -18,6 +18,7 @@ public class UserSessionData implements Serializable {
     private UserInfo userInfo;
 	private Privileges privileges;
 	private String authType;
+	private Long userId;
 
 	public void createAuthToken(String code) {
 		authToken = service.getAccessToken(code);
@@ -57,5 +58,13 @@ public class UserSessionData implements Serializable {
 
 	public void setAuthType(String authType) {
 		this.authType = authType;
+	}
+
+	public void setUserId(Long userId) {
+		this.userId = userId;
+	}
+
+	public Long getUserId() {
+		return userId;
 	}
 }
