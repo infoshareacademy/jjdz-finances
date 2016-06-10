@@ -42,6 +42,10 @@ public class CalculationServlet extends HttpServlet {
 				mainFormInputData.getMonth(), mainFormInputData.getYear());
 		mainFormInputLogService.logToDB(mainFormInput);
 
+		req.setAttribute("asset", mainFormInputData.getAssetName());
+		req.setAttribute("year", mainFormInputData.getYear());
+		req.setAttribute("month", mainFormInputData.getMonth());
+
 		req.getRequestDispatcher("result.jsp").forward(req, resp);
 	}
 }

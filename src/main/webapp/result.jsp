@@ -18,18 +18,32 @@
 <body>
 <div class="container">
     <%@ include file="resources/navbar.jsp" %>
-
     <div class="container">
-        <h1>Results</h1>
-
-
-        <img src="/drawChart" width="900" height="400" border="0"
-             usemap="#chart">
-
+        Fund selected:
+        <button disabled="disabled">
+            <c:out value="${asset}"></c:out>
+        </button>
+        Year selected:
+        <button disabled="disabled">
+            <c:out value="${year}"></c:out>
+        </button>
+        Month selected:
+        <button disabled="disabled">
+            <c:out value="${month}"></c:out>
+        </button>
+        <div class="container">
+            <h1>Trend for Month</h1>
+            <img src="/drawChart?type=month" width="900" height="400" border="0" usemap="#chart">
+        </div>
+        <div class="container">
+            <h1>Trend for Year</h1>
+            <img src="/drawChart?type=year" width="900" height="400" border="0" usemap="#chart">
+        </div>
     </div>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src="resources/js/bootstrap.min.js"></script>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="resources/js/bootstrap.min.js"></script>
 
-    <%@ include file="resources/footer.jsp" %>
+<%@ include file="resources/footer.jsp" %>
 </body>
 </html>

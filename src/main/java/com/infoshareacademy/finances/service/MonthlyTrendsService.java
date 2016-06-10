@@ -14,7 +14,7 @@ import com.infoshareacademy.finances.model.DailyValue;
 public class MonthlyTrendsService {
 	private static final Logger LOGGER = LoggerFactory.getLogger(MonthlyTrendsService.class);
 
-	public List<DailyValue> calculateMonthlyTrend(List<DailyValue> dailyValues) {
+	public List<DailyValue> calculateTrend(List<DailyValue> dailyValues) {
 
 		dailyValues.forEach(d -> LOGGER.debug("|{}|", d.getCloseValue()));
 
