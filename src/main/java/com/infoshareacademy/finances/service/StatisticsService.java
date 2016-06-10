@@ -1,8 +1,7 @@
 package com.infoshareacademy.finances.service;
 
 import com.infoshareacademy.finances.model.FundStatsDTO;
-import com.infoshareacademy.finances.repository.MaxPurchasingFundsRepository;
-import com.infoshareacademy.finances.repository.MaxSellingFundsRepository;
+import com.infoshareacademy.finances.repository.StatisticsRepository;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -13,23 +12,20 @@ import java.util.List;
 public class StatisticsService {
 
     @EJB
-    MaxPurchasingFundsRepository buyRepository;
-
-    @EJB
-    MaxSellingFundsRepository sellRepository;
+    StatisticsRepository statisticsRepository;
 
 
     public List<FundStatsDTO> returnBuyStatistics(){
         List<FundStatsDTO> out = new ArrayList<>();
 
-        buyRepository.findMaxPurchasingFunds()
+        statisticsRepository.findMaxPurchasingFunds()
                 .forEach(s -> out.add(new FundStatsDTO(s.getAssetName(), s.getAssetId(), s.getSum())));
         return out;
     }
 
     public List<FundStatsDTO> returnSellStatistics(){
         List<FundStatsDTO> out = new ArrayList<>();
-        sellRepository.findMaxSellingFunds()
+        statisticsRepository.findMaxSellingFunds()
                 .forEach(s -> out.add(new FundStatsDTO(s.getAssetName(), s.getAssetId(), s.getSum())));
         return out;
     }

@@ -2,8 +2,7 @@ package com.infoshareacademy.finances.web;
 
 import com.infoshareacademy.finances.model.FundStatsDTO;
 import com.infoshareacademy.finances.model.UserInfo;
-import com.infoshareacademy.finances.repository.MaxPurchasingFundsRepository;
-import com.infoshareacademy.finances.repository.MaxSellingFundsRepository;
+import com.infoshareacademy.finances.repository.StatisticsRepository;
 import com.infoshareacademy.finances.repository.UserInfoRepository;
 import com.infoshareacademy.finances.service.users.UserSessionData;
 
@@ -27,10 +26,7 @@ public class StatisticsServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     @EJB
-    MaxSellingFundsRepository maxSellRepository;
-
-    @EJB
-    MaxPurchasingFundsRepository maxBuyRepository;
+    StatisticsRepository statisticsRepository;
 
     @EJB
     UserInfoRepository userInfoRepository;
@@ -46,12 +42,12 @@ public class StatisticsServlet extends HttpServlet {
         Long userId=userInfoRepository.findUserId(userInfo.getMail());
 
 
-        List<FundStatsDTO> buyMax = maxBuyRepository.findMaxPurchasingFunds();
+        List<FundStatsDTO> buyMax = statisticsRepository.findMaxPurchasingFunds();
         LOGGER.info("Size of buyMax list: {}.", buyMax.size());
         buyMax.stream().forEach(s -> LOGGER.info(String.valueOf(s)));
         req.setAttribute("buyMax", buyMax);
 
-        List<FundStatsDTO> sellMax = maxSellRepository.findMaxSellingFunds();
+        List<FundStatsDTO> sellMax = statisticsRepository.findMaxSellingFunds();
         LOGGER.info("Size of sellMax list: {}.", sellMax.size());
         sellMax.stream().forEach(s -> LOGGER.info(String.valueOf(s)));
         req.setAttribute("sellMax", sellMax);
