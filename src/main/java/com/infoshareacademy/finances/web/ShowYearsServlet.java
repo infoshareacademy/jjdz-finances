@@ -31,7 +31,6 @@ public class ShowYearsServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-
         String assetCode = req.getParameter("selectAsset");
 
         final Long assetID = assetRepository.findAssetID(assetCode);

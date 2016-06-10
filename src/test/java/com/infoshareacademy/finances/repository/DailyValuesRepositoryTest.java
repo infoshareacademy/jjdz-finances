@@ -15,6 +15,7 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import com.infoshareacademy.finances.model.DailyValue;
 import com.infoshareacademy.finances.model.DailyValueEntity;
 
 import static org.junit.Assert.*;
@@ -40,7 +41,7 @@ public class DailyValuesRepositoryTest {
 		int interval = dateFrom.lengthOfMonth();
 		LocalDate dateTo = dateFrom.withDayOfMonth(interval);
 		String code = "SEB001";
-		List<DailyValueEntity> dailyValuesByRange = dailyValuesRepository
+		List<DailyValue> dailyValuesByRange = dailyValuesRepository
 				.findDailyValuesByRange(code, dateFrom, dateTo);
 
 		dailyValuesByRange.forEach(f -> System.out.println(f));
