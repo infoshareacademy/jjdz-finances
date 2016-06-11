@@ -30,6 +30,9 @@
 <%@ include file="resources/navbar.jsp" %>
 
 <div class="container">
+
+    <h1>Your plans</h1>
+
     <form action="/delete" method="post">
     <table class="table table-hover">
         <tr>
@@ -55,8 +58,8 @@
         </c:forEach>
     </table>
         </form>
-    <a class="btn btn-default" href="/createEdit" type="submit">Add Fund Plan</a>
-    <a class="btn btn-default" type="submit">Add Currency Plan</a>
+    <a class="btn btn-default" href="/createEdit" type="submit">Add Plan</a>
+    <%--<a class="btn btn-default" type="submit">Add Currency Plan</a>--%>
 </div>
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>

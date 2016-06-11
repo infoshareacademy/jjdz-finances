@@ -48,6 +48,36 @@ public class CrudServlet extends HttpServlet {
     AssetService assetService;
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        String quantity = request.getParameter("quantity");
+        if ( quantity != null && !quantity.equals("")){
+            System.out.println(request.getParameter("selectAsset"));
+            System.out.println(request.getParameter("quantity"));
+            System.out.println(request.getParameter("action"));
+            System.out.println(request.getParameter("date"));
+            Long id = userSessionData.getUserId();
+            UserInfoEntity userInfoEntity = userInfoRepository.findUserById(id);
+
+            List<LstList> fundList = assetService.returnAllFunds();
+            request.setAttribute("fundList", fundList);
+            PlanCreationDto planCreationDto = new PlanCreationDto();
+            planCreationDto.setQuantity(Integer.parseInt(quantity));
+            planCreationDto.setPlanActionType(PlanCreationDto.PlanActionType.valueOf(request.getParameter("action")));
+            planCreationDto.setAssetEntity(fundsRepository.findRandomAsset(request.getParameter("selectAsset")));
+//        planCreationDto.setActionTime(ZonedDateTime.now());
+            try {
+                Date dateFormat = new SimpleDateFormat("dd/MM/yyyy").parse(request.getParameter("date"));
+                ZonedDateTime actionTime = ZonedDateTime.ofInstant(dateFormat.toInstant(), ZoneId.systemDefault());
+                planCreationDto.setActionTime(actionTime);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+            planCreationDto.setUserInfoEntity(userInfoEntity);
+            planDaoService.createOrUpdate(planCreationDto);
+
+        }
+
         UserInfo userInfo = userSessionData.getUserInfo();
         Long userId = userInfoRepository.findUserId(userInfo.getMail());
         List<PlanCreationDto> allPlans = plansRepository.findAllPlans(userId);
@@ -57,34 +87,4 @@ public class CrudServlet extends HttpServlet {
         request.getRequestDispatcher("createOrEditPlan.jsp").forward(request, response);
     }
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        System.out.println(request.getParameter("selectAsset"));
-        System.out.println(request.getParameter("quantity"));
-        System.out.println(request.getParameter("action"));
-        System.out.println(request.getParameter("date"));
-        Long id = userSessionData.getUserId();
-        UserInfoEntity userInfoEntity = userInfoRepository.findUserById(id);
-
-        List<LstList> fundList = assetService.returnAllFunds();
-        request.setAttribute("fundList", fundList);
-        PlanCreationDto planCreationDto = new PlanCreationDto();
-        planCreationDto.setQuantity(Integer.parseInt(request.getParameter("quantity")));
-        planCreationDto.setPlanActionType(PlanCreationDto.PlanActionType.valueOf(request.getParameter("action")));
-        planCreationDto.setAssetEntity(fundsRepository.findRandomAsset(request.getParameter("selectAsset")));
-//        planCreationDto.setActionTime(ZonedDateTime.now());
-        try {
-            Date dateFormat = new SimpleDateFormat("dd/MM/yyyy").parse(request.getParameter("date"));
-            ZonedDateTime actionTime = ZonedDateTime.ofInstant(dateFormat.toInstant(), ZoneId.systemDefault());
-            planCreationDto.setActionTime(actionTime);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-        planCreationDto.setUserInfoEntity(userInfoEntity);
-        planDaoService.createOrUpdate(planCreationDto);
-
-
-        request.getRequestDispatcher("/plansList").forward(request, response);
-
-    }
 }

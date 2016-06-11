@@ -28,7 +28,7 @@
 <%@ include file="resources/navbar.jsp" %>
 
 <div class="container">
-    <form class="form-inline table" action="/createEdit" method="post">
+    <form class="form-inline table" action="/createEdit" method="get">
         <div class="form-group">
             <label>Asset</label>
             <select class="form-control" name="selectAsset">
