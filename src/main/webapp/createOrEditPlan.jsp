@@ -2,12 +2,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib uri="http://sargue.net/jsptags/time" prefix="javatime" %>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Plans</title>
+    <title>Edit</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -16,7 +15,6 @@
     <!-- Bootstrap -->
     <link href="resources/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="resources/css/bootstrap-datepicker.css">
-    <link href="resources/css/style.css" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -30,36 +28,36 @@
 <%@ include file="resources/navbar.jsp" %>
 
 <div class="container">
-
-    <h1>Your plans</h1>
-
-    <form action="/delete" method="post">
-    <table class="table table-hover">
-        <tr>
-            <th class="hidden">id</th>
-            <th>Asset</th>
-            <th>Date of action</th>
-            <th>Type of action</th>
-            <th>Quantity</th>
-            <th colspan="2">Action</th>
-        </tr>
-        <c:forEach items="${plans}" var="plan">
-            <tr>
-                <td class="hidden" name="id"><c:out value="${plan.getId()}" /></td>
-                <td><c:out value="${plan.assetEntity.getAsset().getName()}" /></td>
-                <td><javatime:format value="${plan.actionTime}" style="MS"/></td>
-                <td><c:out value="${plan.planActionType}"/></td>
-                <td><c:out value="${plan.quantity}"/></td>
-                <td>
-                    <button type="submit" class="btn btn-default" name="btnaction" value="${plan.id}"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
-                    <button type="submit" class="btn btn-default" name="btnaction" value="edit"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span></button>
-                </td>
-            </tr>
-        </c:forEach>
-    </table>
-        </form>
-    <a class="btn btn-default" href="/createEdit" type="submit">Add Plan</a>
-    <%--<a class="btn btn-default" type="submit">Add Currency Plan</a>--%>
+    <form class="form-inline table" action="/createEdit" method="get">
+        <div class="form-group">
+            <label>Asset</label>
+            <select class="form-control" name="selectAsset">
+                <c:forEach var="LstList" items="${fundList}">
+                    <option value=${LstList.code}>${LstList.name}</option>
+                </c:forEach>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>Action</label>
+            <select class="form-control" name="action">
+                    <option value="BUY">BUY</option>
+                    <option value="SELL">SELL</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>Date</label>
+            <div class="input-group date">
+                <input type="text" class="form-control" name="date"><span class="input-group-addon"><i
+                    class="glyphicon glyphicon-th"></i></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Quantity</label>
+            <input class="form-control" name="quantity">
+            </select>
+        </div>
+        <button type="submit" class="btn btn-default" name="button" value="save">Save</button>
+    </form>
 </div>
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
@@ -69,8 +67,6 @@
 <script src="resources/js/main.js"></script>
 
 <%@ include file="resources/footer.jsp" %>
-
-
 
 </body>
 </html>

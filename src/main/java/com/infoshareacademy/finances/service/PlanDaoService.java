@@ -6,28 +6,22 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-//@Stateless
-public class PlanDaoService
-//        implements PlanDao
-{
+@Stateless
+public class PlanDaoService  {
 
-//    @PersistenceContext
-//    EntityManager em;
-//
-//
-//    @Override
-//    public PlanCreationDto createOrUpdate(PlanCreationDto plan) {
-//        return em.merge(plan);
-//    }
-//
-//    @Override
-//    public void delete(Long id) {
-//        em.remove(em.find(PlanCreationDto.class, id));
-//    }
-//
-//    @Override
-//    public PlanCreationDto find(Long id) {
-//        return em.find(PlanCreationDto.class, id);
-//    }
+    @PersistenceContext
+    EntityManager em;
+
+    public void createOrUpdate(PlanCreationDto plan) {
+        em.merge(plan);
+    }
+
+    public void delete(Long id) {
+        em.remove(em.find(PlanCreationDto.class, id));
+    }
+
+    public PlanCreationDto find(Long id) {
+        return em.find(PlanCreationDto.class, id);
+    }
 
 }

@@ -1,9 +1,12 @@
 package com.infoshareacademy.finances.web;
 
+import com.infoshareacademy.finances.model.LstList;
 import com.infoshareacademy.finances.model.PlanCreationDto;
 import com.infoshareacademy.finances.model.UserInfo;
 import com.infoshareacademy.finances.repository.PlansRepository;
 import com.infoshareacademy.finances.repository.UserInfoRepository;
+import com.infoshareacademy.finances.service.AssetService;
+import com.infoshareacademy.finances.service.PlanDaoService;
 import com.infoshareacademy.finances.service.users.UserSessionData;
 
 import javax.ejb.EJB;
@@ -14,7 +17,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Date;
 import java.util.List;
 
 @WebServlet(name = "PlansListServlet", urlPatterns = "/plansList")
@@ -29,13 +31,22 @@ public class PlansListServlet extends HttpServlet {
     @Inject
     UserSessionData userSessionData;
 
+    @EJB
+    PlanDaoService planDaoService;
+
+    @EJB
+    AssetService assetService;
+
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		Long userId = userSessionData.getUserId();
-		List<PlanCreationDto> allPlans = plansRepository.findAllPlans(userId);
-
-
+        UserInfo userInfo = userSessionData.getUserInfo();
+        Long userId=userInfoRepository.findUserId(userInfo.getMail());
+        List<PlanCreationDto> allPlans = plansRepository.findAllPlans(userId);
+        List<LstList> fundList = assetService.returnAllFunds();
+        request.setAttribute("fundList", fundList);
         request.setAttribute("plans", allPlans);
+
         request.getRequestDispatcher("plan.jsp").forward(request, response);
     }
 }
+
+
