@@ -2,6 +2,7 @@ package com.infoshareacademy.finances.web;
 
 import com.infoshareacademy.finances.service.PlanDaoService;
 
+import javax.ejb.EJB;
 import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,16 +15,22 @@ import java.io.IOException;
 public class DeletePlanServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
-    @Inject
+    @EJB
     private PlanDaoService planDaoService;
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Long id = Long.parseLong(request.getParameter("id"));
-        planDaoService.delete(id);
-        response.sendRedirect("plan.jsp");
-//        response.sendRedirect(request.getContextPath());
-//        request.getRequestDispatcher("plan.jsp").forward(request, response);
+        String action = request.getParameter("btnaction");
+        if (action.equalsIgnoreCase("edit")) {
 
+            response.sendRedirect("/createEdit");
+
+        } else {
+            Long id = Long.parseLong(request.getParameter("btnaction"));
+
+
+            planDaoService.delete(id);
+            response.sendRedirect("/plansList");
+        }
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

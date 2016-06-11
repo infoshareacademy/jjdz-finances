@@ -16,6 +16,7 @@
     <!-- Bootstrap -->
     <link href="resources/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="resources/css/bootstrap-datepicker.css">
+    <link href="resources/css/style.css" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -29,16 +30,10 @@
 <%@ include file="resources/navbar.jsp" %>
 
 <div class="container">
-
-    <div class="btn-group" role="group" aria-label="...">
-        <button type="button" class="btn btn-default">Funds</button>
-        <button type="button" class="btn btn-default">Currencies</button>
-    </div>
-
     <form action="/delete" method="post">
     <table class="table table-hover">
         <tr>
-            <%--<th></th>--%>
+            <th class="hidden">id</th>
             <th>Asset</th>
             <th>Date of action</th>
             <th>Type of action</th>
@@ -47,84 +42,22 @@
         </tr>
         <c:forEach items="${plans}" var="plan">
             <tr>
-                <%--<td>--%>
-
-                            <%--<input type="checkbox">--%>
-
-                <%--</td>--%>
+                <td class="hidden" name="id"><c:out value="${plan.getId()}" /></td>
                 <td><c:out value="${plan.assetEntity.getAsset().getName()}" /></td>
-                <%--<td><fmt:formatDate pattern="dd-MM-yyyy" value="${plan.actionTime}"/></td>--%>
                 <td><javatime:format value="${plan.actionTime}" style="MS"/></td>
                 <td><c:out value="${plan.planActionType}"/></td>
                 <td><c:out value="${plan.quantity}"/></td>
                 <td>
-                    <button type="submit" class="btn btn-default" name="id" value="${plan.id}"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
-                    <button class="btn btn-default"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span></button>
+                    <button type="submit" class="btn btn-default" name="btnaction" value="${plan.id}"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+                    <button type="submit" class="btn btn-default" name="btnaction" value="edit"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span></button>
                 </td>
             </tr>
         </c:forEach>
     </table>
         </form>
-    <button class="btn btn-default" type="submit">Add</button>
-
-
-<h2>___</h2>
+    <a class="btn btn-default" href="/createEdit" type="submit">Add Fund Plan</a>
+    <a class="btn btn-default" type="submit">Add Currency Plan</a>
 </div>
-
-
-<div class="container">
-    <form class="form-inline table">
-        <div class="form-group">
-            <label>Fund</label>
-            <input type="text" class="form-control">
-
-            <select class="form-control">
-                <c:forEach var="LstList" items="${fundList}">
-                    <option value=${LstList.code}>${LstList.name}</option>
-                </c:forEach>
-            </select>
-
-
-        </div>
-        <%--<div class="form-group">--%>
-        <%--<label>:</label>--%>
-        <%--<input type="email" class="form-control" id="exampleInputEmail2" placeholder="jane.doe@example.com">--%>
-        <%--</div>--%>
-        <div class="form-group">
-            <label>Name</label>
-            <div class="input-group date">
-                <input type="text" class="form-control"><span class="input-group-addon"><i
-                    class="glyphicon glyphicon-th"></i></span>
-            </div>
-
-        </div>
-
-
-        <button type="submit" class="btn btn-default">Create</button>
-    </form>
-    <form class="form-inline table">
-        <div class="form-group">
-            <label>Currency</label>
-            <input type="text" class="form-control">
-        </div>
-        <%--<div class="form-group">--%>
-        <%--<label>:</label>--%>
-        <%--<input type="email" class="form-control" id="exampleInputEmail2" placeholder="jane.doe@example.com">--%>
-        <%--</div>--%>
-        <div class="form-group">
-            <label>Name</label>
-            <div class="input-group date">
-                <input type="text" class="form-control"><span class="input-group-addon"><i
-                    class="glyphicon glyphicon-th"></i></span>
-            </div>
-
-        </div>
-
-
-        <button type="submit" class="btn btn-default">Create</button>
-
-        </form>
-    </div>
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->

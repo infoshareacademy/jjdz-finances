@@ -2,7 +2,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib uri="http://sargue.net/jsptags/time" prefix="javatime" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -29,10 +28,10 @@
 <%@ include file="resources/navbar.jsp" %>
 
 <div class="container">
-    <form class="form-inline table" action="crud" method="post">
+    <form class="form-inline table" action="/createEdit" method="post">
         <div class="form-group">
             <label>Asset</label>
-            <select class="form-control" name="asset">
+            <select class="form-control" name="selectAsset">
                 <c:forEach var="LstList" items="${fundList}">
                     <option value=${LstList.code}>${LstList.name}</option>
                 </c:forEach>
@@ -41,54 +40,24 @@
         <div class="form-group">
             <label>Action</label>
             <select class="form-control" name="action">
-                    <option value="buy">BUY</option>
-                    <option value="sell">SELL</option>
+                    <option value="BUY">BUY</option>
+                    <option value="SELL">SELL</option>
             </select>
         </div>
-        <%--<div class="form-group">--%>
-        <%--<label>:</label>--%>
-        <%--<input type="email" class="form-control" id="exampleInputEmail2" placeholder="jane.doe@example.com">--%>
-        <%--</div>--%>
         <div class="form-group">
             <label>Date</label>
             <div class="input-group date">
                 <input type="text" class="form-control" name="date"><span class="input-group-addon"><i
                     class="glyphicon glyphicon-th"></i></span>
             </div>
-
         </div>
         <div class="form-group">
             <label>Quantity</label>
             <input class="form-control" name="quantity">
             </select>
         </div>
-
-
-
-        <button type="submit" class="btn btn-default">Save</button>
+        <button type="submit" class="btn btn-default" name="button" value="save">Save</button>
     </form>
-    <%--<form class="form-inline table">--%>
-        <%--<div class="form-group">--%>
-            <%--<label>Currency</label>--%>
-            <%--<input type="text" class="form-control">--%>
-        <%--</div>--%>
-        <%--<div class="form-group">--%>
-        <%--<label>:</label>--%>
-        <%--<input type="email" class="form-control" id="exampleInputEmail2" placeholder="jane.doe@example.com">--%>
-        <%--</div>--%>
-        <%--<div class="form-group">--%>
-            <%--<label>Name</label>--%>
-            <%--<div class="input-group date">--%>
-                <%--<input type="text" class="form-control"><span class="input-group-addon"><i--%>
-                    <%--class="glyphicon glyphicon-th"></i></span>--%>
-            <%--</div>--%>
-
-        <%--</div>--%>
-
-
-        <%--<button type="submit" class="btn btn-default">Create</button>--%>
-
-    <%--</form>--%>
 </div>
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
@@ -98,8 +67,6 @@
 <script src="resources/js/main.js"></script>
 
 <%@ include file="resources/footer.jsp" %>
-
-
 
 </body>
 </html>
