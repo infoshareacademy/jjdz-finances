@@ -1,30 +1,35 @@
 package com.infoshareacademy.finances.model;
 
-
 public class FundStatsDTO {
 
-    //private final D
-    private final Asset asset;
-    private final Long count;
+    private final String assetName;
+    private final Long assetId;
+    private final Long sum;
 
-    public FundStatsDTO(Long count, Asset asset) {
-        this.asset = asset;
-        this.count = count;
+    public FundStatsDTO(String assetName, Long assetId, Long sum) {
+        this.assetName = assetName;
+        this.assetId = assetId;
+        this.sum = sum;
     }
 
-    public Asset getAsset() {
-        return asset;
+    public String getAssetName() {
+        return assetName;
     }
 
-    public Long getCount() {
-        return count;
+    public Long getAssetId() {
+        return assetId;
+    }
+
+    public Long getSum() {
+        return sum;
     }
 
     @Override
     public String toString() {
         return "FundStatsDTO{" +
-                "asset=" + asset +
-                ", count=" + count +
+                "assetName='" + assetName + '\'' +
+                ", assetId=" + assetId +
+                ", sum=" + sum +
                 '}';
     }
 }

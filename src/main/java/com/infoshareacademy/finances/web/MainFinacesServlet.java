@@ -1,25 +1,22 @@
 package com.infoshareacademy.finances.web;
 
+import java.io.IOException;
+import java.util.Enumeration;
+import com.infoshareacademy.finances.model.AssetType;
 import com.infoshareacademy.finances.model.LstList;
 
-import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.util.Enumeration;
-import java.util.List;
 
 
 @WebServlet(urlPatterns = "/main")
 class MainFinacesServlet extends HttpServlet {
 
     private static final long serialVersionUID = 5375886917868065269L;
-    @EJB
-    CacheAll cache;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -40,6 +37,9 @@ class MainFinacesServlet extends HttpServlet {
             case "currenciesSelected":
                 currenciesSelected(req, resp);
                 break;
+            case "showStatistics":
+                showStatistics(req, resp);
+                break;
             case "adminSelected":
                 adminSelected(req, resp);
                 break;
@@ -51,6 +51,8 @@ class MainFinacesServlet extends HttpServlet {
                 break;
         }
     }
+
+
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -93,11 +95,9 @@ class MainFinacesServlet extends HttpServlet {
     private void forwardFundsMain(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
 
-        List<LstList> fundList = cache.returnAllFunds();
-
-        String nextJSP = "/funds.jsp";
+        String nextJSP = "/showAssets";
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextJSP);
-        req.setAttribute("fundList", fundList);
+        req.setAttribute("assetType", AssetType.FUND);
         dispatcher.forward(req, resp);
     }
 
@@ -106,7 +106,7 @@ class MainFinacesServlet extends HttpServlet {
 
         req.setAttribute("action", "fundSelected");
         req.setAttribute("value", "AGI001");
-        String nextJSP = "funds.jsp";
+        String nextJSP = "assets.jsp";
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextJSP);
         dispatcher.forward(req, resp);
     }
@@ -114,11 +114,22 @@ class MainFinacesServlet extends HttpServlet {
     private void currenciesSelected(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
 
-        req.setAttribute("action", "currenciesSelected");
-        req.setAttribute("currencies", "EUR");
-        String nextJSP = "/currencies.jsp";
+        String nextJSP = "/showAssets";
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextJSP);
+        req.setAttribute("assetType", AssetType.CURRENCY);
         dispatcher.forward(req, resp);
+    }
+
+    private void showStatistics(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
+
+        //String nextJSP = "statistics.jsp";
+        //resp.sendRedirect(nextJSP);
+        String nextJSP = "/showStatistics";
+
+        RequestDispatcher dispatcher  = getServletContext().getRequestDispatcher(nextJSP);
+        dispatcher.forward(req, resp);
+
     }
 
     private void adminSelected(HttpServletRequest req, HttpServletResponse resp)

@@ -17,14 +17,14 @@ public class DailyValuesRepository {
 	@PersistenceContext
 	EntityManager em;
 
-	public List<DailyValueEntity> findDailyValuesByRange(String code, LocalDate dateFrom, LocalDate dateTo) {
+	public List<DailyValue> findDailyValuesByRange(String code, LocalDate dateFrom, LocalDate dateTo) {
 		return em.createQuery(
-				"select d from DailyValueEntity d "
+				"select d.dailyValue from DailyValueEntity d "
 						+ "join d.assetEntity a "
 						+ "where a.asset.code = :code "
 						+ "and d.dailyValue.date >= :dateFrom "
 						+ "and d.dailyValue.date <= :dateTo",
-				DailyValueEntity.class)
+				DailyValue.class)
 				.setParameter("code", code)
 				.setParameter("dateFrom", dateFrom)
 				.setParameter("dateTo", dateTo)

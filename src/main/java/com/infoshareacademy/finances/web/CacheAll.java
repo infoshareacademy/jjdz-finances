@@ -36,6 +36,7 @@ import javax.ejb.Singleton;
 import javax.ejb.Startup;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -99,12 +100,12 @@ public class CacheAll {
 		});
 
 		UserInfo userInfo = new UserInfo("Vash The Stampede", "karol.zyskowski1@gmail.com");
-		UserInfoEntity userInfoEntity = UserInfoEntity.fromUserInfo(userInfo).withCurrentDate().build();
-		userInfoRepository.saveUserInfoEntityToDB(userInfoEntity);
-		userPrivilegesRepository.saveUserPrivileges(new UserPrivileges(Privileges.ADMIN, userInfoEntity));
+		UserInfoEntity userInfoEntityVash = UserInfoEntity.fromUserInfo(userInfo).withCurrentDate().build();
+		userInfoRepository.saveUserInfoEntityToDB(userInfoEntityVash);
+		userPrivilegesRepository.saveUserPrivileges(new UserPrivileges(Privileges.ADMIN, userInfoEntityVash));
 
 		userInfo = new UserInfo("kowalaski", "kowalski@mail.com");
-		userInfoEntity = UserInfoEntity.fromUserInfo(userInfo).withCurrentDate().build();
+		UserInfoEntity userInfoEntity = UserInfoEntity.fromUserInfo(userInfo).withCurrentDate().build();
 		userInfoRepository.saveUserInfoEntityToDB(userInfoEntity);
 		userPrivilegesRepository.saveUserPrivileges(new UserPrivileges(Privileges.MORTAL, userInfoEntity));
 
@@ -118,6 +119,18 @@ public class CacheAll {
 		userInfoRepository.saveUserInfoEntityToDB(userInfoEntity);
 		userPrivilegesRepository.saveUserPrivileges(new UserPrivileges(Privileges.MORTAL, userInfoEntity));
 
+		String code = "OPE033";
+		AssetEntity asset = fundsRepository.findRandomAsset(code);
+		em.persist(new PlanCreationDto(PlanCreationDto.PlanActionType.BUY, 65, ZonedDateTime.now(), asset,
+				userInfoEntity));
+		em.persist(new PlanCreationDto(PlanCreationDto.PlanActionType.SELL, 37, ZonedDateTime.now(), asset,
+				userInfoEntity));
+		em.persist(new PlanCreationDto(PlanCreationDto.PlanActionType.BUY, 65, ZonedDateTime.now(), asset,
+				userInfoEntity));
+		em.persist(new PlanCreationDto(PlanCreationDto.PlanActionType.SELL, 47, ZonedDateTime.now(), asset,
+				userInfoEntity));
+		em.persist(new PlanCreationDto(PlanCreationDto.PlanActionType.BUY, 12, ZonedDateTime.now(), asset,
+				userInfoEntity));
 		AssetEntity asset4 = fundsRepository.findRandomAsset("OPE033");
 		AssetEntity asset5 = fundsRepository.findRandomAsset("SEB001");
 		AssetEntity asset6 = fundsRepository.findRandomAsset("ALL001");
@@ -127,22 +140,17 @@ public class CacheAll {
 		em.persist(new PlanCreationDto(PlanCreationDto.PlanActionType.SELL, 47, ZonedDateTime.now(), asset4, userInfoEntity));
 		em.persist(new PlanCreationDto(PlanCreationDto.PlanActionType.BUY, 12, ZonedDateTime.now(), asset5, userInfoEntity));
 
-
+		String codeVash = "SEB001";
+		AssetEntity assetVash = fundsRepository.findRandomAsset(codeVash);
+		em.persist(new PlanCreationDto(PlanCreationDto.PlanActionType.BUY, 65, ZonedDateTime.now(), assetVash,
+				userInfoEntityVash));
+		em.persist(new PlanCreationDto(PlanCreationDto.PlanActionType.SELL, 37, ZonedDateTime.now(), assetVash,
+				userInfoEntityVash));
+		em.persist(new PlanCreationDto(PlanCreationDto.PlanActionType.BUY, 65, ZonedDateTime.now(), assetVash,
+				userInfoEntityVash));
+		em.persist(new PlanCreationDto(PlanCreationDto.PlanActionType.SELL, 47, ZonedDateTime.now(), assetVash,
+				userInfoEntityVash));
+		em.persist(new PlanCreationDto(PlanCreationDto.PlanActionType.BUY, 12, ZonedDateTime.now(), assetVash,
+				userInfoEntityVash));
 	}
-
-	public List<LstList> returnAllFunds() {
-		List<LstList> out = new ArrayList<>();
-		fundsRepository.findAllFunds().parallelStream()
-				.forEach(s -> out.add(new LstList(s.getAsset().getName(), s.getAsset().getCode())));
-		return out;
-	}
-
-	public List<LstList> returnAllCurrency() {
-		List<LstList> out = new ArrayList<>();
-		currencyRepository.findAllCurrency().parallelStream()
-				.forEach(s -> out.add(new LstList(s.getAsset().getName(), s.getAsset().getCode())));
-		return out;
-	}
-
-
 }

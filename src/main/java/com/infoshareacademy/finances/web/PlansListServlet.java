@@ -34,9 +34,9 @@ public class PlansListServlet extends HttpServlet {
     PlanDaoService planDaoService;
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        UserInfo userInfo = userSessionData.getUserInfo();
-        Long userId=userInfoRepository.findUserId(userInfo.getMail());
-        List<PlanCreationDto> allPlans = plansRepository.findAllPlans(userId);
+
+		Long userId = userSessionData.getUserId();
+		List<PlanCreationDto> allPlans = plansRepository.findAllPlans(userId);
 
 
         request.setAttribute("plans", allPlans);

@@ -1,11 +1,9 @@
 package com.infoshareacademy.finances.web;
 
 import java.io.IOException;
-import java.time.LocalDate;
-import java.util.List;
 
 import javax.ejb.EJB;
-import javax.servlet.RequestDispatcher;
+import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -15,8 +13,10 @@ import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.infoshareacademy.finances.model.DailyValueEntity;
-import com.infoshareacademy.finances.repository.DailyValuesRepository;
+import com.infoshareacademy.finances.model.MainFormInput;
+import com.infoshareacademy.finances.service.MainFormInputData;
+import com.infoshareacademy.finances.service.MainFormInputLogService;
+import com.infoshareacademy.finances.service.users.UserSessionData;
 
 @WebServlet("/calculation")
 public class CalculationServlet extends HttpServlet {
@@ -24,22 +24,24 @@ public class CalculationServlet extends HttpServlet {
 	private static final Logger LOGGER = LoggerFactory.getLogger(CalculationServlet.class);
 
 	@EJB
-	DailyValuesRepository dailyValuesRepository;
+	MainFormInputLogService mainFormInputLogService;
+
+	@Inject
+	UserSessionData userSessionData;
+
+	@Inject
+	MainFormInputData mainFormInputData;
 
 	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		LocalDate dateFrom = LocalDate.now().withMonth(5).withYear(2014).withDayOfMonth(1);
-		int interval = dateFrom.lengthOfMonth();
-		LocalDate dateTo = dateFrom.withDayOfMonth(interval);
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-		String assetCode = req.getParameter("selectAsset");
-		LOGGER.info("Selecting daily values for assetCode: {}", assetCode);
+		mainFormInputData.setMonth(req.getParameter("selectMonth"));
 
-		List<DailyValueEntity> dailyValuesByRange = dailyValuesRepository
-				.findDailyValuesByRange(assetCode, dateFrom, dateTo);
+		LOGGER.info("Saving MainFormInput to DB");
+		MainFormInput mainFormInput = new MainFormInput(mainFormInputData.getAssetCode(), userSessionData.getUserId(),
+				mainFormInputData.getMonth(), mainFormInputData.getYear());
+		mainFormInputLogService.logToDB(mainFormInput);
 
-		dailyValuesByRange.forEach(f -> LOGGER.info(String.valueOf(f)));
-
-		req.getRequestDispatcher("funds.jsp").forward(req, resp);
+		req.getRequestDispatcher("result.jsp").forward(req, resp);
 	}
 }
