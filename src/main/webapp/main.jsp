@@ -10,6 +10,7 @@
     <Title>TriTeam Finances - Main</Title>
     <!-- Bootstrap -->
     <link href="resources/css/bootstrap.min.css" rel="stylesheet">
+    <link href="resources/css/style.css" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -21,7 +22,12 @@
 <body>
 <div class="container">
     <%@ include file="resources/navbar.jsp" %>
-    Main ...
+    <div class="container">
+        <div class="text-center">
+            <h1>Assets Analyzer 2.0</h1>
+        </div>
+        <img src="/resources/img/indeks.jpg" class="imgAsset">
+    </div>
 </div>
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>

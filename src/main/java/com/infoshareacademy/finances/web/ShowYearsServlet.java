@@ -1,5 +1,6 @@
 package com.infoshareacademy.finances.web;
 
+import com.infoshareacademy.finances.model.AssetEntity;
 import com.infoshareacademy.finances.model.MainFormInput;
 import com.infoshareacademy.finances.repository.AssetRepository;
 import com.infoshareacademy.finances.service.AssetService;
@@ -32,16 +33,18 @@ public class ShowYearsServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         String assetCode = req.getParameter("selectAsset");
+		mainFormInputData.setAssetCode(assetCode);
 
-        final Long assetID = assetRepository.findAssetID(assetCode);
+		AssetEntity assetEntity = assetRepository.findAssetByCode(assetCode);
 
-        mainFormInputData.setAssetId(assetID);
-        mainFormInputData.setAssetCode(assetCode);
+		mainFormInputData.setAssetId(assetEntity.getId());
+		String assetName = assetEntity.getAsset().getName();
+		mainFormInputData.setAssetName(assetName);
 
         if (assetCode != null) {
             List<String> years = assetService.returnAvailableYears(assetCode);
             req.setAttribute("years", years);
-            req.setAttribute("selectAsset", assetCode);
+            req.setAttribute("selectAsset", assetName);
         }
 
         req.getRequestDispatcher("assetYears.jsp").forward(req, resp);

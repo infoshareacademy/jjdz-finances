@@ -15,7 +15,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartRenderingInfo;
 import org.jfree.chart.ChartUtilities;
 import org.jfree.chart.JFreeChart;
@@ -47,7 +46,7 @@ public class DrawServlet extends HttpServlet {
 	public static final String VALUE_AXIS_LABEL = "Close Values";
 
 	@EJB
-	MonthlyTrendsService monthlyTrendsService;
+	MonthlyTrendsService trendsService;
 
 	@EJB
 	DailyValuesRepository dailyValuesRepository;
@@ -57,10 +56,28 @@ public class DrawServlet extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		LocalDate dateFrom = LocalDate.now().withMonth(Integer.parseInt(mainFormInputData.getMonth()))
-				.withYear(Integer.parseInt(mainFormInputData.getYear())).withDayOfMonth(1);
-		int interval = dateFrom.lengthOfMonth();
-		LocalDate dateTo = dateFrom.withDayOfMonth(interval);
+
+		LocalDate dateFrom;
+		LocalDate dateTo;
+		String type = req.getParameter("type");
+
+		if (type != null && type.equals("year")) {
+			dateFrom = LocalDate.now()
+					.withYear(Integer.parseInt(mainFormInputData.getYear()))
+					.withMonth(1)
+					.withDayOfMonth(1);
+			dateTo = dateFrom.plusYears(1);
+		} else if (type != null && type.equals("month")) {
+			dateFrom = LocalDate.now()
+					.withYear(Integer.parseInt(mainFormInputData.getYear()))
+					.withMonth(Integer.parseInt(mainFormInputData.getMonth()))
+					.withDayOfMonth(1);
+			int interval = dateFrom.lengthOfMonth();
+			dateTo = dateFrom.withDayOfMonth(interval);
+		} else {
+			LOGGER.error("Something went wrong");
+			return;
+		}
 
 		List<DailyValue> dailyValues = dailyValuesRepository
 				.findDailyValuesByRange(mainFormInputData.getAssetCode(), dateFrom, dateTo);
@@ -75,6 +92,8 @@ public class DrawServlet extends HttpServlet {
 			LOGGER.info("Write chart as PNG failed: {}", e);
 			throw e;
 		}
+
+
 	}
 
 	private JFreeChart createChart(List<DailyValue> dailyValues) {
@@ -110,8 +129,8 @@ public class DrawServlet extends HttpServlet {
 
 		dataSet.addSeries(returnTimeSeries(dailyValues, FIRST_TIME_SERIES_NAME));
 
-		List<DailyValue> dailyValuesTemp = monthlyTrendsService.calculateMonthlyTrend(dailyValues);
-		List<DailyValue> dailyValuesTrend = monthlyTrendsService.calculateMonthlyTrend(dailyValuesTemp);
+		List<DailyValue> dailyValuesTemp = trendsService.calculateTrend(dailyValues);
+		List<DailyValue> dailyValuesTrend = trendsService.calculateTrend(dailyValuesTemp);
 
 		dataSet.addSeries(returnTimeSeries(dailyValuesTrend, SECOND_TIME_SERIES_NAME));
 		return dataSet;
