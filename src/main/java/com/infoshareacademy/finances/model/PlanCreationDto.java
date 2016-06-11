@@ -1,7 +1,5 @@
 package com.infoshareacademy.finances.model;
 
-import com.infoshareacademy.finances.service.DateConverter;
-
 import javax.persistence.*;
 import java.time.ZonedDateTime;
 
@@ -17,7 +15,6 @@ public class PlanCreationDto {
 
     private int quantity;
 
-//    @Convert(converter = DateConverter.class)
     private ZonedDateTime actionTime;
 
     @ManyToOne
@@ -60,6 +57,26 @@ public class PlanCreationDto {
 
     public UserInfoEntity getUserInfoEntity() {
         return userInfoEntity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    public void setActionTime(ZonedDateTime actionTime) {
+        this.actionTime = actionTime;
+    }
+
+    public void setAssetEntity(AssetEntity assetEntity) {
+        this.assetEntity = assetEntity;
+    }
+
+    public void setUserInfoEntity(UserInfoEntity userInfoEntity) {
+        this.userInfoEntity = userInfoEntity;
+    }
+
+    public void setPlanActionType(PlanActionType planActionType) {
+        this.planActionType = planActionType;
     }
 
     public enum PlanActionType {

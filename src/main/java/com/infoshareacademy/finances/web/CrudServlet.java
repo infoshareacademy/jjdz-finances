@@ -1,6 +1,15 @@
 package com.infoshareacademy.finances.web;
 
+import com.infoshareacademy.finances.model.LstList;
+import com.infoshareacademy.finances.model.PlanCreationDto;
+import com.infoshareacademy.finances.model.UserInfo;
+import com.infoshareacademy.finances.model.UserInfoEntity;
+import com.infoshareacademy.finances.repository.FundsRepository;
+import com.infoshareacademy.finances.repository.PlansRepository;
+import com.infoshareacademy.finances.repository.UserInfoRepository;
+import com.infoshareacademy.finances.service.AssetService;
 import com.infoshareacademy.finances.service.PlanDaoService;
+import com.infoshareacademy.finances.service.users.UserSessionData;
 
 import javax.ejb.EJB;
 import javax.inject.Inject;
@@ -10,19 +19,66 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.time.ZonedDateTime;
+import java.util.List;
 
-@WebServlet(name = "CrudServlet", urlPatterns = "/crud")
+@WebServlet(name = "CrudServlet", urlPatterns = "/createEdit")
 public class CrudServlet extends HttpServlet {
 
-    @Inject
-    private PlanDaoService planDaoService;
+    @EJB
+    FundsRepository fundsRepository;
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String asset = request.getParameter("asset");
-        String date = request.getParameter("date");
-    }
+    @EJB
+    PlansRepository plansRepository;
+
+    @EJB
+    UserInfoRepository userInfoRepository;
+
+    @Inject
+    UserSessionData userSessionData;
+
+    @EJB
+    PlanDaoService planDaoService;
+
+    @EJB
+    AssetService assetService;
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        UserInfo userInfo = userSessionData.getUserInfo();
+        Long userId = userInfoRepository.findUserId(userInfo.getMail());
+        List<PlanCreationDto> allPlans = plansRepository.findAllPlans(userId);
+        List<LstList> fundList = assetService.returnAllFunds();
+        request.setAttribute("fundList", fundList);
+
+        request.getRequestDispatcher("createOrEditPlan.jsp").forward(request, response);
+    }
+
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        System.out.println(request.getParameter("selectAsset"));
+        System.out.println(request.getParameter("quantity"));
+        System.out.println(request.getParameter("action"));
+        System.out.println(request.getParameter("date"));
+        UserInfo userInfo = userSessionData.getUserInfo();
+        List<LstList> fundList = assetService.returnAllFunds();
+        request.setAttribute("fundList", fundList);
+        PlanCreationDto planCreationDto = new PlanCreationDto();
+        planCreationDto.setQuantity(Integer.parseInt(request.getParameter("quantity")));
+        planCreationDto.setPlanActionType(PlanCreationDto.PlanActionType.valueOf(request.getParameter("action")));
+        planCreationDto.setAssetEntity(fundsRepository.findRandomAsset(request.getParameter("selectAsset")));
+        planCreationDto.setActionTime(ZonedDateTime.now());
+//        try {
+//            Date dateFormat = new SimpleDateFormat("dd/MM/yyyy").parse(request.getParameter("date"));
+//            ZonedDateTime actionTime = ZonedDateTime.ofInstant(dateFormat.toInstant(), ZoneId.systemDefault());
+//            planCreationDto.setActionTime(actionTime);
+//        } catch (ParseException e) {
+//            e.printStackTrace();
+//        }
+
+        planCreationDto.setUserInfoEntity(UserInfoEntity.fromUserInfo(userInfo).withCurrentDate().build());
+        planDaoService.createOrUpdate(planCreationDto);
+
+
+        request.getRequestDispatcher("/plansList").forward(request, response);
 
     }
 }
