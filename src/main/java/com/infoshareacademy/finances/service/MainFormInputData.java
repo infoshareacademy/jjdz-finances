@@ -7,6 +7,7 @@ import java.io.Serializable;
 public class MainFormInputData implements Serializable {
     private Long assetId;
     private String assetCode;
+	private String assetName;
     private String month;
     private String year;
     private Long userId;
@@ -27,7 +28,15 @@ public class MainFormInputData implements Serializable {
         this.assetCode = assetCode;
     }
 
-    public String getMonth() {
+	public String getAssetName() {
+		return assetName;
+	}
+
+	public void setAssetName(String assetName) {
+		this.assetName = assetName;
+	}
+
+	public String getMonth() {
         return month;
     }
 

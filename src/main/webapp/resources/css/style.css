@@ -11,3 +11,10 @@
 .imgFacebook {
     background: url(../../resources/img/signin_face.png) no-repeat;
 }
+.imgAsset{
+    width: 800px;
+    height: 300px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
