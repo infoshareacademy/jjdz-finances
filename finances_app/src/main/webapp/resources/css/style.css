@@ -1,0 +1,24 @@
+.imgClass {
+    width: 330px;
+    height: 110px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+.imgGoogleplus {
+    background: url(../img/signin_google.png) no-repeat;
+}
+.imgFacebook {
+    background: url(../img/signin_face.png) no-repeat;
+}
+.imgAsset{
+    width: 800px;
+    height: 300px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#id {
+    width: 90%;
+}
