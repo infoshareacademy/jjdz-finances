@@ -1,0 +1,10 @@
+# deployed package files #
+
+*.DEPLOYED
+
+.idea
+
+*.iml
+Data/*
+/.project
+target/*
