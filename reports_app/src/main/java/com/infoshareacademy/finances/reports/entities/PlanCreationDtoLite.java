@@ -2,6 +2,8 @@ package com.infoshareacademy.finances.reports.entities;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.deser.std.EnumDeserializer;
 
 @Entity
 public class PlanCreationDtoLite {
@@ -78,9 +80,5 @@ public class PlanCreationDtoLite {
                 ", assetName='" + assetName + '\'' +
                 ", assetId=" + assetId +
                 '}';
-    }
-
-    public enum PlanActionType {
-        BUY, SELL
     }
 }

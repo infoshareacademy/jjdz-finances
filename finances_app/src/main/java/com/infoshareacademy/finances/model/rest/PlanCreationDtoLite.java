@@ -1,10 +1,16 @@
 package com.infoshareacademy.finances.model.rest;
 
-import com.infoshareacademy.finances.entity.PlanCreationDto;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.deser.std.EnumDeserializer;
+import com.fasterxml.jackson.databind.ser.std.EnumSerializer;
+import com.infoshareacademy.finances.entity.PlanActionType;
 
 public class PlanCreationDtoLite {
 
-    private PlanCreationDto.PlanActionType planActionType;
+//	@JsonSerialize(using = EnumSerializer.class)
+//	@JsonDeserialize(using = EnumDeserializer.class)
+    private PlanActionType planActionType;
 
     private int quantity;
 
@@ -15,7 +21,7 @@ public class PlanCreationDtoLite {
     public PlanCreationDtoLite() {
     }
 
-	public PlanCreationDtoLite(PlanCreationDto.PlanActionType planActionType, int quantity, String assetName,
+	public PlanCreationDtoLite(PlanActionType planActionType, int quantity, String assetName,
 			Long assetId) {
 		this.planActionType = planActionType;
 		this.quantity = quantity;
@@ -23,7 +29,7 @@ public class PlanCreationDtoLite {
 		this.assetId = assetId;
 	}
 
-	public void setPlanActionType(PlanCreationDto.PlanActionType planActionType) {
+	public void setPlanActionType(PlanActionType planActionType) {
 		this.planActionType = planActionType;
 	}
 
