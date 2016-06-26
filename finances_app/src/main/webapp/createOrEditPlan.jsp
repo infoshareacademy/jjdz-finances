@@ -14,7 +14,7 @@
     <Title>TriTeam Finances - Funds</Title>
     <!-- Bootstrap -->
     <link href="resources/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="resources/css/bootstrap-datepicker.css">
+    <link rel="stylesheet" href="resources/css/bootstrap-datetimepicker.css">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -46,9 +46,11 @@
         </div>
         <div class="form-group">
             <label>Date</label>
-            <div class="input-group date">
-                <input type="text" class="form-control" name="date"><span class="input-group-addon"><i
-                    class="glyphicon glyphicon-th"></i></span>
+            <div class='input-group date' id='datetimepicker4'>
+                <input type='text' class="form-control" name="date"/>
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
             </div>
         </div>
         <div class="form-group">
@@ -63,7 +65,9 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="resources/js/bootstrap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.1/js/bootstrap-datepicker.js"></script>
+<%--<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.1/js/bootstrap-datepicker.js"></script>--%>
+<script src="resources/js/moment.js"></script>
+<script src="resources/js/bootstrap-datetimepicker.min.js"></script>
 <script src="resources/js/main.js"></script>
 
 <%@ include file="resources/footer.jsp" %>

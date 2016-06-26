@@ -64,9 +64,8 @@ public class CrudServlet extends HttpServlet {
             planCreationDto.setQuantity(Integer.parseInt(quantity));
             planCreationDto.setPlanActionType(PlanCreationDto.PlanActionType.valueOf(request.getParameter("action")));
             planCreationDto.setAssetEntity(fundsRepository.findRandomAsset(request.getParameter("selectAsset")));
-//        planCreationDto.setActionTime(ZonedDateTime.now());
             try {
-                Date dateFormat = new SimpleDateFormat("dd/MM/yyyy").parse(request.getParameter("date"));
+                Date dateFormat = new SimpleDateFormat("dd/mm/yyyy hh:mm a").parse(request.getParameter("date"));
                 ZonedDateTime actionTime = ZonedDateTime.ofInstant(dateFormat.toInstant(), ZoneId.systemDefault());
                 planCreationDto.setActionTime(actionTime);
             } catch (ParseException e) {
