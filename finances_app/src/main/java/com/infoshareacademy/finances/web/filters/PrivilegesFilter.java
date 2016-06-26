@@ -14,7 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.infoshareacademy.finances.entity.Privileges;
-import com.infoshareacademy.finances.service.users.UserSessionData;
+import com.infoshareacademy.finances.service.UserSessionData;
 
 public class PrivilegesFilter implements Filter {
 	private static final Logger LOGGER = LoggerFactory.getLogger(PrivilegesFilter.class);

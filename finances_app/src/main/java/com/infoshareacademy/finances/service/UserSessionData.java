@@ -1,4 +1,4 @@
-package com.infoshareacademy.finances.service.users;
+package com.infoshareacademy.finances.service;
 
 import java.io.Serializable;
 
@@ -7,7 +7,7 @@ import javax.enterprise.context.SessionScoped;
 import com.github.scribejava.core.model.OAuth2AccessToken;
 import com.github.scribejava.core.oauth.OAuth20Service;
 import com.infoshareacademy.finances.entity.Privileges;
-import com.infoshareacademy.finances.model.UserInfo;
+import com.infoshareacademy.finances.entity.UserInfo;
 
 @SessionScoped
 public class UserSessionData implements Serializable {

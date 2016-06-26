@@ -7,8 +7,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import com.infoshareacademy.finances.entity.Privileges;
-import com.infoshareacademy.finances.model.UserInfo;
-import com.infoshareacademy.finances.model.UserInfoEntity;
+import com.infoshareacademy.finances.entity.UserInfo;
+import com.infoshareacademy.finances.entity.UserInfoEntity;
 
 @Stateless
 public class UserInfoRepository {

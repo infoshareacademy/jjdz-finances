@@ -1,4 +1,4 @@
-package com.infoshareacademy.finances.service;
+package com.infoshareacademy.finances.service.calculation;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,10 +6,10 @@ import java.util.stream.Collectors;
 
 import javax.ejb.Stateless;
 
-import com.infoshareacademy.finances.model.DailyValue;
+import com.infoshareacademy.finances.entity.DailyValue;
 
 @Stateless
-public class MonthData {
+public class MonthCalculation {
 
 	public List<Integer> returnAllMonths(List<DailyValue> dailyValues, int year) {
 		List<Integer> months = new ArrayList();

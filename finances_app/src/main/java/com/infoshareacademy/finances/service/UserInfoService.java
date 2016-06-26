@@ -1,4 +1,4 @@
-package com.infoshareacademy.finances.service.users;
+package com.infoshareacademy.finances.service;
 
 import java.io.ByteArrayInputStream;
 
@@ -17,8 +17,8 @@ import com.github.scribejava.core.model.Response;
 import com.github.scribejava.core.model.Verb;
 import com.infoshareacademy.finances.entity.Privileges;
 import com.infoshareacademy.finances.entity.UserPrivileges;
-import com.infoshareacademy.finances.model.UserInfo;
-import com.infoshareacademy.finances.model.UserInfoEntity;
+import com.infoshareacademy.finances.entity.UserInfo;
+import com.infoshareacademy.finances.entity.UserInfoEntity;
 import com.infoshareacademy.finances.repository.UserInfoRepository;
 import com.infoshareacademy.finances.repository.UserPrivilegesRepository;
 

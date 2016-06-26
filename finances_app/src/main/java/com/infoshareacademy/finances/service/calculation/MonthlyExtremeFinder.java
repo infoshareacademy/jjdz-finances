@@ -1,6 +1,6 @@
-package com.infoshareacademy.finances.service;
+package com.infoshareacademy.finances.service.calculation;
 
-import com.infoshareacademy.finances.model.DailyValue;
+import com.infoshareacademy.finances.entity.DailyValue;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;

@@ -7,11 +7,13 @@ import java.util.Set;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
-import com.infoshareacademy.finances.model.DailyValue;
-import com.infoshareacademy.finances.model.LstList;
+import com.infoshareacademy.finances.entity.DailyValue;
+import com.infoshareacademy.finances.model.dto.LstList;
 import com.infoshareacademy.finances.repository.CurrencyRepository;
 import com.infoshareacademy.finances.repository.DailyValuesRepository;
 import com.infoshareacademy.finances.repository.FundsRepository;
+import com.infoshareacademy.finances.service.calculation.MonthCalculation;
+import com.infoshareacademy.finances.service.calculation.YearCalculation;
 
 @Stateless
 public class AssetService {
@@ -26,10 +28,10 @@ public class AssetService {
 	DailyValuesRepository dailyValuesRepository;
 
 	@EJB
-	MonthData monthData;
+	MonthCalculation monthData;
 
 	@EJB
-	YearData yearData;
+	YearCalculation yearData;
 
 	public List<LstList> returnAllFunds() {
 		List<LstList> out = new ArrayList<>();

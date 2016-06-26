@@ -13,7 +13,7 @@ import javax.servlet.ServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.infoshareacademy.finances.service.users.UserSessionData;
+import com.infoshareacademy.finances.service.UserSessionData;
 
 public class AuthFilter implements Filter {
 	private static final Logger LOGGER = LoggerFactory.getLogger(AuthFilter.class);

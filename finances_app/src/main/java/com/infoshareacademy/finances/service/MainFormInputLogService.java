@@ -1,7 +1,7 @@
 package com.infoshareacademy.finances.service;
 
-import com.infoshareacademy.finances.model.MainFormInput;
-import com.infoshareacademy.finances.model.MainFormInputEntity;
+import com.infoshareacademy.finances.entity.MainFormInput;
+import com.infoshareacademy.finances.entity.MainFormInputEntity;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;

@@ -6,7 +6,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import com.infoshareacademy.finances.model.CurrencyAssets;
+import com.infoshareacademy.finances.entity.CurrencyAssets;
 
 @Stateless
 public class CurrencyRepository {

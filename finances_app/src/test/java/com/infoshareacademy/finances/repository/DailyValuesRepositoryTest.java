@@ -13,8 +13,8 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import com.infoshareacademy.finances.model.DailyValue;
-import com.infoshareacademy.finances.model.DailyValueEntity;
+import com.infoshareacademy.finances.entity.DailyValue;
+import com.infoshareacademy.finances.entity.DailyValueEntity;
 
 @Ignore
 //need to have DB for integration tests

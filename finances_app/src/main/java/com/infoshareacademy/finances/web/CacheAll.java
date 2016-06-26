@@ -10,23 +10,24 @@ import javax.ejb.Startup;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import com.infoshareacademy.finances.entity.AssetEntity;
+import com.infoshareacademy.finances.entity.PlanCreationDto;
 import com.infoshareacademy.finances.entity.Privileges;
 import com.infoshareacademy.finances.entity.UserPrivileges;
-import com.infoshareacademy.finances.model.*;
 import com.infoshareacademy.finances.repository.*;
-import com.infoshareacademy.finances.model.Asset;
-import com.infoshareacademy.finances.model.CurrencyAssets;
-import com.infoshareacademy.finances.model.DailyValue;
-import com.infoshareacademy.finances.model.DailyValueEntity;
-import com.infoshareacademy.finances.model.FundsAssets;
-import com.infoshareacademy.finances.model.UserInfo;
-import com.infoshareacademy.finances.model.UserInfoEntity;
+import com.infoshareacademy.finances.entity.Asset;
+import com.infoshareacademy.finances.entity.CurrencyAssets;
+import com.infoshareacademy.finances.entity.DailyValue;
+import com.infoshareacademy.finances.entity.DailyValueEntity;
+import com.infoshareacademy.finances.entity.FundsAssets;
+import com.infoshareacademy.finances.entity.UserInfo;
+import com.infoshareacademy.finances.entity.UserInfoEntity;
 import com.infoshareacademy.finances.repository.CurrencyRepository;
 import com.infoshareacademy.finances.repository.FundsRepository;
 import com.infoshareacademy.finances.repository.UserInfoRepository;
 import com.infoshareacademy.finances.repository.UserPrivilegesRepository;
-import com.infoshareacademy.finances.service.AssetsLoader;
-import com.infoshareacademy.finances.service.DataLoader;
+import com.infoshareacademy.finances.service.fileOperations.AssetsLoader;
+import com.infoshareacademy.finances.service.fileOperations.DailyValuesLoader;
 
 import java.time.ZonedDateTime;
 
@@ -62,7 +63,7 @@ public class CacheAll {
 		List<Asset> funds = Arrays.asList(asset1,asset2,asset3);
 		//-----------------------------------------------------
 //		List<Asset> funds = assetsLoader.readAssetsFromFile("/omegafun.lst");
-		DataLoader dataLoader = new DataLoader();
+		DailyValuesLoader dataLoader = new DailyValuesLoader();
 		funds.forEach(f -> {
 			FundsAssets asset = new FundsAssets(f);
 			List<DailyValue> dailyValues = dataLoader.loadDataFromFile("funds/" + f.getCode() + ".txt");

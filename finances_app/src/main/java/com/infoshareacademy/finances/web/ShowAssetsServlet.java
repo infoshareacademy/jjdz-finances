@@ -10,8 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.infoshareacademy.finances.model.AssetType;
-import com.infoshareacademy.finances.model.LstList;
+import com.infoshareacademy.finances.entity.AssetType;
+import com.infoshareacademy.finances.model.dto.LstList;
 import com.infoshareacademy.finances.service.AssetService;
 
 @WebServlet("/showAssets")

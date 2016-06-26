@@ -1,4 +1,4 @@
-package com.infoshareacademy.finances.service;
+package com.infoshareacademy.finances.service.calculation;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,7 +8,7 @@ import javax.ejb.Stateless;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.infoshareacademy.finances.model.DailyValue;
+import com.infoshareacademy.finances.entity.DailyValue;
 
 @Stateless
 public class MonthlyTrendsService {

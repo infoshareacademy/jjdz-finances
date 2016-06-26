@@ -29,10 +29,10 @@ import org.jfree.data.time.TimeSeriesCollection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.infoshareacademy.finances.model.DailyValue;
+import com.infoshareacademy.finances.entity.DailyValue;
 import com.infoshareacademy.finances.repository.DailyValuesRepository;
 import com.infoshareacademy.finances.service.MainFormInputData;
-import com.infoshareacademy.finances.service.MonthlyTrendsService;
+import com.infoshareacademy.finances.service.calculation.MonthlyTrendsService;
 
 import static org.jfree.chart.ChartFactory.*;
 

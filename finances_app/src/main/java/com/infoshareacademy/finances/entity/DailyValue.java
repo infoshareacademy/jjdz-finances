@@ -1,4 +1,4 @@
-package com.infoshareacademy.finances.model;
+package com.infoshareacademy.finances.entity;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;

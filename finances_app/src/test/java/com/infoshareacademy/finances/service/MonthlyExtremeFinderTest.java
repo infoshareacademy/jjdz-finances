@@ -1,6 +1,8 @@
 package com.infoshareacademy.finances.service;
 
-import com.infoshareacademy.finances.model.DailyValue;
+import com.infoshareacademy.finances.entity.DailyValue;
+import com.infoshareacademy.finances.service.calculation.MonthlyExtremeFinder;
+
 import org.hamcrest.Matchers;
 import org.junit.Before;
 import org.junit.Test;
@@ -10,7 +12,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.infoshareacademy.finances.service.MonthlyExtremeFinder.Order;
+import static com.infoshareacademy.finances.service.calculation.MonthlyExtremeFinder.Order;
 import static org.hamcrest.Matchers.isIn;
 import static org.junit.Assert.assertThat;
 

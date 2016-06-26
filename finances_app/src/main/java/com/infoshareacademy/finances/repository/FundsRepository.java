@@ -6,8 +6,8 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import com.infoshareacademy.finances.model.AssetEntity;
-import com.infoshareacademy.finances.model.FundsAssets;
+import com.infoshareacademy.finances.entity.AssetEntity;
+import com.infoshareacademy.finances.entity.FundsAssets;
 
 @Stateless
 public class FundsRepository {

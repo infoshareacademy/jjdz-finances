@@ -1,4 +1,4 @@
-package com.infoshareacademy.finances.service;
+package com.infoshareacademy.finances.service.fileOperations;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -11,9 +11,9 @@ import java.util.List;
 
 import org.apache.commons.io.IOUtils;
 
-import com.infoshareacademy.finances.model.DailyValue;
+import com.infoshareacademy.finances.entity.DailyValue;
 
-public class DataLoader {
+public class DailyValuesLoader {
 
     public static final int COLUMN_POSITION_OF_DATE = 1;
     public static final int COLUMN_POSITION_OF_CLOSE_VALUE = 4;

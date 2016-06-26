@@ -15,7 +15,7 @@ import org.slf4j.LoggerFactory;
 import com.github.scribejava.apis.GoogleApi20;
 import com.github.scribejava.core.builder.ServiceBuilder;
 import com.github.scribejava.core.oauth.OAuth20Service;
-import com.infoshareacademy.finances.service.users.UserSessionData;
+import com.infoshareacademy.finances.service.UserSessionData;
 
 @WebServlet("/googleplus")
 public class GooglePlusServlet extends HttpServlet {

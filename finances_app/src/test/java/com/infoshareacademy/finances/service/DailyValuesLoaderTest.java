@@ -1,6 +1,8 @@
 package com.infoshareacademy.finances.service;
 
-import com.infoshareacademy.finances.model.DailyValue;
+import com.infoshareacademy.finances.entity.DailyValue;
+import com.infoshareacademy.finances.service.fileOperations.DailyValuesLoader;
+
 import org.hamcrest.Matchers;
 import org.junit.Test;
 
@@ -10,7 +12,7 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
-public class DataLoaderTest {
+public class DailyValuesLoaderTest {
 
     @Test
     public void testLoadFundFromFile() throws Exception {
@@ -21,7 +23,7 @@ public class DataLoaderTest {
         DailyValue expected = new DailyValue(date,value);
         
         //when
-        List<DailyValue> dailyValues = new DataLoader().loadDataFromFile(fileName);
+        List<DailyValue> dailyValues = new DailyValuesLoader().loadDataFromFile(fileName);
 
         //then
         assertThat(dailyValues.get(1).getDate(), Matchers.equalTo(expected.getDate()));
@@ -37,7 +39,7 @@ public class DataLoaderTest {
         DailyValue expected = new DailyValue(date,value);
 
         //when
-        List<DailyValue> dailyValues = new DataLoader().loadDataFromFile(fileName);
+        List<DailyValue> dailyValues = new DailyValuesLoader().loadDataFromFile(fileName);
 
         //then
         assertThat(expected.getDate() , Matchers.equalTo(dailyValues.get(1).getDate()));

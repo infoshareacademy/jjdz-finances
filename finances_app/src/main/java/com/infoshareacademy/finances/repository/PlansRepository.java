@@ -1,6 +1,6 @@
 package com.infoshareacademy.finances.repository;
 
-import com.infoshareacademy.finances.model.PlanCreationDto;
+import com.infoshareacademy.finances.entity.PlanCreationDto;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;

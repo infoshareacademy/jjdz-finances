@@ -14,8 +14,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.slf4j.LoggerFactory;
 
 import com.infoshareacademy.finances.entity.Privileges;
-import com.infoshareacademy.finances.model.UserInfoEntity;
-import com.infoshareacademy.finances.model.UserInfoModel;
+import com.infoshareacademy.finances.entity.UserInfoEntity;
+import com.infoshareacademy.finances.model.dto.UserInfoModel;
 import com.infoshareacademy.finances.repository.UserInfoRepository;
 
 @WebServlet(urlPatterns = "/admin")

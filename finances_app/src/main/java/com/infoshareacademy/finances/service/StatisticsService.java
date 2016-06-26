@@ -1,6 +1,6 @@
 package com.infoshareacademy.finances.service;
 
-import com.infoshareacademy.finances.model.FundStatsDTO;
+import com.infoshareacademy.finances.model.dto.FundStatsDTO;
 import com.infoshareacademy.finances.repository.StatisticsRepository;
 
 import javax.ejb.EJB;

@@ -13,10 +13,10 @@ import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.infoshareacademy.finances.model.MainFormInput;
+import com.infoshareacademy.finances.entity.MainFormInput;
 import com.infoshareacademy.finances.service.MainFormInputData;
 import com.infoshareacademy.finances.service.MainFormInputLogService;
-import com.infoshareacademy.finances.service.users.UserSessionData;
+import com.infoshareacademy.finances.service.UserSessionData;
 
 @WebServlet("/calculation")
 public class CalculationServlet extends HttpServlet {

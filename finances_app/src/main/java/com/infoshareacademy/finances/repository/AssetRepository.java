@@ -4,7 +4,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import com.infoshareacademy.finances.model.AssetEntity;
+import com.infoshareacademy.finances.entity.AssetEntity;
 
 @Stateless
 public class AssetRepository {

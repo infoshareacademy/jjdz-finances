@@ -1,6 +1,6 @@
 package com.infoshareacademy.finances.repository;
 
-import com.infoshareacademy.finances.model.FundStatsDTO;
+import com.infoshareacademy.finances.model.dto.FundStatsDTO;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -17,7 +17,7 @@ public class StatisticsRepository {
 
     public List<FundStatsDTO> findMaxPurchasingFunds(){
         return em.createQuery(
-                "select new com.infoshareacademy.finances.model.FundStatsDTO(a.asset.name, " +
+                "select new com.infoshareacademy.finances.model.dto.FundStatsDTO(a.asset.name, " +
                         "p.assetEntity.id, sum(p.quantity)) " +
                         "from PlanCreationDto p " +
                         "join p.assetEntity a " +
@@ -30,7 +30,7 @@ public class StatisticsRepository {
 
     public List<FundStatsDTO> findMaxSellingFunds(){
         return em.createQuery(
-                "select new com.infoshareacademy.finances.model.FundStatsDTO(a.asset.name, " +
+                "select new com.infoshareacademy.finances.model.dto.FundStatsDTO(a.asset.name, " +
                         "p.assetEntity.id, sum(p.quantity)) " +
                         "from PlanCreationDto p " +
                         "join p.assetEntity a " +

@@ -7,8 +7,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
-import com.infoshareacademy.finances.model.UserInfoEntity;
-
 @Entity
 public class UserPrivileges {
 

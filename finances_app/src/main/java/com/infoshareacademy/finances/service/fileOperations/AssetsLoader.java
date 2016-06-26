@@ -1,6 +1,6 @@
-package com.infoshareacademy.finances.service;
+package com.infoshareacademy.finances.service.fileOperations;
 
-import com.infoshareacademy.finances.model.Asset;
+import com.infoshareacademy.finances.entity.Asset;
 
 import java.io.IOException;
 import java.io.InputStream;

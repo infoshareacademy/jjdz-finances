@@ -1,15 +1,15 @@
 package com.infoshareacademy.finances.web;
 
-import com.infoshareacademy.finances.model.LstList;
-import com.infoshareacademy.finances.model.PlanCreationDto;
-import com.infoshareacademy.finances.model.UserInfo;
-import com.infoshareacademy.finances.model.UserInfoEntity;
+import com.infoshareacademy.finances.model.dto.LstList;
+import com.infoshareacademy.finances.entity.PlanCreationDto;
+import com.infoshareacademy.finances.entity.UserInfo;
+import com.infoshareacademy.finances.entity.UserInfoEntity;
 import com.infoshareacademy.finances.repository.FundsRepository;
 import com.infoshareacademy.finances.repository.PlansRepository;
 import com.infoshareacademy.finances.repository.UserInfoRepository;
 import com.infoshareacademy.finances.service.AssetService;
 import com.infoshareacademy.finances.service.PlanDaoService;
-import com.infoshareacademy.finances.service.users.UserSessionData;
+import com.infoshareacademy.finances.service.UserSessionData;
 
 import javax.ejb.EJB;
 import javax.inject.Inject;

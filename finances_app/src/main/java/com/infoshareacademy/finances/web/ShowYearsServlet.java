@@ -1,6 +1,6 @@
 package com.infoshareacademy.finances.web;
 
-import com.infoshareacademy.finances.model.AssetEntity;
+import com.infoshareacademy.finances.entity.AssetEntity;
 import com.infoshareacademy.finances.repository.AssetRepository;
 import com.infoshareacademy.finances.service.AssetService;
 import com.infoshareacademy.finances.service.MainFormInputData;

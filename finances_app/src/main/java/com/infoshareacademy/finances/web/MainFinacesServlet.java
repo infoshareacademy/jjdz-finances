@@ -2,7 +2,7 @@ package com.infoshareacademy.finances.web;
 
 import java.io.IOException;
 import java.util.Enumeration;
-import com.infoshareacademy.finances.model.AssetType;
+import com.infoshareacademy.finances.entity.AssetType;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;

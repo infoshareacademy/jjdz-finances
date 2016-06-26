@@ -1,4 +1,4 @@
-package com.infoshareacademy.finances.service;
+package com.infoshareacademy.finances.service.calculation;
 
 import java.math.BigDecimal;
 import java.util.Collections;
@@ -10,10 +10,10 @@ import java.util.stream.Collectors;
 
 import javax.ejb.Stateless;
 
-import com.infoshareacademy.finances.model.DailyValue;
+import com.infoshareacademy.finances.entity.DailyValue;
 
 @Stateless
-public class YearData {
+public class YearCalculation {
 
 	public Set<Integer> returnAllYears(List<DailyValue> dailyValues) {
 		Set<Integer> years = new HashSet<>();

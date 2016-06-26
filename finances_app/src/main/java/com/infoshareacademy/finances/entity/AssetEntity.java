@@ -1,6 +1,8 @@
-package com.infoshareacademy.finances.model;
+package com.infoshareacademy.finances.entity;
 
 import javax.persistence.*;
+
+import com.infoshareacademy.finances.entity.Asset;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)

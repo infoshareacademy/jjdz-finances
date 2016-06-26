@@ -15,7 +15,7 @@ import org.slf4j.LoggerFactory;
 import com.github.scribejava.apis.FacebookApi;
 import com.github.scribejava.core.builder.ServiceBuilder;
 import com.github.scribejava.core.oauth.OAuth20Service;
-import com.infoshareacademy.finances.service.users.UserSessionData;
+import com.infoshareacademy.finances.service.UserSessionData;
 
 @WebServlet("/facebook")
 public class FacebookServlet extends HttpServlet{

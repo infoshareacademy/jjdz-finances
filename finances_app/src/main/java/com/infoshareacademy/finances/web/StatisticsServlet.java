@@ -1,10 +1,10 @@
 package com.infoshareacademy.finances.web;
 
-import com.infoshareacademy.finances.model.FundStatsDTO;
-import com.infoshareacademy.finances.model.UserInfo;
+import com.infoshareacademy.finances.model.dto.FundStatsDTO;
+import com.infoshareacademy.finances.entity.UserInfo;
 import com.infoshareacademy.finances.repository.StatisticsRepository;
 import com.infoshareacademy.finances.repository.UserInfoRepository;
-import com.infoshareacademy.finances.service.users.UserSessionData;
+import com.infoshareacademy.finances.service.UserSessionData;
 
 import javax.ejb.EJB;
 import javax.inject.Inject;

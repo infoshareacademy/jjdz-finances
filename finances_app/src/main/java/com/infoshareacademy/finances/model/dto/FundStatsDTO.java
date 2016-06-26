@@ -1,4 +1,4 @@
-package com.infoshareacademy.finances.model;
+package com.infoshareacademy.finances.model.dto;
 
 public class FundStatsDTO {
 

@@ -14,8 +14,8 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.infoshareacademy.finances.service.users.UserInfoService;
-import com.infoshareacademy.finances.service.users.UserSessionData;
+import com.infoshareacademy.finances.service.UserInfoService;
+import com.infoshareacademy.finances.service.UserSessionData;
 
 @WebServlet(urlPatterns = "/oauth2callback")
 public class OAuth2CallbackServlet extends HttpServlet {
