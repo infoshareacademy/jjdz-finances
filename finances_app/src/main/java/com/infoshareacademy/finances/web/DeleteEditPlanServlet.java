@@ -10,8 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(name = "DeletePlanServlet", urlPatterns = "/delete")
-public class DeletePlanServlet extends HttpServlet {
+@WebServlet(name = "DeleteEditPlan", urlPatterns = "/deleteEdit")
+public class DeleteEditPlanServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     @EJB
@@ -19,14 +19,13 @@ public class DeletePlanServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = request.getParameter("btnaction");
-        if (action.equalsIgnoreCase("edit")) {
+        String[] actions = action.split("-");
+        if ("edit".equals(actions[1])) {
 
             response.sendRedirect("/createEdit");
 
-        } else {
-            Long id = Long.parseLong(request.getParameter("btnaction"));
-
-
+        } else if ("delete".equals(actions[1])) {
+            Long id = Long.parseLong(actions[0]);
             planDaoService.delete(id);
             response.sendRedirect("/plansList");
         }

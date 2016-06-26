@@ -33,7 +33,7 @@
 
     <h1>Your plans</h1>
 
-    <form action="/delete" method="post">
+    <form action="/deleteEdit" method="post">
     <table class="table table-hover">
         <tr>
             <th class="hidden">id</th>
@@ -51,8 +51,8 @@
                 <td><c:out value="${plan.planActionType}"/></td>
                 <td><c:out value="${plan.quantity}"/></td>
                 <td>
-                    <button type="submit" class="btn btn-default" name="btnaction" value="${plan.id}"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
-                    <button type="submit" class="btn btn-default" name="btnaction" value="edit"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span></button>
+                    <button type="submit" class="btn btn-default" name="btnaction" value="${plan.id}-delete"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+                    <button type="submit" class="btn btn-default" name="btnaction" value="${plan.id}-edit"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span></button>
                 </td>
             </tr>
         </c:forEach>
