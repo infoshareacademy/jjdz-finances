@@ -79,10 +79,6 @@ public class PlanCreationDto {
         this.planActionType = planActionType;
     }
 
-    public enum PlanActionType {
-        BUY, SELL
-    }
-
 	@Override
 	public String toString() {
 		return "PlanCreationDto{" +
