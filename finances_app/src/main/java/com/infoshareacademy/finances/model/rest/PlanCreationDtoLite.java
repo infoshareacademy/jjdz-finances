@@ -29,6 +29,10 @@ public class PlanCreationDtoLite {
 		this.assetId = assetId;
 	}
 
+	public PlanActionType getPlanActionType() {
+		return planActionType;
+	}
+
 	public void setPlanActionType(PlanActionType planActionType) {
 		this.planActionType = planActionType;
 	}

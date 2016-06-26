@@ -19,6 +19,7 @@ public class PlanClient {
 		LOGGER.info("##### Plan: {}", plan);
 
 		Response resp = ClientBuilder.newClient()
+				.register(new EntityLoggingFilter())
 				.target("http://localhost:8082/api/plan/create")
 				.request()
 				.post(Entity.entity(plan, MediaType.APPLICATION_JSON_TYPE));
