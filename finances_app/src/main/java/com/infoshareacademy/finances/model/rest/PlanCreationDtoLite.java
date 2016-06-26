@@ -1,15 +1,10 @@
 package com.infoshareacademy.finances.model.rest;
 
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import com.infoshareacademy.finances.entity.PlanCreationDto;
 
 public class PlanCreationDtoLite {
 
-    private PlanActionType planActionType;
+    private PlanCreationDto.PlanActionType planActionType;
 
     private int quantity;
 
@@ -20,20 +15,17 @@ public class PlanCreationDtoLite {
     public PlanCreationDtoLite() {
     }
 
-    public PlanCreationDtoLite(PlanActionType planActionType, int quantity, String assetName, Long assetId) {
-        this.planActionType = planActionType;
-        this.quantity = quantity;
-        this.assetName = assetName;
-        this.assetId = assetId;
-    }
+	public PlanCreationDtoLite(PlanCreationDto.PlanActionType planActionType, int quantity, String assetName,
+			Long assetId) {
+		this.planActionType = planActionType;
+		this.quantity = quantity;
+		this.assetName = assetName;
+		this.assetId = assetId;
+	}
 
-    public PlanActionType getPlanActionType() {
-        return planActionType;
-    }
-
-    public void setPlanActionType(PlanActionType planActionType) {
-        this.planActionType = planActionType;
-    }
+	public void setPlanActionType(PlanCreationDto.PlanActionType planActionType) {
+		this.planActionType = planActionType;
+	}
 
     public int getQuantity() {
         return quantity;
@@ -68,8 +60,4 @@ public class PlanCreationDtoLite {
 				", assetId=" + assetId +
 				'}';
 	}
-
-	public enum PlanActionType {
-        BUY, SELL
-    }
 }

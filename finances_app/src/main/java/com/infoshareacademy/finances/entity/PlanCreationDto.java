@@ -82,4 +82,16 @@ public class PlanCreationDto {
     public enum PlanActionType {
         BUY, SELL
     }
+
+	@Override
+	public String toString() {
+		return "PlanCreationDto{" +
+				"id=" + id +
+				", planActionType=" + planActionType +
+				", quantity=" + quantity +
+				", actionTime=" + actionTime +
+				", assetEntity=" + assetEntity +
+				", userInfoEntity=" + userInfoEntity +
+				'}';
+	}
 }

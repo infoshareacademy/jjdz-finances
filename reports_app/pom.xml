@@ -90,12 +90,12 @@
                 <version>1.1.0.Alpha7</version>
 
                 <configuration>
-                    <port>9991</port>
+                    <port>9992</port>
                     <server-args>
                         <server-arg>-Djboss.bind.address=0.0.0.0</server-arg>
                         <server-arg>-Djboss.bind.address.management=0.0.0.0</server-arg>
-                        <server-arg>-Djboss.http.port=8081</server-arg>
-                        <server-arg>-Djboss.management.http.port=9991</server-arg>
+                        <server-arg>-Djboss.http.port=8082</server-arg>
+                        <server-arg>-Djboss.management.http.port=9992</server-arg>
                     </server-args>
                     <beforeDeployment>
                         <commands>
