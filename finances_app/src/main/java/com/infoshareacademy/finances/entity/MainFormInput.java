@@ -9,6 +9,9 @@ public class MainFormInput {
     private String assetCode;
 
 	@Column(nullable = false)
+	private String assetName;
+
+	@Column(nullable = false)
 	private Long userId;
 
 	private String month;
@@ -17,10 +20,51 @@ public class MainFormInput {
     public MainFormInput() {
     }
 
-	public MainFormInput(String assetCode, Long userId, String month, String year) {
+	public MainFormInput(String assetCode, String assetName, Long userId, String month, String year) {
 		this.assetCode = assetCode;
+		this.assetName = assetName;
 		this.userId = userId;
 		this.month = month;
+		this.year = year;
+	}
+
+	public String getAssetCode() {
+		return assetCode;
+	}
+
+	public void setAssetCode(String assetCode) {
+		this.assetCode = assetCode;
+	}
+
+	public String getAssetName() {
+		return assetName;
+	}
+
+	public void setAssetName(String assetName) {
+		this.assetName = assetName;
+	}
+
+	public Long getUserId() {
+		return userId;
+	}
+
+	public void setUserId(Long userId) {
+		this.userId = userId;
+	}
+
+	public String getMonth() {
+		return month;
+	}
+
+	public void setMonth(String month) {
+		this.month = month;
+	}
+
+	public String getYear() {
+		return year;
+	}
+
+	public void setYear(String year) {
 		this.year = year;
 	}
 }

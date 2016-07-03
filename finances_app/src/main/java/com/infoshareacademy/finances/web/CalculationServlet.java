@@ -15,8 +15,9 @@ import org.slf4j.LoggerFactory;
 
 import com.infoshareacademy.finances.entity.MainFormInput;
 import com.infoshareacademy.finances.service.MainFormInputData;
-import com.infoshareacademy.finances.service.MainFormInputLogService;
+import com.infoshareacademy.finances.service.MainFormInputService;
 import com.infoshareacademy.finances.service.UserSessionData;
+import com.infoshareacademy.finances.service.rest.MainFormInputClient;
 
 @WebServlet("/calculation")
 public class CalculationServlet extends HttpServlet {
@@ -24,7 +25,10 @@ public class CalculationServlet extends HttpServlet {
 	private static final Logger LOGGER = LoggerFactory.getLogger(CalculationServlet.class);
 
 	@EJB
-	MainFormInputLogService mainFormInputLogService;
+	MainFormInputService mainFormInputService;
+
+	@EJB
+	MainFormInputClient mainFormInputClient;
 
 	@Inject
 	UserSessionData userSessionData;
@@ -37,14 +41,20 @@ public class CalculationServlet extends HttpServlet {
 
 		mainFormInputData.setMonth(req.getParameter("selectMonth"));
 
-		LOGGER.info("Saving MainFormInput to DB");
-		MainFormInput mainFormInput = new MainFormInput(mainFormInputData.getAssetCode(), userSessionData.getUserId(),
-				mainFormInputData.getMonth(), mainFormInputData.getYear());
-		mainFormInputLogService.logToDB(mainFormInput);
+		String assetName = mainFormInputData.getAssetName();
+		String year = mainFormInputData.getYear();
+		String month = mainFormInputData.getMonth();
+		String assetCode = mainFormInputData.getAssetCode();
+		Long userId = userSessionData.getUserId();
+		MainFormInput mainFormInput = new MainFormInput(assetCode, assetName, userId, month, year);
 
-		req.setAttribute("asset", mainFormInputData.getAssetName());
-		req.setAttribute("year", mainFormInputData.getYear());
-		req.setAttribute("month", mainFormInputData.getMonth());
+		LOGGER.info("Saving MainFormInput to DB");
+		mainFormInputService.logToDB(mainFormInput);
+		mainFormInputClient.createRemoteClient(mainFormInput);
+
+		req.setAttribute("asset", assetName);
+		req.setAttribute("year", year);
+		req.setAttribute("month", month);
 
 		req.getRequestDispatcher("result.jsp").forward(req, resp);
 	}

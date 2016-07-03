@@ -10,7 +10,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
-import com.infoshareacademy.finances.reports.entities.MainFormInputData;
+import com.infoshareacademy.finances.reports.entities.MainFormInput;
 import com.infoshareacademy.finances.reports.repository.MainFormInputRepository;
 
 @Stateless
@@ -26,8 +26,8 @@ public class MainFormInputEvent {
 	@POST
 	@Path("/create")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response createMainFormInput(MainFormInputData data) {
-		Long id = mainFormInputRepository.save(data);
+	public Response createMainFormInput(MainFormInput formInput) {
+		Long id = mainFormInputRepository.save(formInput);
 
 		return Response
 				.created(uriInfo.getAbsolutePathBuilder().segment("{id}").build(id))
