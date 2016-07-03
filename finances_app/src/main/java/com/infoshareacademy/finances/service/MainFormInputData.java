@@ -12,7 +12,19 @@ public class MainFormInputData implements Serializable {
     private String year;
     private Long userId;
 
-    public Long getAssetId() {
+	public MainFormInputData() {
+	}
+
+	public MainFormInputData(Long assetId, String assetCode, String assetName, String month, String year, Long userId) {
+		this.assetId = assetId;
+		this.assetCode = assetCode;
+		this.assetName = assetName;
+		this.month = month;
+		this.year = year;
+		this.userId = userId;
+	}
+
+	public Long getAssetId() {
         return assetId;
     }
 

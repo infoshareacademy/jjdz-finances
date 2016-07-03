@@ -1,9 +1,11 @@
 package com.infoshareacademy.finances.reports.entities;
 
-import javax.persistence.*;
-
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.deser.std.EnumDeserializer;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 @Entity
 public class PlanCreationDtoLite {
