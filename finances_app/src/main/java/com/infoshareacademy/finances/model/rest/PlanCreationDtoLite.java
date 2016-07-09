@@ -1,15 +1,9 @@
 package com.infoshareacademy.finances.model.rest;
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.databind.deser.std.EnumDeserializer;
-import com.fasterxml.jackson.databind.ser.std.EnumSerializer;
 import com.infoshareacademy.finances.entity.PlanActionType;
 
 public class PlanCreationDtoLite {
 
-//	@JsonSerialize(using = EnumSerializer.class)
-//	@JsonDeserialize(using = EnumDeserializer.class)
     private PlanActionType planActionType;
 
     private int quantity;
