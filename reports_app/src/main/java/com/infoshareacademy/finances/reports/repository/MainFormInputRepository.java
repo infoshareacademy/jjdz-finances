@@ -16,4 +16,5 @@ public class MainFormInputRepository {
 		em.persist(data);
 		return data.getId();
 	}
+
 }

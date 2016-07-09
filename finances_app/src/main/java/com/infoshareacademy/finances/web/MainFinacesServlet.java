@@ -48,12 +48,13 @@ class MainFinacesServlet extends HttpServlet {
             case "plansSelected":
                 plansSelected(req, resp);
                 break;
+			case "reportsSelected":
+				reportsSelected(req, resp);
+				break;
         }
     }
 
-
-
-    @Override
+	@Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String action = req.getParameter("action");
         System.out.println("main.jsp: " + action);
@@ -122,8 +123,6 @@ class MainFinacesServlet extends HttpServlet {
     private void showStatistics(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
 
-        //String nextJSP = "statistics.jsp";
-        //resp.sendRedirect(nextJSP);
         String nextJSP = "/showStatistics";
 
         RequestDispatcher dispatcher  = getServletContext().getRequestDispatcher(nextJSP);
@@ -135,8 +134,6 @@ class MainFinacesServlet extends HttpServlet {
             throws ServletException, IOException {
         String nextJSP = "/admin";
         resp.sendRedirect("/admin");
-//		req.getRequestDispatcher("/admin")
-//				.forward(req, resp);
     }
 
     private void loginSelected(HttpServletRequest req, HttpServletResponse resp)
@@ -154,4 +151,11 @@ class MainFinacesServlet extends HttpServlet {
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextJSP);
         dispatcher.forward(req, resp);
     }
+
+	private void reportsSelected(HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
+		String nextJSP = "/reports.jsp";
+		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextJSP);
+		dispatcher.forward(req, resp);
+	}
 }
