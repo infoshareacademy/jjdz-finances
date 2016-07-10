@@ -39,6 +39,10 @@ public class PlanCreationDto {
         return id;
     }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public PlanActionType getPlanActionType() {
         return planActionType;
     }

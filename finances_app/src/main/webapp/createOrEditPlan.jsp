@@ -28,7 +28,7 @@
 <%@ include file="resources/navbar.jsp" %>
 
 <div class="container">
-    <form class="form-inline table" action="/createEdit" method="get">
+    <form class="form-inline table" action="/createEdit" method="post">
         <div class="form-group">
             <label>Asset</label>
             <select class="form-control" name="selectAsset">
@@ -40,8 +40,8 @@
         <div class="form-group">
             <label>Action</label>
             <select class="form-control" name="action">
-                    <option value="BUY">BUY</option>
-                    <option value="SELL">SELL</option>
+                <option value="BUY">BUY</option>
+                <option value="SELL">SELL</option>
             </select>
         </div>
         <div class="form-group">
@@ -58,7 +58,15 @@
             <input class="form-control" name="quantity">
             </select>
         </div>
-        <button type="submit" class="btn btn-default" name="button" value="save">Save</button>
+        <c:choose>
+        <c:when test="${PlanId != null}">
+
+            <input type="hidden" name="PlanId" value="${PlanId}"/>
+
+        </c:when>
+        </c:choose>
+
+        <button type="submit" class="btn btn-default" name="buttonSave" value="save">Save</button>
     </form>
 </div>
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->

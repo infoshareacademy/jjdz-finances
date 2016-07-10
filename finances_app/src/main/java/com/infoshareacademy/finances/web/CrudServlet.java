@@ -10,6 +10,8 @@ import com.infoshareacademy.finances.repository.UserInfoRepository;
 import com.infoshareacademy.finances.service.AssetService;
 import com.infoshareacademy.finances.service.PlanDaoService;
 import com.infoshareacademy.finances.service.UserSessionData;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.ejb.EJB;
 import javax.inject.Inject;
@@ -47,20 +49,39 @@ public class CrudServlet extends HttpServlet {
     @EJB
     AssetService assetService;
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    private Logger logger = LoggerFactory.getLogger(CrudServlet.class);
 
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+//        if (request.getAttribute("PlanId") == null && )
+
+//        if ( action != null && !action.equals("")) {
+//
+//
+//            logger.info("################ D action : {}", action);
+//        }
         String quantity = request.getParameter("quantity");
         if ( quantity != null && !quantity.equals("")){
-            System.out.println(request.getParameter("selectAsset"));
-            System.out.println(request.getParameter("quantity"));
-            System.out.println(request.getParameter("action"));
-            System.out.println(request.getParameter("date"));
+//            String[] actions = action.split("-");
+
+
+
             Long id = userSessionData.getUserId();
             UserInfoEntity userInfoEntity = userInfoRepository.findUserById(id);
+            PlanCreationDto planCreationDto;
 
             List<LstList> fundList = assetService.returnAllFunds();
             request.setAttribute("fundList", fundList);
-            PlanCreationDto planCreationDto = new PlanCreationDto();
+            if (request.getAttribute("PlanId") != null) {
+                logger.info("############ plan id:{}", request.getAttribute("PlanId"));
+                Long existingPlanId = Long.parseLong(String.valueOf(request.getAttribute("PlanId")));
+                planCreationDto = planDaoService.find(existingPlanId);
+                logger.info("############ existing PlanCreationDto:{}", planCreationDto.toString());
+            } else {
+                planCreationDto = new PlanCreationDto();
+                logger.info("############# no plan id, creating new");
+            }
+
             planCreationDto.setQuantity(Integer.parseInt(quantity));
             planCreationDto.setPlanActionType(PlanCreationDto.PlanActionType.valueOf(request.getParameter("action")));
             planCreationDto.setAssetEntity(fundsRepository.findRandomAsset(request.getParameter("selectAsset")));
@@ -71,19 +92,26 @@ public class CrudServlet extends HttpServlet {
             } catch (ParseException e) {
                 e.printStackTrace();
             }
-
+            String planId = request.getParameter("PlanId");
+            if (planId != null && !quantity.equals("")) {
+                planCreationDto.setId(Long.parseLong(planId));
+            }
             planCreationDto.setUserInfoEntity(userInfoEntity);
+            logger.info("############ planCreationDto to save:{}", planCreationDto);
             planDaoService.createOrUpdate(planCreationDto);
 
         }
-
+        //generates funds list to select
         UserInfo userInfo = userSessionData.getUserInfo();
         Long userId = userInfoRepository.findUserId(userInfo.getMail());
         List<PlanCreationDto> allPlans = plansRepository.findAllPlans(userId);
         List<LstList> fundList = assetService.returnAllFunds();
         request.setAttribute("fundList", fundList);
 
+        logger.info("############ D ID ! :{}", request.getAttribute("PlanId"));
+
         request.getRequestDispatcher("createOrEditPlan.jsp").forward(request, response);
     }
+
 
 }

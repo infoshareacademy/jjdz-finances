@@ -13,7 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 @Stateless
-public class PlanDaoService  {
+public class PlanDaoService {
 	private static final Logger LOGGER = LoggerFactory.getLogger(PlanDaoService.class);
 
     @PersistenceContext
@@ -33,6 +33,10 @@ public class PlanDaoService  {
     public void delete(Long id) {
         em.remove(em.find(PlanCreationDto.class, id));
     }
+
+//    public void update (Long id, PlanCreationDto planCreationDto) {
+//        em.merge(em.find(PlanCreationDto.class, id), planCreationDto);
+//    }
 
     public PlanCreationDto find(Long id) {
         return em.find(PlanCreationDto.class, id);

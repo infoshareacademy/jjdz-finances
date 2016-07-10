@@ -1,6 +1,8 @@
 package com.infoshareacademy.finances.web;
 
 import com.infoshareacademy.finances.service.PlanDaoService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -16,13 +18,17 @@ public class DeleteEditPlanServlet extends HttpServlet {
 
     @EJB
     private PlanDaoService planDaoService;
+    private Logger logger = LoggerFactory.getLogger(DeleteEditPlanServlet.class);
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = request.getParameter("btnaction");
         String[] actions = action.split("-");
         if ("edit".equals(actions[1])) {
 
-            response.sendRedirect("/createEdit");
+            request.setAttribute("PlanId", actions[0]);
+            logger.info("############### plan id from jsp:{}", actions[0]);
+            logger.info("############### plan id glued tp request:{}", request.getAttribute("PlanId"));
+            request.getRequestDispatcher("/createEdit").forward(request, response);
 
         } else if ("delete".equals(actions[1])) {
             Long id = Long.parseLong(actions[0]);

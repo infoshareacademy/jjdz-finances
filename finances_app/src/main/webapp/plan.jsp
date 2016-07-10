@@ -34,7 +34,7 @@
     <h1>Your plans</h1>
 
     <form action="/deleteEdit" method="post">
-    <table class="table table-hover">
+        <table class="table table-hover">
         <tr>
             <th class="hidden">id</th>
             <th>Asset</th>
@@ -56,10 +56,12 @@
                 </td>
             </tr>
         </c:forEach>
-    </table>
-        </form>
-    <a class="btn btn-default" href="/createEdit" type="submit">Add Plan</a>
-    <%--<a class="btn btn-default" type="submit">Add Currency Plan</a>--%>
+        </table>
+    </form>
+    <form action="/createEdit" method="post">
+        <button class="btn btn-default" name="AddPlan" type="submit">Add Plan</button>
+    </form>
+<%--<a class="btn btn-default" type="submit">Add Currency Plan</a>--%>
 </div>
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
