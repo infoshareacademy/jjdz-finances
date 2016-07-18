@@ -5,7 +5,6 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Schedule;
 import javax.ejb.Stateless;
-import javax.json.Json;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,7 +27,7 @@ public class MostSearchedAssetsReportService {
 	@EJB
 	private ReportsRepository reportsRepository;
 
-	@Schedule(hour = "*", minute = "*/5")
+	@Schedule(hour = "*", minute = "*/1")
 	public void generateReport() {
 		LOGGER.info("Generating MostSearchedAssets report.");
 		List<MostSearchedAssetsDTO> mostSearchedAssets = mainFormInputRepository.findMostSearchedAssets();
