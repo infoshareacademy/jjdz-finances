@@ -1,5 +1,6 @@
 package com.infoshareacademy.finances.web;
 
+import com.infoshareacademy.finances.entity.PlanCreationDto;
 import com.infoshareacademy.finances.service.PlanDaoService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,7 +15,6 @@ import java.io.IOException;
 
 @WebServlet(name = "DeleteEditPlan", urlPatterns = "/deleteEdit")
 public class DeleteEditPlanServlet extends HttpServlet {
-    private static final long serialVersionUID = 1L;
 
     @EJB
     private PlanDaoService planDaoService;
@@ -28,6 +28,9 @@ public class DeleteEditPlanServlet extends HttpServlet {
             request.setAttribute("PlanId", actions[0]);
             logger.info("############### plan id from jsp:{}", actions[0]);
             logger.info("############### plan id glued tp request:{}", request.getAttribute("PlanId"));
+            PlanCreationDto planCreationDto = planDaoService.find(Long.parseLong(actions[0]));
+
+            request.setAttribute("planCreationDto", planCreationDto);
             request.getRequestDispatcher("/createEdit").forward(request, response);
 
         } else if ("delete".equals(actions[1])) {

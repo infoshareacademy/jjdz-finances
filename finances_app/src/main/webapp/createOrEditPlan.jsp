@@ -2,6 +2,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://sargue.net/jsptags/time" prefix="javatime" %>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -31,7 +33,7 @@
     <form class="form-inline table" action="/createEdit" method="post">
         <div class="form-group">
             <label>Asset</label>
-            <select class="form-control" name="selectAsset">
+            <select class="form-control" name="selectAsset" value="">
                 <c:forEach var="LstList" items="${fundList}">
                     <option value=${LstList.code}>${LstList.name}</option>
                 </c:forEach>
@@ -39,7 +41,7 @@
         </div>
         <div class="form-group">
             <label>Action</label>
-            <select class="form-control" name="action">
+            <select class="form-control" name="action" value="${planCreationDto.getPlanActionType()}">
                 <option value="BUY">BUY</option>
                 <option value="SELL">SELL</option>
             </select>
@@ -47,7 +49,7 @@
         <div class="form-group">
             <label>Date</label>
             <div class='input-group date' id='datetimepicker4'>
-                <input type='text' class="form-control" name="date"/>
+                <input type='text' class="form-control" name="date" value="${planCreationDto.getActionTime()}"/>
                     <span class="input-group-addon">
                         <span class="glyphicon glyphicon-calendar"></span>
                     </span>
@@ -55,8 +57,8 @@
         </div>
         <div class="form-group">
             <label>Quantity</label>
-            <input class="form-control" name="quantity">
-            </select>
+            <input class="form-control" name="quantity" value="${planCreationDto.getQuantity()}">
+            <%--</select>--%>
         </div>
         <c:choose>
         <c:when test="${PlanId != null}">
@@ -68,6 +70,8 @@
 
         <button type="submit" class="btn btn-default" name="buttonSave" value="save">Save</button>
     </form>
+    <p>${quantity}</p>
+    <p>${date}</p>
 </div>
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>

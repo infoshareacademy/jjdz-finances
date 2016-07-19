@@ -49,37 +49,36 @@ public class CrudServlet extends HttpServlet {
     @EJB
     AssetService assetService;
 
-    private Logger logger = LoggerFactory.getLogger(CrudServlet.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(CrudServlet.class);
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-//        if (request.getAttribute("PlanId") == null && )
-
-//        if ( action != null && !action.equals("")) {
-//
-//
-//            logger.info("################ D action : {}", action);
-//        }
         String quantity = request.getParameter("quantity");
         if ( quantity != null && !quantity.equals("")){
-//            String[] actions = action.split("-");
-
-
 
             Long id = userSessionData.getUserId();
             UserInfoEntity userInfoEntity = userInfoRepository.findUserById(id);
+
             PlanCreationDto planCreationDto;
 
             List<LstList> fundList = assetService.returnAllFunds();
             request.setAttribute("fundList", fundList);
             if (request.getAttribute("PlanId") != null) {
-                logger.info("############ plan id:{}", request.getAttribute("PlanId"));
+                LOGGER.info("############ plan id:{}", request.getAttribute("PlanId"));
                 Long existingPlanId = Long.parseLong(String.valueOf(request.getAttribute("PlanId")));
                 planCreationDto = planDaoService.find(existingPlanId);
-                logger.info("############ existing PlanCreationDto:{}", planCreationDto.toString());
+
+                request.setAttribute("quantity", planCreationDto.getQuantity());
+                LOGGER.info("####### Quantity is: {}", request.getAttribute("quantity"));
+                request.setAttribute("date", planCreationDto.getActionTime());
+                LOGGER.info("######## Action time is: {}", request.getAttribute("date"));
+                request.setAttribute("action", planCreationDto.getPlanActionType());
+                request.setAttribute("assetName", planCreationDto.getAssetEntity().getAsset().getName());
+
+                LOGGER.info("############ existing PlanCreationDto:{}", planCreationDto.toString());
             } else {
                 planCreationDto = new PlanCreationDto();
-                logger.info("############# no plan id, creating new");
+                LOGGER.info("############# no plan id, creating new");
             }
 
             planCreationDto.setQuantity(Integer.parseInt(quantity));
@@ -97,18 +96,18 @@ public class CrudServlet extends HttpServlet {
                 planCreationDto.setId(Long.parseLong(planId));
             }
             planCreationDto.setUserInfoEntity(userInfoEntity);
-            logger.info("############ planCreationDto to save:{}", planCreationDto);
+            LOGGER.info("############ planCreationDto to save:{}", planCreationDto);
             planDaoService.createOrUpdate(planCreationDto);
 
         }
-        //generates funds list to select
+
         UserInfo userInfo = userSessionData.getUserInfo();
         Long userId = userInfoRepository.findUserId(userInfo.getMail());
-        List<PlanCreationDto> allPlans = plansRepository.findAllPlans(userId);
+//        List<PlanCreationDto> allPlans = plansRepository.findAllPlans(userId);
         List<LstList> fundList = assetService.returnAllFunds();
         request.setAttribute("fundList", fundList);
 
-        logger.info("############ D ID ! :{}", request.getAttribute("PlanId"));
+        LOGGER.info("############ D ID ! :{}", request.getAttribute("PlanId"));
 
         request.getRequestDispatcher("createOrEditPlan.jsp").forward(request, response);
     }
