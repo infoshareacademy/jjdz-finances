@@ -33,7 +33,7 @@
 
     <form action="/msaReport" method="post" role="form">
         <button type="Go!" class="btn btn-info">
-            <span class="glyphicon">MOST SEARCHED ASSETS</span>
+            <span class="">Most Searched Assets</span>
         </button>
     </form>
 
