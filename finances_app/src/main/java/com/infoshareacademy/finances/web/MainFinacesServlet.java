@@ -45,6 +45,9 @@ class MainFinacesServlet extends HttpServlet {
             case "loginSelected":
                 loginSelected(req, resp);
                 break;
+			case "logoutSelected":
+                logoutSelected(req, resp);
+                break;
             case "plansSelected":
                 plansSelected(req, resp);
                 break;
@@ -139,6 +142,14 @@ class MainFinacesServlet extends HttpServlet {
     private void loginSelected(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
 
+        String nextJSP = "/login.jsp";
+        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextJSP);
+        dispatcher.forward(req, resp);
+    }
+
+	private void logoutSelected(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
+		req.getSession().invalidate();
         String nextJSP = "/login.jsp";
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextJSP);
         dispatcher.forward(req, resp);

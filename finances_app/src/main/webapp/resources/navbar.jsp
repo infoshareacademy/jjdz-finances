@@ -7,6 +7,7 @@
         <a class="btn btn-default navbar-btn" href="main?action=plansSelected">Plans</a>
         <a class="btn btn-default navbar-btn" href="main?action=reportsSelected">Reports</a>
         <a class="btn btn-default navbar-btn navbar-right" href="main?action=adminSelected">Admin</a>
+        <a class="btn btn-default navbar-btn navbar-right" href="main?action=logoutSelected">Logout</a>
         <a class="btn btn-default navbar-btn navbar-right" href="main?action=loginSelected">Login</a>
     </nav>
 </div>
