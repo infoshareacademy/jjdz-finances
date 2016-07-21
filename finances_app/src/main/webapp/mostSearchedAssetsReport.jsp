@@ -1,21 +1,17 @@
+<%@ page import="java.util.Enumeration" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib uri="http://sargue.net/jsptags/time" prefix="javatime" %>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Reports</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <Title>TriTeam Finances - assets</Title>
     <!-- Bootstrap -->
     <link href="resources/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="resources/css/bootstrap-datepicker.css">
-    <link href="resources/css/style.css" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -26,28 +22,39 @@
 </head>
 
 <body>
+
 <%@ include file="resources/navbar.jsp" %>
 
 <div class="container">
-    <h1>Reports</h1>
+    <h1>Report</h1>
 
-    <form action="/msaReport" method="post" role="form">
-        <button type="Go!" class="btn btn-info">
-            <span class="">Most Searched Assets</span>
-        </button>
-    </form>
-
+    <div class="container">
+        <h2>Most Searched Assets</h2>
+        <table class="table table-condensed">
+            <thead>
+            <tr>
+                <th>Name of Asset</th>
+                <th>Amount of Searches</th>
+            </tr>
+            </thead>
+            <tbody>
+            <c:forEach items="${mostSearchedAssets}" var="item">
+                <tr>
+                    <td>${item.assetName}</td>
+                    <td>${item.amount}</td>
+                </tr>
+            </c:forEach>
+            </tbody>
+        </table>
+    </div>
 </div>
+
+
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="resources/js/bootstrap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.1/js/bootstrap-datepicker.js"></script>
-<script src="resources/js/main.js"></script>
 
 <%@ include file="resources/footer.jsp" %>
-
-
-
 </body>
 </html>

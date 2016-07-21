@@ -13,20 +13,21 @@ public class ReportsRepository {
 	@PersistenceContext
 	EntityManager em;
 
-	public void save(Report report){
+	public void save(Report report) {
 		em.persist(report);
 	}
 
-	public Long returnReportMaxId(ReportName name){
+	public Long returnReportMaxId(ReportName name) {
 		return em.createQuery("select max(r.id) from Report r where r.name = :name", Number.class)
-				.setParameter("name", name)
-				.getSingleResult().longValue();
+				.setParameter("name", name).getSingleResult().longValue();
 	}
 
-	public int deleteOldReports(ReportName name, Long id){
-		return em.createQuery("delete from Report r where r.name = :name and r.id < :id")
-				.setParameter("name", name)
-				.setParameter("id", id)
-				.executeUpdate();
+	public Report returnReport(Long id) {
+		return em.find(Report.class, id);
+	}
+
+	public int deleteOldReports(ReportName name, Long id) {
+		return em.createQuery("delete from Report r where r.name = :name and r.id < :id").setParameter("name", name)
+				.setParameter("id", id).executeUpdate();
 	}
 }
