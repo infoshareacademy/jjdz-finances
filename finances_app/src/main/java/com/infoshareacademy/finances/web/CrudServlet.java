@@ -28,7 +28,7 @@ import java.time.ZonedDateTime;
 import java.util.Date;
 import java.util.List;
 
-@WebServlet(name = "CrudServlet", urlPatterns = "/createEdit")
+@WebServlet(name = "CrudServlet", urlPatterns = "/crudServlet")
 public class CrudServlet extends HttpServlet {
 
     @EJB
@@ -68,11 +68,6 @@ public class CrudServlet extends HttpServlet {
                 Long existingPlanId = Long.parseLong(String.valueOf(request.getAttribute("PlanId")));
                 planCreationDto = planDaoService.find(existingPlanId);
 
-                request.setAttribute("quantity", planCreationDto.getQuantity());
-                LOGGER.info("####### Quantity is: {}", request.getAttribute("quantity"));
-                request.setAttribute("date", planCreationDto.getActionTime());
-                LOGGER.info("######## Action time is: {}", request.getAttribute("date"));
-                request.setAttribute("action", planCreationDto.getPlanActionType());
                 request.setAttribute("assetName", planCreationDto.getAssetEntity().getAsset().getName());
 
                 LOGGER.info("############ existing PlanCreationDto:{}", planCreationDto.toString());
@@ -103,7 +98,7 @@ public class CrudServlet extends HttpServlet {
 
         UserInfo userInfo = userSessionData.getUserInfo();
         Long userId = userInfoRepository.findUserId(userInfo.getMail());
-//        List<PlanCreationDto> allPlans = plansRepository.findAllPlans(userId);
+        List<PlanCreationDto> allPlans = plansRepository.findAllPlans(userId);
         List<LstList> fundList = assetService.returnAllFunds();
         request.setAttribute("fundList", fundList);
 

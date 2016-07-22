@@ -52,16 +52,15 @@
                 <td><c:out value="${plan.quantity}"/></td>
                 <td>
                     <button type="submit" class="btn btn-default" name="btnaction" value="${plan.id}-delete"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
-                    <button type="submit" class="btn btn-default" name="btnaction" value="${plan.id}-edit"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span></button>
+                    <button type="submit" class="btn btn-default" name="btnaction" value="${plan.id}-edit"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></button>
                 </td>
             </tr>
         </c:forEach>
         </table>
     </form>
-    <form action="/createEdit" method="post">
+    <form action="/crudServlet" method="post">
         <button class="btn btn-default" name="AddPlan" type="submit">Add Plan</button>
     </form>
-<%--<a class="btn btn-default" type="submit">Add Currency Plan</a>--%>
 </div>
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
@@ -71,8 +70,6 @@
 <script src="resources/js/main.js"></script>
 
 <%@ include file="resources/footer.jsp" %>
-
-
 
 </body>
 </html>

@@ -18,7 +18,7 @@ public class DeleteEditPlanServlet extends HttpServlet {
 
     @EJB
     private PlanDaoService planDaoService;
-    private Logger logger = LoggerFactory.getLogger(DeleteEditPlanServlet.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(DeleteEditPlanServlet.class);
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = request.getParameter("btnaction");
@@ -26,12 +26,19 @@ public class DeleteEditPlanServlet extends HttpServlet {
         if ("edit".equals(actions[1])) {
 
             request.setAttribute("PlanId", actions[0]);
-            logger.info("############### plan id from jsp:{}", actions[0]);
-            logger.info("############### plan id glued tp request:{}", request.getAttribute("PlanId"));
+            LOGGER.info("############### plan id from jsp:{}", actions[0]);
+            LOGGER.info("############### plan id glued tp request:{}", request.getAttribute("PlanId"));
             PlanCreationDto planCreationDto = planDaoService.find(Long.parseLong(actions[0]));
 
             request.setAttribute("planCreationDto", planCreationDto);
-            request.getRequestDispatcher("/createEdit").forward(request, response);
+            request.setAttribute("planId", planCreationDto.getId());
+            request.setAttribute("name", planCreationDto.getAssetEntity().getAsset().getName());
+            request.setAttribute("code", planCreationDto.getAssetEntity().getAsset().getCode());
+            request.setAttribute("actionType", planCreationDto.getPlanActionType().toString());
+            LOGGER.info("@@@@@@@@@@@@@ Action type: {}", request.getAttribute("actionType"));
+            request.setAttribute("date", planCreationDto.getActionTime());
+            LOGGER.info("@@@@@@@@@@@@@ Date looks like this: {}", request.getAttribute("date"));
+            request.getRequestDispatcher("/crudServlet").forward(request, response);
 
         } else if ("delete".equals(actions[1])) {
             Long id = Long.parseLong(actions[0]);
