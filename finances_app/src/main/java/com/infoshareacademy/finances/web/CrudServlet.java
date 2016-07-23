@@ -1,17 +1,12 @@
 package com.infoshareacademy.finances.web;
 
-import com.infoshareacademy.finances.model.dto.LstList;
-import com.infoshareacademy.finances.entity.PlanCreationDto;
-import com.infoshareacademy.finances.entity.UserInfo;
-import com.infoshareacademy.finances.entity.UserInfoEntity;
-import com.infoshareacademy.finances.repository.FundsRepository;
-import com.infoshareacademy.finances.repository.PlansRepository;
-import com.infoshareacademy.finances.repository.UserInfoRepository;
-import com.infoshareacademy.finances.service.AssetService;
-import com.infoshareacademy.finances.service.PlanDaoService;
-import com.infoshareacademy.finances.service.UserSessionData;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.util.Date;
+import java.util.List;
 
 import javax.ejb.EJB;
 import javax.inject.Inject;
@@ -20,13 +15,21 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
-import java.util.Date;
-import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.infoshareacademy.finances.entity.PlanActionType;
+import com.infoshareacademy.finances.entity.PlanCreationDto;
+import com.infoshareacademy.finances.entity.UserInfo;
+import com.infoshareacademy.finances.entity.UserInfoEntity;
+import com.infoshareacademy.finances.model.dto.LstList;
+import com.infoshareacademy.finances.repository.FundsRepository;
+import com.infoshareacademy.finances.repository.PlansRepository;
+import com.infoshareacademy.finances.repository.UserInfoRepository;
+import com.infoshareacademy.finances.service.AssetService;
+import com.infoshareacademy.finances.service.PlanDaoService;
+import com.infoshareacademy.finances.service.UserSessionData;
 
 @WebServlet(name = "CrudServlet", urlPatterns = "/crudServlet")
 public class CrudServlet extends HttpServlet {
@@ -77,7 +80,7 @@ public class CrudServlet extends HttpServlet {
             }
 
             planCreationDto.setQuantity(Integer.parseInt(quantity));
-            planCreationDto.setPlanActionType(PlanCreationDto.PlanActionType.valueOf(request.getParameter("action")));
+            planCreationDto.setPlanActionType(PlanActionType.valueOf(request.getParameter("action")));
             planCreationDto.setAssetEntity(fundsRepository.findRandomAsset(request.getParameter("selectAsset")));
             try {
                 Date dateFormat = new SimpleDateFormat("dd/mm/yyyy hh:mm a").parse(request.getParameter("date"));
