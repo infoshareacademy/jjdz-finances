@@ -1,7 +1,14 @@
 package com.infoshareacademy.finances.entity;
 
-import javax.persistence.*;
 import java.time.ZonedDateTime;
+
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class PlanCreationDto {
@@ -81,10 +88,6 @@ public class PlanCreationDto {
 
     public void setPlanActionType(PlanActionType planActionType) {
         this.planActionType = planActionType;
-    }
-
-    public enum PlanActionType {
-        BUY, SELL
     }
 
 	@Override

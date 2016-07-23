@@ -1,7 +1,11 @@
 package com.infoshareacademy.finances.reports.entities;
 
-import javax.persistence.*;
-
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 @Entity
 public class PlanCreationDtoLite {
@@ -78,9 +82,5 @@ public class PlanCreationDtoLite {
                 ", assetName='" + assetName + '\'' +
                 ", assetId=" + assetId +
                 '}';
-    }
-
-    public enum PlanActionType {
-        BUY, SELL
     }
 }
