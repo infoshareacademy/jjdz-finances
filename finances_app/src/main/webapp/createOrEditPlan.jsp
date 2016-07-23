@@ -30,6 +30,7 @@
 
 <div class="container">
     <form class="form-inline table" action="/crudServlet" method="post">
+    <input class="hidden" name="token" value="${token}"/>
         <div class="form-group">
             <label>Asset</label>
             <select class="form-control" name="selectAsset" value="${assetName}">

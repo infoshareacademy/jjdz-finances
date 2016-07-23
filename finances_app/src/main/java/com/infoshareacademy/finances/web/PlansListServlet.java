@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
+import java.util.UUID;
 
 @WebServlet(name = "PlansListServlet", urlPatterns = "/plansList")
 public class PlansListServlet extends HttpServlet {
@@ -45,6 +46,10 @@ public class PlansListServlet extends HttpServlet {
         List<PlanCreationDto> allPlans = plansRepository.findAllPlans(userId);
         List<LstList> fundList = assetService.returnAllFunds();
 
+        String token = UUID.randomUUID().toString().toUpperCase();
+        userSessionData.setCsrf(token);
+
+        request.setAttribute("token", token);
         request.setAttribute("fundList", fundList);
         request.setAttribute("plans", allPlans);
 
