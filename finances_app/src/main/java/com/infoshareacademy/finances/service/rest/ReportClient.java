@@ -6,6 +6,7 @@ import javax.ejb.Stateless;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.core.Response;
 
+import com.infoshareacademy.finances.service.HostnameDetector;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -18,9 +19,11 @@ public class ReportClient {
 	private static final Logger LOGGER = LoggerFactory.getLogger(ReportClient.class);
 
 	public List<MostSearchedAssetsDTO> returnMostSearchedAssets() {
+		String reportServerURL = new HostnameDetector().getReportServerURL();
+		System.out.println("ReportsServerURL: " + reportServerURL);
 
 		Response response = ClientBuilder.newClient()
-				.target("http://localhost:8082/api/report/retrieve/" + ReportName.MOST_SEARCHED_ASSETS).request().get();
+				.target(reportServerURL + "/api/report/retrieve/" + ReportName.MOST_SEARCHED_ASSETS).request().get();
 		String jsonEntity = response.readEntity(String.class);
 		LOGGER.info("{}", jsonEntity);
 

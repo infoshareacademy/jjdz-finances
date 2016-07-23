@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.infoshareacademy.finances.service.HostnameDetector;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -30,11 +31,14 @@ public class FacebookServlet extends HttpServlet{
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
+		String financesServerURL = new HostnameDetector().getFinancesServerURL();
+		System.out.println("FinancesServerURL: " + financesServerURL);
+
 		logger.info("Making a service for OAuth.");
 		OAuth20Service service = new ServiceBuilder()
 				.apiKey(CLIENT_ID)
 				.apiSecret(CLIENT_SECRET)
-				.callback("http://localhost:8080/oauth2callback")
+				.callback(financesServerURL + "/oauth2callback")
 				.scope("email")
 				.build(FacebookApi.instance());
 
