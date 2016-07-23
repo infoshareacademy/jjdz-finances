@@ -33,8 +33,8 @@
 
     <h1>Your plans</h1>
 
-    <form action="/delete" method="post">
-    <table class="table table-hover">
+    <form action="/deleteEdit" method="post">
+        <table class="table table-hover">
         <tr>
             <th class="hidden">id</th>
             <th>Asset</th>
@@ -51,15 +51,16 @@
                 <td><c:out value="${plan.planActionType}"/></td>
                 <td><c:out value="${plan.quantity}"/></td>
                 <td>
-                    <button type="submit" class="btn btn-default" name="btnaction" value="${plan.id}"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
-                    <button type="submit" class="btn btn-default" name="btnaction" value="edit"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span></button>
+                    <button type="submit" class="btn btn-default" name="btnaction" value="${plan.id}-delete"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+                    <button type="submit" class="btn btn-default" name="btnaction" value="${plan.id}-edit"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></button>
                 </td>
             </tr>
         </c:forEach>
-    </table>
-        </form>
-    <a class="btn btn-default" href="/createEdit" type="submit">Add Plan</a>
-    <%--<a class="btn btn-default" type="submit">Add Currency Plan</a>--%>
+        </table>
+    </form>
+    <form action="/crudServlet" method="post">
+        <button class="btn btn-default" name="AddPlan" type="submit">Add Plan</button>
+    </form>
 </div>
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
@@ -69,8 +70,6 @@
 <script src="resources/js/main.js"></script>
 
 <%@ include file="resources/footer.jsp" %>
-
-
 
 </body>
 </html>

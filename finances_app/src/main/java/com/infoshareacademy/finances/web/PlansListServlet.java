@@ -38,15 +38,19 @@ public class PlansListServlet extends HttpServlet {
     AssetService assetService;
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
         UserInfo userInfo = userSessionData.getUserInfo();
         Long userId=userInfoRepository.findUserId(userInfo.getMail());
+
         List<PlanCreationDto> allPlans = plansRepository.findAllPlans(userId);
         List<LstList> fundList = assetService.returnAllFunds();
+
         request.setAttribute("fundList", fundList);
         request.setAttribute("plans", allPlans);
 
         request.getRequestDispatcher("plan.jsp").forward(request, response);
     }
+
 }
 
 

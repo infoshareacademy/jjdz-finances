@@ -1,12 +1,17 @@
 package com.infoshareacademy.finances.web;
 
-import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
-import java.util.Date;
-import java.util.List;
+import com.infoshareacademy.finances.model.dto.LstList;
+import com.infoshareacademy.finances.entity.PlanCreationDto;
+import com.infoshareacademy.finances.entity.UserInfo;
+import com.infoshareacademy.finances.entity.UserInfoEntity;
+import com.infoshareacademy.finances.repository.FundsRepository;
+import com.infoshareacademy.finances.repository.PlansRepository;
+import com.infoshareacademy.finances.repository.UserInfoRepository;
+import com.infoshareacademy.finances.service.AssetService;
+import com.infoshareacademy.finances.service.PlanDaoService;
+import com.infoshareacademy.finances.service.UserSessionData;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.ejb.EJB;
 import javax.inject.Inject;
@@ -15,20 +20,15 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.util.Date;
+import java.util.List;
 
-import com.infoshareacademy.finances.entity.PlanActionType;
-import com.infoshareacademy.finances.entity.PlanCreationDto;
-import com.infoshareacademy.finances.entity.UserInfo;
-import com.infoshareacademy.finances.entity.UserInfoEntity;
-import com.infoshareacademy.finances.model.dto.LstList;
-import com.infoshareacademy.finances.repository.FundsRepository;
-import com.infoshareacademy.finances.repository.PlansRepository;
-import com.infoshareacademy.finances.repository.UserInfoRepository;
-import com.infoshareacademy.finances.service.AssetService;
-import com.infoshareacademy.finances.service.PlanDaoService;
-import com.infoshareacademy.finances.service.UserSessionData;
-
-@WebServlet(name = "CrudServlet", urlPatterns = "/createEdit")
+@WebServlet(name = "CrudServlet", urlPatterns = "/crudServlet")
 public class CrudServlet extends HttpServlet {
 
     @EJB
@@ -49,33 +49,49 @@ public class CrudServlet extends HttpServlet {
     @EJB
     AssetService assetService;
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    private static final Logger LOGGER = LoggerFactory.getLogger(CrudServlet.class);
+
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         String quantity = request.getParameter("quantity");
         if ( quantity != null && !quantity.equals("")){
-            System.out.println(request.getParameter("selectAsset"));
-            System.out.println(request.getParameter("quantity"));
-            System.out.println(request.getParameter("action"));
-            System.out.println(request.getParameter("date"));
+
             Long id = userSessionData.getUserId();
             UserInfoEntity userInfoEntity = userInfoRepository.findUserById(id);
 
+            PlanCreationDto planCreationDto;
+
             List<LstList> fundList = assetService.returnAllFunds();
             request.setAttribute("fundList", fundList);
-            PlanCreationDto planCreationDto = new PlanCreationDto();
+            if (request.getAttribute("PlanId") != null) {
+                LOGGER.info("############ plan id:{}", request.getAttribute("PlanId"));
+                Long existingPlanId = Long.parseLong(String.valueOf(request.getAttribute("PlanId")));
+                planCreationDto = planDaoService.find(existingPlanId);
+
+                request.setAttribute("assetName", planCreationDto.getAssetEntity().getAsset().getName());
+
+                LOGGER.info("############ existing PlanCreationDto:{}", planCreationDto.toString());
+            } else {
+                planCreationDto = new PlanCreationDto();
+                LOGGER.info("############# no plan id, creating new");
+            }
+
             planCreationDto.setQuantity(Integer.parseInt(quantity));
-            planCreationDto.setPlanActionType(PlanActionType.valueOf(request.getParameter("action")));
+            planCreationDto.setPlanActionType(PlanCreationDto.PlanActionType.valueOf(request.getParameter("action")));
             planCreationDto.setAssetEntity(fundsRepository.findRandomAsset(request.getParameter("selectAsset")));
-//        planCreationDto.setActionTime(ZonedDateTime.now());
             try {
-                Date dateFormat = new SimpleDateFormat("dd/MM/yyyy").parse(request.getParameter("date"));
+                Date dateFormat = new SimpleDateFormat("dd/mm/yyyy hh:mm a").parse(request.getParameter("date"));
                 ZonedDateTime actionTime = ZonedDateTime.ofInstant(dateFormat.toInstant(), ZoneId.systemDefault());
                 planCreationDto.setActionTime(actionTime);
             } catch (ParseException e) {
                 e.printStackTrace();
             }
-
+            String planId = request.getParameter("PlanId");
+            if (planId != null && !quantity.equals("")) {
+                planCreationDto.setId(Long.parseLong(planId));
+            }
             planCreationDto.setUserInfoEntity(userInfoEntity);
+            LOGGER.info("############ planCreationDto to save:{}", planCreationDto);
             planDaoService.createOrUpdate(planCreationDto);
 
         }
@@ -86,7 +102,10 @@ public class CrudServlet extends HttpServlet {
         List<LstList> fundList = assetService.returnAllFunds();
         request.setAttribute("fundList", fundList);
 
+        LOGGER.info("############ D ID ! :{}", request.getAttribute("PlanId"));
+
         request.getRequestDispatcher("createOrEditPlan.jsp").forward(request, response);
     }
+
 
 }
