@@ -28,6 +28,7 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 @WebServlet(name = "CrudServlet", urlPatterns = "/crudServlet")
 public class CrudServlet extends HttpServlet {
@@ -51,11 +52,12 @@ public class CrudServlet extends HttpServlet {
     AssetService assetService;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(CrudServlet.class);
-
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         String quantity = request.getParameter("quantity");
-        if ( quantity != null && !quantity.equals("")){
+        boolean validToken = request.getParameter("token").equals(userSessionData.getCsrf());
+
+        if (quantity != null && !quantity.equals("") && validToken){
 
             Long id = userSessionData.getUserId();
             UserInfoEntity userInfoEntity = userInfoRepository.findUserById(id);
@@ -95,9 +97,15 @@ public class CrudServlet extends HttpServlet {
             LOGGER.info("############ planCreationDto to save:{}", planCreationDto);
             planDaoService.createOrUpdate(planCreationDto);
 
+        } else if (quantity != null && !quantity.equals("") && !validToken){
+            response.sendRedirect("/main?action=logoutSelected");
+
         }
 
         UserInfo userInfo = userSessionData.getUserInfo();
+        String token = UUID.randomUUID().toString().toUpperCase();
+        userSessionData.setCsrf(token);
+        request.setAttribute("token", token);
         Long userId = userInfoRepository.findUserId(userInfo.getMail());
         List<PlanCreationDto> allPlans = plansRepository.findAllPlans(userId);
         List<LstList> fundList = assetService.returnAllFunds();

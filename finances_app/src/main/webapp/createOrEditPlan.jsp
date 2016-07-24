@@ -30,6 +30,7 @@
 
 <div class="container">
     <form class="form-inline table" action="/crudServlet" method="post">
+    <input class="hidden" name="token" value="${token}"/>
         <div class="form-group">
             <label>Asset</label>
             <select class="form-control" name="selectAsset" value="${assetName}">
@@ -48,9 +49,8 @@
         <div class="form-group">
             <label>Date</label>
             <div class='input-group date' id='datetimepicker4'>
-                <input  type='text' class="form-control" name="date" />
+                <input  type='text' class="form-control" name="date" value="<javatime:format value="${date}" style="SS"/>"/>
 
-                        <%--javatime:format value="${planCreationDto.getActionTime()}" style="MS" --%>
 
                 <span class="input-group-addon">
                         <span class="glyphicon glyphicon-calendar"></span>

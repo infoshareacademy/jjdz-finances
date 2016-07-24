@@ -20,6 +20,16 @@ public class UserSessionData implements Serializable {
 	private String authType;
 	private Long userId;
 
+	public String getCsrf() {
+		return csrf;
+	}
+
+	public void setCsrf(String csrf) {
+		this.csrf = csrf;
+	}
+
+	private String csrf;
+
 	public void createAuthToken(String code) {
 		authToken = service.getAccessToken(code);
 	}
@@ -67,4 +77,6 @@ public class UserSessionData implements Serializable {
 	public Long getUserId() {
 		return userId;
 	}
+
+
 }
