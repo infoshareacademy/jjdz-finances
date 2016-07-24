@@ -11,12 +11,16 @@
 .imgFacebook {
     background: url(../img/signin_face.png) no-repeat;
 }
-.imgAsset{
-    width: 800px;
-    height: 300px;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
+.jumbotron {
+    /*width: 800px;*/
+    /*height: 300px;*/
+    /*display: block;*/
+    /*margin-left: auto;*/
+    /*margin-right: auto;*/
+    color: #d5d5d5;
+    background-image: url(../img/indeks.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
 }
 
 #id {

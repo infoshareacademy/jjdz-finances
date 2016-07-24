@@ -8,6 +8,9 @@ import com.infoshareacademy.finances.repository.UserInfoRepository;
 import com.infoshareacademy.finances.service.AssetService;
 import com.infoshareacademy.finances.service.PlanDaoService;
 import com.infoshareacademy.finances.service.UserSessionData;
+import com.infoshareacademy.finances.service.calculation.DateCompare;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.ejb.EJB;
 import javax.inject.Inject;
@@ -18,7 +21,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @WebServlet(name = "PlansListServlet", urlPatterns = "/plansList")
 public class PlansListServlet extends HttpServlet {
@@ -38,6 +43,11 @@ public class PlansListServlet extends HttpServlet {
     @EJB
     AssetService assetService;
 
+    @EJB
+    DateCompare dateCompare;
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(PlansListServlet.class);
+
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         UserInfo userInfo = userSessionData.getUserInfo();
@@ -46,11 +56,20 @@ public class PlansListServlet extends HttpServlet {
         List<PlanCreationDto> allPlans = plansRepository.findAllPlans(userId);
         List<LstList> fundList = assetService.returnAllFunds();
 
+        List<String> expiredPlans = allPlans.stream()
+                .filter(plan -> dateCompare.timeOut(plan.getActionTime()) == -1)
+                .map(PlanCreationDto::getId)
+                .map(id -> id.toString())
+                .collect(Collectors.toList());
+
+        LOGGER.info("###### Expired Plans ids: {}", expiredPlans);
+
         String token = UUID.randomUUID().toString().toUpperCase();
         userSessionData.setCsrf(token);
 
         request.setAttribute("token", token);
         request.setAttribute("fundList", fundList);
+        request.setAttribute("expiredPlans", expiredPlans);
         request.setAttribute("plans", allPlans);
 
         request.getRequestDispatcher("plan.jsp").forward(request, response);
