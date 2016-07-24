@@ -30,6 +30,7 @@
 
 <div class="container">
     <h1>Reports</h1>
+    <br><br>
 
     <form action="/msaReport" method="post" role="form">
         <h4>Most searched assets</h4>
