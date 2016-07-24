@@ -3,6 +3,7 @@
 *.DEPLOYED
 
 .idea
+*.DS_Store
 
 *.iml
 Data/*

@@ -38,6 +38,7 @@
         <table class="table table-hover">
         <tr>
             <th class="hidden">id</th>
+            <th>exp.</th>
             <th>Asset</th>
             <th>Date of action</th>
             <th>Type of action</th>
@@ -47,6 +48,9 @@
         <c:forEach items="${plans}" var="plan">
             <tr>
                 <td class="hidden" name="id"><c:out value="${plan.getId()}" /></td>
+                <td>
+                        <c:if test="${expiredPlans.contains(plan.getId().toString())}">X</c:if>
+                </td>
                 <td><c:out value="${plan.assetEntity.getAsset().getName()}" /></td>
                 <td><javatime:format value="${plan.actionTime}" style="MS"/></td>
                 <td><c:out value="${plan.planActionType}"/></td>

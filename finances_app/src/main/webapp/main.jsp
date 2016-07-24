@@ -23,11 +23,12 @@
 <div class="container">
     <%@ include file="resources/navbar.jsp" %>
     <div class="container">
-        <div class="text-center">
-            <h1>Assets Analyzer 2.0</h1>
+        <div class="jumbotron">
+            <h1>Assets Analyzer</h1>
+            <p>...</p>
+            </div>
         </div>
-        <img src="/resources/img/indeks.jpg" class="imgAsset">
-    </div>
+
 </div>
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
