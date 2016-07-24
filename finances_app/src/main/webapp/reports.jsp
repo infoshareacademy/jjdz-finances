@@ -30,10 +30,30 @@
 
 <div class="container">
     <h1>Reports</h1>
+    <br><br>
 
     <form action="/msaReport" method="post" role="form">
-        <button type="Go!" class="btn btn-info">
-            <span class="">Most Searched Assets</span>
+        <h4>Most searched assets</h4>
+        <button type="Go!" class="btn btn-xs">
+            <span class="">Show</span>
+        </button>
+    </form>
+    <br>
+
+
+    <form action="/maxBuyReport" method="post" role="form">
+        <h4>Most often purchased assets</h4>
+        <button type="Go!" class="btn btn-xs">
+            <span class="">Show</span>
+        </button>
+    </form>
+    <br>
+
+
+    <form action="/maxSoldReport" method="post" role="form">
+        <h4>Most often sold assets</h4>
+        <button type="Go!" class="btn btn-xs">
+            <span class="">Show</span>
         </button>
     </form>
 

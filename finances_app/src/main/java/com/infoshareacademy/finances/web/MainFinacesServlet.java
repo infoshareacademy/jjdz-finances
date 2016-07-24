@@ -36,9 +36,6 @@ class MainFinacesServlet extends HttpServlet {
             case "currenciesSelected":
                 currenciesSelected(req, resp);
                 break;
-            case "showStatistics":
-                showStatistics(req, resp);
-                break;
             case "adminSelected":
                 adminSelected(req, resp);
                 break;
@@ -121,16 +118,6 @@ class MainFinacesServlet extends HttpServlet {
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextJSP);
         req.setAttribute("assetType", AssetType.CURRENCY);
         dispatcher.forward(req, resp);
-    }
-
-    private void showStatistics(HttpServletRequest req, HttpServletResponse resp)
-            throws ServletException, IOException {
-
-        String nextJSP = "/showStatistics";
-
-        RequestDispatcher dispatcher  = getServletContext().getRequestDispatcher(nextJSP);
-        dispatcher.forward(req, resp);
-
     }
 
     private void adminSelected(HttpServletRequest req, HttpServletResponse resp)

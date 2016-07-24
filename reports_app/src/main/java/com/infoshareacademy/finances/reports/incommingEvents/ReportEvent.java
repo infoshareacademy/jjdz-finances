@@ -28,6 +28,7 @@ public class ReportEvent {
 	public Response retrieveReport(@PathParam("report") ReportName reportName){
 		LOGGER.info("Retrieving report: {}", reportName);
 		Long reportId = reportsRepository.returnReportMaxId(reportName);
+		LOGGER.debug("Report Max Id: {}", reportId);
 		Report report = reportsRepository.returnReport(reportId);
 
 		LOGGER.info("Returning requested report: {}", reportName);

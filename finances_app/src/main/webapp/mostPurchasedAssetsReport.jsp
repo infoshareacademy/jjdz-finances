@@ -9,7 +9,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <Title>TriTeam Finances - Funds</Title>
+    <Title>TriTeam Finances - assets</Title>
     <!-- Bootstrap -->
     <link href="resources/css/bootstrap.min.css" rel="stylesheet">
 
@@ -29,46 +29,24 @@
     <h1>Report</h1>
 
     <div class="container">
-        <h2>Most often purchased funds</h2>
+        <h2>Most often purchased assets</h2>
         <table class="table table-condensed">
             <thead>
             <tr>
-                <th>Fund</th>
-                <th>Quantity</th>
+                <th>Name of Asset</th>
+                <th>Amount of Purchased Assets</th>
             </tr>
             </thead>
             <tbody>
-            <c:forEach items="${buyMax}" var="item">
+            <c:forEach items="${mostPurchasedAssets}" var="item">
                 <tr>
-                    <td>${item.assetName}</td>
+                    <td>${item.nameAsset}</td>
                     <td>${item.sum}</td>
                 </tr>
             </c:forEach>
             </tbody>
         </table>
     </div>
-
-    <div class="container">
-        <h2>Most often sold funds</h2>
-        <table class="table table-condensed">
-            <thead>
-            <tr>
-                <th>Fund</th>
-                <th>Quantity</th>
-            </tr>
-            </thead>
-            <tbody>
-            <c:forEach items="${sellMax}" var="item">
-                <tr>
-                    <td>${item.assetName}</td>
-                    <td>${item.sum}</td>
-                </tr>
-            </c:forEach>
-            </tbody>
-        </table>
-    </div>
-
-
 </div>
 
 
