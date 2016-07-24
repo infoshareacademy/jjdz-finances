@@ -34,6 +34,7 @@
     <h1>Your plans</h1>
 
     <form action="/deleteEdit" method="post">
+        <input class="hidden" name="token" value="${token}"/>
         <table class="table table-hover">
         <tr>
             <th class="hidden">id</th>
@@ -59,6 +60,7 @@
         </table>
     </form>
     <form action="/crudServlet" method="post">
+        <input class="hidden" name="token" value="${token}"/>
         <button class="btn btn-default" name="AddPlan" type="submit">Add Plan</button>
     </form>
 </div>

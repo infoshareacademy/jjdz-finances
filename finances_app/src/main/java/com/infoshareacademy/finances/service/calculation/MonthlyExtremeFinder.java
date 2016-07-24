@@ -12,14 +12,15 @@ import java.util.function.Predicate;
 import static java.util.stream.Collectors.toList;
 
 public class MonthlyExtremeFinder {
-    Integer year;
-    Month month;
-    List<DailyValue> dailyValues;
-    final static Comparator<DailyValue> DAILY_VALUE_COMPARATOR = (a,b) -> a.getCloseValue().compareTo(b.getCloseValue());
+    private Integer year;
+    private Month month;
+    private List<DailyValue> dailyValues;
+	private static final  Comparator<DailyValue> DAILY_VALUE_COMPARATOR = (a,b) -> a.getCloseValue().compareTo(b
+			.getCloseValue());
 
     public MonthlyExtremeFinder(LocalDate localDate, List<DailyValue> dailyValues){
-        this.year = localDate.getYear();
-        this.month = localDate.getMonth();
+        year = localDate.getYear();
+        month = localDate.getMonth();
         this.dailyValues= dailyValues;
     }
 
